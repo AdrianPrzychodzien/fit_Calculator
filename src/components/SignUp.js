@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import FormInput from './FormInput'
+import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import { withStyles } from '@material-ui/core'
 
@@ -66,7 +66,7 @@ const SignUp = ({ classes }) => {
           name='displayName'
           value={displayName}
           onChange={handleChange}
-          label='Display Name'
+          label='display name'
           required
         />
         <FormInput
@@ -74,7 +74,7 @@ const SignUp = ({ classes }) => {
           name='email'
           value={email}
           onChange={handleChange}
-          label='Email'
+          label='email'
           required
         />
         <FormInput
@@ -82,7 +82,7 @@ const SignUp = ({ classes }) => {
           name='password'
           value={password}
           onChange={handleChange}
-          label='Password'
+          label='password'
           required
         />
         <FormInput
@@ -90,7 +90,7 @@ const SignUp = ({ classes }) => {
           name='confirmPassword'
           value={confirmPassword}
           onChange={handleChange}
-          label='confirmPassword'
+          label='confirm password'
           required
         />
         <CustomButton type='submit'>SIGN UP</CustomButton>

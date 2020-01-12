@@ -1,10 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
+const Home = ({ currentUser }) => {
+  console.log(currentUser);
 
-const home = () => (
-  <>
-    <p>home page</p>
-  </>
-)
+  return (
+    <>
+      {currentUser ? (
+        <p>Hello {currentUser.currentUser.displayName}, how are you?</p>
+      ) : (
+          <p>Login in first, please!</p>
+        )}
+    </>
+  )
+}
 
-export default home
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
+
+export default connect(mapStateToProps)(Home)

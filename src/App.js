@@ -8,7 +8,7 @@ import themeFile from './util/theme'
 
 import Home from './pages/Home'
 import PersonalData from './pages/PersonalData'
-import help from './pages/help'
+import Help from './pages/Help'
 import SignInAndSignUp from './pages/SignInAndSignUp'
 
 import NavBar from './components/NavBar'
@@ -58,7 +58,7 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/personalData' component={PersonalData} />
-              <Route exact path='/help' component={help} />
+              <Route exact path='/help' component={Help} />
               <Route exact path='/signin' render={() =>
                 currentUser ? (
                   <Redirect to='/' />

@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
-import { withStyles } from '@material-ui/core'
 
 import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 
-import HeightIcon from '@material-ui/icons/Height';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faBirthdayCake,
+  faArrowsAltV,
+  faFemale,
+  faMale,
+  faWeight
+} from '@fortawesome/free-solid-svg-icons'
 import { Rating } from '@material-ui/lab'
+import './PersonalData.scss'
 
-const styles = theme => ({
-  personalData: {
-    padding: '10px 30px'
-  }
-})
 
-const PersonalData = ({ classes }) => {
+const PersonalData = () => {
   const [userData, setUserData] = useState({
-    height: '0',
+    height: '',
     weight: '',
     age: '',
     sex: '',
@@ -36,35 +38,44 @@ const PersonalData = ({ classes }) => {
   }
 
   return (
-    <div className={classes.personalData}>
-      <h2 className={classes.title}>Add your personal data</h2>
-      <form onSubmit={handleSubmit}>
-        <HeightIcon />
-        <FormInput
-          type='text'
-          name='height'
-          value={height}
-          onChange={handleChange}
-          label='Height'
-          required
-        />
-        <FormInput
-          type='text'
-          name='weight'
-          value={weight}
-          onChange={handleChange}
-          label='Weight'
-          required
-        />
-        <FormInput
-          type='text'
-          name='age'
-          value={age}
-          onChange={handleChange}
-          label='age'
-          required
-        />
-        <h4>Sex:
+    <div className="personalData">
+      <h2 className="personalData__title">Add your personal data</h2>
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form__field">
+          <FontAwesomeIcon icon={faArrowsAltV} size="2x" className="form__icon" />
+          <FormInput
+            type='text'
+            name='height'
+            value={height}
+            onChange={handleChange}
+            label='Height (cm)'
+            required
+          />
+        </div>
+        <div className="form__field">
+          <FontAwesomeIcon icon={faWeight} size="2x" className="form__icon" />
+          <FormInput
+            type='text'
+            name='weight'
+            value={weight}
+            onChange={handleChange}
+            label='Weight (kg)'
+            required
+          />
+        </div>
+        <div className="form__field">
+          <FontAwesomeIcon icon={faBirthdayCake} size="2x" className="form__icon" />
+          <FormInput
+            type='text'
+            name='age'
+            value={age}
+            onChange={handleChange}
+            label='Age'
+            required
+          />
+        </div>
+        <div className="form__field--radio">
+          <h2>Sex:</h2>
           <label>
             <input
               type='radio'
@@ -74,7 +85,7 @@ const PersonalData = ({ classes }) => {
               onChange={handleChange}
               required
             />
-            Male
+            <FontAwesomeIcon icon={faMale} size="2x" className="form__icon" />
           </label>
           <label>
             <input
@@ -85,11 +96,13 @@ const PersonalData = ({ classes }) => {
               onChange={handleChange}
               required
             />
-            Female
-            </label>
-        </h4>
-        <h4>Life activity:
-        <Rating
+            <FontAwesomeIcon icon={faFemale} size="2x" className="form__icon" />
+          </label>
+        </div>
+        <div className="form__field--activity">
+          <h2>Life activity: </h2>
+          <Rating
+            size="large"
             name="life activity"
             value={lifeActivity}
             onChange={(event, newValue) => {
@@ -97,11 +110,13 @@ const PersonalData = ({ classes }) => {
             }}
             required
           />
-        </h4>
-        <CustomButton type='submit'>ADD DATA</CustomButton>
+        </div>
+        <div className="form__button">
+          <CustomButton type='submit' >ADD DATA</CustomButton>
+        </div>
       </form>
     </div>
   )
 }
 
-export default withStyles(styles)(PersonalData)
+export default PersonalData

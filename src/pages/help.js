@@ -1,7 +1,7 @@
 import React from 'react'
 
-const help = () => (
-  <p>help page</p>
+const Help = () => (
+  <p>Help page</p>
 )
 
-export default help
+export default Help

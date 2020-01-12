@@ -5,7 +5,7 @@ import FormInput from './FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import { withStyles } from '@material-ui/core'
 
-import { signUpUser } from '../redux/actions'
+import { auth, createUserProfileDocument } from '../firebase/firebase.utils'
 
 const styles = theme => ({
   signUp: {
@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 })
 
-const SignUp = ({ classes, signUpUser }) => {
+const SignUp = ({ classes }) => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: '',
     email: '',
@@ -33,14 +33,26 @@ const SignUp = ({ classes, signUpUser }) => {
     setUserCredentials({ ...userCredentials, [name]: value })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     if (password !== confirmPassword) {
       alert('passwords don`t match')
       return
     }
 
-    signUpUser({ displayName, email, password })
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(email, password)
+      await createUserProfileDocument(user, { displayName })
+
+      setUserCredentials({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      })
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -51,7 +63,7 @@ const SignUp = ({ classes, signUpUser }) => {
         <FormInput
           type='text'
           name='displayName'
-          value={userCredentials.displayName}
+          value={displayName}
           onChange={handleChange}
           label='Display Name'
           required
@@ -59,7 +71,7 @@ const SignUp = ({ classes, signUpUser }) => {
         <FormInput
           type='email'
           name='email'
-          value={userCredentials.email}
+          value={email}
           onChange={handleChange}
           label='Email'
           required
@@ -67,7 +79,7 @@ const SignUp = ({ classes, signUpUser }) => {
         <FormInput
           type='password'
           name='password'
-          value={userCredentials.password}
+          value={password}
           onChange={handleChange}
           label='Password'
           required
@@ -75,7 +87,7 @@ const SignUp = ({ classes, signUpUser }) => {
         <FormInput
           type='password'
           name='confirmPassword'
-          value={userCredentials.confirmPassword}
+          value={confirmPassword}
           onChange={handleChange}
           label='confirmPassword'
           required
@@ -88,5 +100,5 @@ const SignUp = ({ classes, signUpUser }) => {
 
 export default connect(
   null,
-  { signUpUser }
+  {}
 )(withStyles(styles)(SignUp))

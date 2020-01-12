@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import FormInput from '../components/FormInput'
+import CustomButton from '../util/CustomButton/CustomButton'
 import { withStyles } from '@material-ui/core'
 
 const styles = theme => ({
@@ -56,11 +57,14 @@ const SignIn = ({ classes }) => {
           required
         />
         <div className={classes.buttons}>
-          <button type='submit'>Sign In</button>
-          <button
+          <CustomButton type='submit'>Sign In</CustomButton>
+          <CustomButton
             type='button'
+
           // onClick={}
-          >Sign in with Google</button>
+          >
+            Sign in with Google
+            </CustomButton>
         </div>
       </form>
     </div>

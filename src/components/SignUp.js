@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import FormInput from './FormInput'
+import CustomButton from '../util/CustomButton/CustomButton'
 import { withStyles } from '@material-ui/core'
 
 const styles = theme => ({
@@ -68,7 +69,7 @@ const SignUp = ({ classes }) => {
           label='confirmPassword'
           required
         />
-        <button type='submit'>SIGN UP</button>
+        <CustomButton type='submit'>SIGN UP</CustomButton>
       </form>
     </div>
   )

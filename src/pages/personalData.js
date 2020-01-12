@@ -9,7 +9,8 @@ import {
   faArrowsAltV,
   faFemale,
   faMale,
-  faWeight
+  faWeight,
+  faInfo
 } from '@fortawesome/free-solid-svg-icons'
 import { Rating } from '@material-ui/lab'
 import './PersonalData.scss'
@@ -110,7 +111,9 @@ const PersonalData = () => {
             }}
             required
           />
+          <FontAwesomeIcon icon={faInfo} size="sm" className="form__icon" />
         </div>
+        <br />
         <div className="form__button">
           <CustomButton type='submit' >ADD DATA</CustomButton>
         </div>

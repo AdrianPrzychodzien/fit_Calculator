@@ -3,7 +3,7 @@ import FormInput from '../components/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import { withStyles } from '@material-ui/core'
 
-import { signInWithGoogle } from '../firebase/firebase.utils'
+import { auth, signInWithGoogle } from '../firebase/firebase.utils'
 
 const styles = theme => ({
   signIn: {
@@ -26,14 +26,23 @@ const SignIn = ({ classes }) => {
     password: ''
   })
 
+  const { email, password } = userCredentials
+
   const handleChange = e => {
     const { value, name } = e.target
 
     setUserCredentials({ ...userCredentials, [name]: value })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password)
+      setUserCredentials({ email: '', password: '' })
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -45,7 +54,7 @@ const SignIn = ({ classes }) => {
         <FormInput
           name='email'
           type='email'
-          value={userCredentials.email}
+          value={email}
           onChange={handleChange}
           label='email'
           required
@@ -53,7 +62,7 @@ const SignIn = ({ classes }) => {
         <FormInput
           name='password'
           type='password'
-          value={userCredentials.password}
+          value={password}
           onChange={handleChange}
           label='password'
           required

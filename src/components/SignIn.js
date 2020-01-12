@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import FormInput from '../components/FormInput'
+import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import { withStyles } from '@material-ui/core'
 

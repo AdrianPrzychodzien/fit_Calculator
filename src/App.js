@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import themeFile from './util/theme'
 
-import home from './pages/home'
-import personalData from './pages/personalData'
+import Home from './pages/Home'
+import PersonalData from './pages/PersonalData'
 import help from './pages/help'
 import SignInAndSignUp from './pages/SignInAndSignUp'
 
@@ -56,8 +56,8 @@ class App extends Component {
           <Router>
             <NavBar />
             <Switch>
-              <Route exact path='/' component={home} />
-              <Route exact path='/personalData' component={personalData} />
+              <Route exact path='/' component={Home} />
+              <Route exact path='/personalData' component={PersonalData} />
               <Route exact path='/help' component={help} />
               <Route exact path='/signin' render={() =>
                 currentUser ? (

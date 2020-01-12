@@ -1,26 +1,12 @@
 import React, { useState } from 'react'
 import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
-import { withStyles } from '@material-ui/core'
 
 import { auth, signInWithGoogle } from '../firebase/firebase.utils'
 
-const styles = theme => ({
-  signIn: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%'
-  },
-  title: {
-    margin: '10px 0'
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'space-evenly'
-  }
-})
+import './SignIn.scss'
 
-const SignIn = ({ classes }) => {
+const SignIn = () => {
   const [userCredentials, setUserCredentials] = useState({
     email: '',
     password: ''
@@ -46,8 +32,8 @@ const SignIn = ({ classes }) => {
   }
 
   return (
-    <div className={classes.signIn}>
-      <h2 className={classes.title}>I already have an account</h2>
+    <div className="signin">
+      <h2 className="signin__title">I already have an account</h2>
       <span>Sign in with your email and password</span>
 
       <form onSubmit={handleSubmit}>
@@ -67,7 +53,7 @@ const SignIn = ({ classes }) => {
           label='password'
           required
         />
-        <div className={classes.buttons}>
+        <div className="signin__buttons">
           <CustomButton type='submit'>Sign In</CustomButton>
           <CustomButton
             type='button'
@@ -82,4 +68,4 @@ const SignIn = ({ classes }) => {
   )
 }
 
-export default withStyles(styles)(SignIn)
+export default SignIn

@@ -3,22 +3,12 @@ import { connect } from 'react-redux'
 
 import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
-import { withStyles } from '@material-ui/core'
 
 import { auth, createUserProfileDocument } from '../firebase/firebase.utils'
 
-const styles = theme => ({
-  signUp: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%'
-  },
-  title: {
-    margin: '10px 0'
-  }
-})
+import './SignUp.scss'
 
-const SignUp = ({ classes }) => {
+const SignUp = () => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: '',
     email: '',
@@ -57,8 +47,8 @@ const SignUp = ({ classes }) => {
   }
 
   return (
-    <div className={classes.signUp}>
-      <h2 className={classes.title}>I do not have an account</h2>
+    <div className="signup">
+      <h2 className="signup__title">I do not have an account</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
@@ -102,4 +92,4 @@ const SignUp = ({ classes }) => {
 export default connect(
   null,
   {}
-)(withStyles(styles)(SignUp))
+)(SignUp)

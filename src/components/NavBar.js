@@ -19,22 +19,22 @@ const NavBar = ({ currentUser }) => {
   return (
     <div className="header">
       <Link to='/' className="header__icon">
-        <HomeIcon />
+        <HomeIcon fontSize="large" />
       </Link>
       <div className="header__options">
         <Link to='/personalData' className="header__options--link">
-          <AddIcon />
+          <AddIcon fontSize="large" />
         </Link>
         <Link to='/help' className="header__options--link">
-          <HelpIcon />
+          <HelpIcon fontSize="large" />
         </Link>
         {currentUser ? (
           <Link to='/' className="header__options--link" onClick={() => auth.signOut()}>
-            <ExitToApp />
+            <ExitToApp fontSize="large" />
           </Link>
         ) : (
             <Link to='/signin' className="header__options--link" >
-              <PersonAdd />
+              <PersonAdd fontSize="large" />
             </Link>
           )}
       </div>

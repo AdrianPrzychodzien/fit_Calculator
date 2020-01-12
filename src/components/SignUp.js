@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+
 import FormInput from './FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import { withStyles } from '@material-ui/core'
+
+import { signUpUser } from '../redux/actions'
 
 const styles = theme => ({
   signUp: {
@@ -14,7 +18,7 @@ const styles = theme => ({
   }
 })
 
-const SignUp = ({ classes }) => {
+const SignUp = ({ classes, signUpUser }) => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: '',
     email: '',
@@ -22,14 +26,21 @@ const SignUp = ({ classes }) => {
     confirmPassword: ''
   })
 
+  const { displayName, email, password, confirmPassword } = userCredentials
+
   const handleChange = e => {
     const { name, value } = e.target
-
     setUserCredentials({ ...userCredentials, [name]: value })
   }
 
   const handleSubmit = e => {
     e.preventDefault()
+    if (password !== confirmPassword) {
+      alert('passwords don`t match')
+      return
+    }
+
+    signUpUser({ displayName, email, password })
   }
 
   return (
@@ -75,4 +86,7 @@ const SignUp = ({ classes }) => {
   )
 }
 
-export default withStyles(styles)(SignUp)
+export default connect(
+  null,
+  { signUpUser }
+)(withStyles(styles)(SignUp))

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { auth } from '../firebase/firebase.utils'
 import { withStyles } from '@material-ui/core'
 import {
   Add as AddIcon,
   Help as HelpIcon,
   Home as HomeIcon,
-  PersonAdd
+  PersonAdd,
+  ExitToApp
 } from '@material-ui/icons'
 
 const styles = theme => ({
@@ -37,7 +38,7 @@ const styles = theme => ({
   }
 })
 
-const NavBar = ({ classes }) => {
+const NavBar = ({ classes, currentUser }) => {
 
   return (
     <div className={classes.header}>
@@ -51,9 +52,15 @@ const NavBar = ({ classes }) => {
         <Link to='/help' className={classes.link}>
           <HelpIcon />
         </Link>
-        <Link to='/signin' className={classes.link}>
-          <PersonAdd />
-        </Link>
+        {currentUser ? (
+          <Link to='/' className={classes.link} onClick={() => auth.signOut()}>
+            <ExitToApp />
+          </Link>
+        ) : (
+            <Link to='/signin' className={classes.link} >
+              <PersonAdd />
+            </Link>
+          )}
       </div>
     </div>
   )

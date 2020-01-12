@@ -14,11 +14,11 @@ const styles = theme => ({
   }
 })
 
-const signInAndSignUp = ({ classes }) => (
+const SignInAndSignUp = ({ classes }) => (
   <div className={classes.signInSignUp}>
     <SignIn />
     <SignUp />
   </div>
 )
 
-export default withStyles(styles)(signInAndSignUp)
+export default withStyles(styles)(SignInAndSignUp)

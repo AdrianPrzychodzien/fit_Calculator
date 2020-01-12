@@ -3,6 +3,8 @@ import FormInput from '../components/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import { withStyles } from '@material-ui/core'
 
+import { signInWithGoogle } from '../firebase/firebase.utils'
+
 const styles = theme => ({
   signIn: {
     display: 'flex',
@@ -60,8 +62,8 @@ const SignIn = ({ classes }) => {
           <CustomButton type='submit'>Sign In</CustomButton>
           <CustomButton
             type='button'
-
-          // onClick={}
+            isGoogleSignIn
+            onClick={signInWithGoogle}
           >
             Sign in with Google
             </CustomButton>

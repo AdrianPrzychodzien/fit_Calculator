@@ -1,6 +1,4 @@
-export const signUpUser = (userCredentials) => dispatch => {
-  dispatch({
-    type: 'SIGN_UP_USER',
-    payload: userCredentials
-  })
-}
+export const setCurrentUser = userCredentials => ({
+  type: 'SET_CURRENT_USER',
+  payload: userCredentials
+})

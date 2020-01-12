@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import { Link } from 'react-router-dom'
 import { auth } from '../firebase/firebase.utils'
 import { withStyles } from '@material-ui/core'
@@ -66,4 +68,8 @@ const NavBar = ({ classes, currentUser }) => {
   )
 }
 
-export default withStyles(styles)(NavBar)
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(NavBar))

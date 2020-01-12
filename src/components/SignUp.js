@@ -41,7 +41,7 @@ const SignUp = ({ classes }) => {
     }
 
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password)
+      let { user } = await auth.createUserWithEmailAndPassword(email, password)
       await createUserProfileDocument(user, { displayName })
 
       setUserCredentials({
@@ -50,6 +50,7 @@ const SignUp = ({ classes }) => {
         password: '',
         confirmPassword: ''
       })
+
     } catch (error) {
       console.log(error);
     }

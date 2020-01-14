@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -14,58 +14,50 @@ import './App.css'
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { setCurrentUser } from './redux/actions'
 
-class App extends Component {
-  unsubscribeFromAuth = null
+const App = ({ currentUser, setCurrentUser }) => {
 
-  componentDidMount() {
-    const { setCurrentUser } = this.props
+  useEffect(() => {
+    let unsubscribeFromAuth = null
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
 
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data()
-            }
+            id: snapShot.id,
+            ...snapShot.data()
           })
         })
       } else {
         setCurrentUser(userAuth)
       }
     })
-  }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth()
-  }
+    return () => unsubscribeFromAuth()
+  }, [setCurrentUser])
 
-  render() {
-    const { currentUser } = this.props
-
-    return (
-      <div className="App">
-        <Router>
-          <NavBar />
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/personalData' component={PersonalData} />
-            <Route exact path='/help' component={Help} />
-            <Route exact path='/signin' render={() =>
-              currentUser ? (
-                <Redirect to='/' />
-              ) : (
-                  <SignInAndSignUp />
-                )}
-            />
-          </Switch>
-        </Router>
-      </div>
-    )
-  }
+  return (
+    <div className="App">
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/personalData' component={PersonalData} />
+          <Route exact path='/help' component={Help} />
+          <Route exact path='/signin' render={() =>
+            currentUser ? (
+              <Redirect to='/' />
+            ) : (
+                <SignInAndSignUp />
+              )}
+          />
+        </Switch>
+      </Router>
+    </div>
+  )
 }
+// }
 
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser

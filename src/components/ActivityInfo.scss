@@ -1,0 +1,22 @@
+.info {
+  position: absolute;
+
+  &__icon {
+    float: right;
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    left: 80%;
+    top: 6%;
+    color: red;
+  }
+
+  &__content {
+    text-align: center;
+  }
+}

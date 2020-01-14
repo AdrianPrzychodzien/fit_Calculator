@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
+import ActivityInfo from '../components/ActivityInfo'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -9,8 +10,7 @@ import {
   faArrowsAltV,
   faFemale,
   faMale,
-  faWeight,
-  faInfo
+  faWeight
 } from '@fortawesome/free-solid-svg-icons'
 import { Rating } from '@material-ui/lab'
 import './PersonalData.scss'
@@ -111,7 +111,7 @@ const PersonalData = () => {
             }}
             required
           />
-          <FontAwesomeIcon icon={faInfo} size="sm" className="form__icon" />
+          <ActivityInfo />
         </div>
         <br />
         <div className="form__button">

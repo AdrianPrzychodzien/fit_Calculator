@@ -20,13 +20,14 @@
       display: flex;
       justify-content: space-evenly;
       align-items: center;
-      margin: 0 25px;
+      margin: 1rem;
     }
 
     &--activity {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      margin: 1.7rem 0.1rem;
     }
   }
 
@@ -40,4 +41,5 @@ input[type="radio"] {
   border: 0px;
   width: 1.5em;
   height: 1.5em;
+  margin-right: 1rem;
 }

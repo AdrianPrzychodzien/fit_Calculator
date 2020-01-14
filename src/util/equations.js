@@ -9,13 +9,13 @@ export const rangeBMI = data => {
   let result
   if (data < 16) {
     result = 'Severe Thinness'
-  } else if (16 < data && data < 17) {
+  } else if (16 < data && data <= 17) {
     result = 'Moderate Thinness'
-  } else if (17 < data && data < 18.5) {
+  } else if (17 < data && data <= 18.5) {
     result = 'Mild Thinness'
-  } else if (18.5 < data && data < 25) {
+  } else if (18.5 < data && data <= 25) {
     result = 'Normal'
-  } else if (25 < data && data < 30) {
+  } else if (25 < data && data <= 30) {
     result = 'OverWeight'
   } else {
     result = 'Obese'
@@ -25,6 +25,16 @@ export const rangeBMI = data => {
 }
 
 export const MifflinStJeor = data => {
+  let output = Math.round(restingMifflinStJeor(data) * activityLevel(data.lifeActivity))
+  return output
+}
+
+export const HarrisBenedict = data => {
+  let output = Math.round(restingHarrisBenedict(data) * activityLevel(data.lifeActivity))
+  return output
+}
+
+export const restingMifflinStJeor = data => {
   let result
   if (data.sex === 'Male') {
     result = (10 * data.weight) + (6.25 * data.height) - (5 * data.age) + 5
@@ -33,12 +43,10 @@ export const MifflinStJeor = data => {
   } else {
     alert('Choose your sex')
   }
-
-  let output = Math.round(result * activityLevel(data.lifeActivity))
-  return output
+  return Math.round(result)
 }
 
-export const HarrisBenedict = data => {
+export const restingHarrisBenedict = data => {
   let result
   if (data.sex === 'Male') {
     result = (13.397 * data.weight) + (4.799 * data.height) - (5.677 * data.age) + 88.362
@@ -48,8 +56,7 @@ export const HarrisBenedict = data => {
     alert('Choose your sex')
   }
 
-  let output = Math.round(result * activityLevel(data.lifeActivity))
-  return output
+  return Math.round(result)
 }
 
 const activityLevel = data => {
@@ -69,6 +76,31 @@ const activityLevel = data => {
       break
     case 5:
       result = 1.9
+      break
+    default:
+      alert('Choose your activity level')
+  }
+
+  return result
+}
+
+export const activityLevelComment = data => {
+  let result
+  switch (data) {
+    case 1:
+      result = 'being Sedentary'
+      break
+    case 2:
+      result = 'doing Light Exercise'
+      break
+    case 3:
+      result = 'doing Moderate Exercise'
+      break
+    case 4:
+      result = 'doing Heavy Exercise'
+      break
+    case 5:
+      result = 'working out like an Athlete'
       break
     default:
       alert('Choose your activity level')

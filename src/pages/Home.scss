@@ -2,14 +2,16 @@
   max-width: 380px;
   margin: 0 auto;
   padding: "10px 20px";
+  line-height: 1.6rem;
 
   &__title {
     text-align: center;
     margin: 0;
+  }
 
-    :after {
-      content: "";
-    }
+  &__description {
+    text-align: center;
+    margin: 1rem 2rem;
   }
 
   &__radio {
@@ -17,5 +19,27 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.close {
+  display: none;
+}
+
+.results {
+  text-align: center;
+  margin: 1.5rem auto;
+  max-width: 340px;
+  padding: "10px 20px";
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
   }
 }

@@ -56,7 +56,7 @@ const PersonalData = ({ setData, currentUser }) => {
       <h2 className="personalData__title">Add your personal data</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form__field">
-          <FontAwesomeIcon icon={faArrowsAltV} size="2x" className="form__icon" />
+          <FontAwesomeIcon icon={faArrowsAltV} size="2x" />
           <FormInput
             type='text'
             name='height'
@@ -67,7 +67,7 @@ const PersonalData = ({ setData, currentUser }) => {
           />
         </div>
         <div className="form__field">
-          <FontAwesomeIcon icon={faWeight} size="2x" className="form__icon" />
+          <FontAwesomeIcon icon={faWeight} size="2x" />
           <FormInput
             type='text'
             name='weight'
@@ -78,7 +78,7 @@ const PersonalData = ({ setData, currentUser }) => {
           />
         </div>
         <div className="form__field">
-          <FontAwesomeIcon icon={faBirthdayCake} size="2x" className="form__icon" />
+          <FontAwesomeIcon icon={faBirthdayCake} size="2x" />
           <FormInput
             type='text'
             name='age'

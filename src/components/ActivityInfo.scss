@@ -1,6 +1,4 @@
 .info {
-  position: absolute;
-
   &__icon {
     float: right;
 
@@ -9,14 +7,28 @@
     }
   }
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin: 1rem 1.5rem 0 0;
+  }
+
   &__close {
-    position: absolute;
-    left: 80%;
-    top: 6%;
     color: red;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 1.5rem;
   }
 
   &__content {
     text-align: center;
+
+    &--bold {
+      font-weight: bold;
+    }
   }
 }

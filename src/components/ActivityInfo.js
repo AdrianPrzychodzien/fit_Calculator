@@ -22,31 +22,47 @@ const ActivityInfo = () => {
       <Tooltip title="get some info" placement="top" >
         <InfoIcon className="info__icon" onClick={handleOpen} />
       </Tooltip>
-      <Dialog className="info" open={open} onClose={handleClose} fullWidth maxWidth="sm">
-        <Tooltip title="Close" onClose={handleClose} className="info__close">
-          <CloseIcon fontSize="large" />
-        </Tooltip>
-        <DialogTitle fontSize="large" >Activity levels</DialogTitle>
+      <Dialog
+        className="info"
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+      >
+        <div className="info__header">
+          <Tooltip
+            title="Close"
+            onClose={handleClose}
+            className="info__close"
+          >
+            <CloseIcon fontSize="large" />
+          </Tooltip>
+          <DialogTitle
+            disableTypography
+            className="info__title"
+          >
+            Activity levels</DialogTitle>
+        </div>
         <DialogContent className="info__content">
           <div>
             <p><StarIcon /><br />
-              I am sedentary (little or no exercise)</p>
+              I am <span className="info__content--bold">sedentary</span> (little or no exercise)</p>
           </div>
           <div>
             <p><StarIcon /><StarIcon /><br />
-              I am lightly active (light exercise or sports 1-3 days per week)</p>
+              I am <span className="info__content--bold">lightly active</span> (light exercise or sports 1-3 days per week)</p>
           </div>
           <div>
             <p><StarIcon /><StarIcon /><StarIcon /><br />
-              I am moderately active (moderate exercise or sports 3-5 days per week)</p>
+              I am <span className="info__content--bold">moderately active</span> (moderate exercise or sports 3-5 days per week)</p>
           </div>
           <div>
             <p><StarIcon /><StarIcon /><StarIcon /><StarIcon /><br />
-              I am very active (hard exercise or sports 6-7 days per week)</p>
+              I am <span className="info__content--bold">very active</span> (hard exercise or sports 6-7 days per week)</p>
           </div>
           <div>
             <p><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon /><br />
-              I am super active (very hard exercise or sports and a physical job)</p>
+              I am <span className="info__content--bold">super active</span> (very hard exercise or sports and a physical job)</p>
           </div>
 
         </DialogContent>

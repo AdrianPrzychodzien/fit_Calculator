@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
 import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import ActivityInfo from '../components/ActivityInfo'
+import { setData } from '../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -13,10 +15,10 @@ import {
   faWeight
 } from '@fortawesome/free-solid-svg-icons'
 import { Rating } from '@material-ui/lab'
+
 import './PersonalData.scss'
 
-
-const PersonalData = () => {
+const PersonalData = ({ setData }) => {
   const [userData, setUserData] = useState({
     height: '',
     weight: '',
@@ -27,8 +29,6 @@ const PersonalData = () => {
 
   const { height, weight, age, sex, lifeActivity } = userData
 
-  console.log(userData);
-
   const handleChange = e => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
@@ -36,6 +36,16 @@ const PersonalData = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    setData(userData)
+
+    setUserData({
+      height: '',
+      weight: '',
+      age: '',
+      sex: '',
+      lifeActivity: 1
+    })
   }
 
   return (
@@ -122,4 +132,8 @@ const PersonalData = () => {
   )
 }
 
-export default PersonalData
+const mapDispatchToProps = dispatch => ({
+  setData: data => dispatch(setData(data))
+})
+
+export default connect(null, mapDispatchToProps)(PersonalData)

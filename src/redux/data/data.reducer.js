@@ -5,7 +5,8 @@ const INITIAL_STATE = {
   weight: '',
   age: '',
   sex: '',
-  lifeActivity: 1
+  lifeActivity: 1,
+  userId: ''
 }
 
 const dataReducer = (state = INITIAL_STATE, action) => {
@@ -13,11 +14,12 @@ const dataReducer = (state = INITIAL_STATE, action) => {
     case DataActionTypes.SET_USER_DATA:
       return {
         ...state,
-        height: action.payload.height,
-        weight: action.payload.weight,
-        age: action.payload.age,
-        sex: action.payload.sex,
-        lifeActivity: action.payload.lifeActivity
+        height: action.payload.userData.height,
+        weight: action.payload.userData.weight,
+        age: action.payload.userData.age,
+        sex: action.payload.userData.sex,
+        lifeActivity: action.payload.userData.lifeActivity,
+        userId: action.payload.userId
       }
     default:
       return state

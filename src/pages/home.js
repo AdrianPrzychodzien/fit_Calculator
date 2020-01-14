@@ -7,7 +7,7 @@ const Home = ({ currentUser }) => {
   return (
     <>
       {currentUser ? (
-        <p>Hello {currentUser.currentUser.displayName}, how are you?</p>
+        <p>Hello {currentUser.displayName}, how are you?</p>
       ) : (
           <p>Login in first, please!</p>
         )}

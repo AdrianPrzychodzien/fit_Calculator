@@ -18,7 +18,7 @@ import { Rating } from '@material-ui/lab'
 
 import './PersonalData.scss'
 
-const PersonalData = ({ setData }) => {
+const PersonalData = ({ setData, currentUser }) => {
   const [userData, setUserData] = useState({
     height: '',
     weight: '',
@@ -37,7 +37,10 @@ const PersonalData = ({ setData }) => {
   const handleSubmit = e => {
     e.preventDefault()
 
-    setData(userData)
+    setData({
+      userData,
+      userId: currentUser.id
+    })
 
     setUserData({
       height: '',
@@ -132,8 +135,12 @@ const PersonalData = ({ setData }) => {
   )
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
+
 const mapDispatchToProps = dispatch => ({
   setData: data => dispatch(setData(data))
 })
 
-export default connect(null, mapDispatchToProps)(PersonalData)
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalData)

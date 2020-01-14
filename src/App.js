@@ -57,7 +57,6 @@ const App = ({ currentUser, setCurrentUser }) => {
     </div>
   )
 }
-// }
 
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser

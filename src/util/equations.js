@@ -5,6 +5,25 @@ export const calcBMI = data => {
   return result
 }
 
+export const rangeBMI = data => {
+  let result
+  if (data < 16) {
+    result = 'Severe Thinness'
+  } else if (16 < data && data < 17) {
+    result = 'Moderate Thinness'
+  } else if (17 < data && data < 18.5) {
+    result = 'Mild Thinness'
+  } else if (18.5 < data && data < 25) {
+    result = 'Normal'
+  } else if (25 < data && data < 30) {
+    result = 'OverWeight'
+  } else {
+    result = 'Obese'
+  }
+
+  return result
+}
+
 export const MifflinStJeor = data => {
   let result
   if (data.sex === 'Male') {

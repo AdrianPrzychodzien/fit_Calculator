@@ -1,0 +1,21 @@
+.homeContainer {
+  max-width: 380px;
+  margin: 0 auto;
+  padding: "10px 20px";
+
+  &__title {
+    text-align: center;
+    margin: 0;
+
+    :after {
+      content: "";
+    }
+  }
+
+  &__radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}

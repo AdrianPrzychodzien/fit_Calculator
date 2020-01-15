@@ -24,6 +24,25 @@ export const rangeBMI = data => {
   return result
 }
 
+export const maxHeartRate = data => {
+  let result
+  if (data.sex === 'Male') {
+    result = 208 - (0.80 * data.age)
+  } else if (data.sex === 'Female') {
+    result = 201 - (0.63 * data.age)
+  }
+
+  return result
+}
+
+export const trainingHeartRate = max => {
+  console.log(max);
+  let resultMin = Math.round(max * 0.65)
+  let resultMax = Math.round(max * 0.85)
+
+  return [resultMin, resultMax]
+}
+
 export const MifflinStJeor = data => {
   let output = Math.round(restingMifflinStJeor(data) * activityLevel(data.lifeActivity))
   return output

@@ -10,18 +10,31 @@ import {
   HarrisBenedict,
   rangeBMI,
   restingMifflinStJeor,
-  restingHarrisBenedict
+  restingHarrisBenedict,
+  trainingHeartRate,
+  maxHeartRate
 } from '../util/equations'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faBed,
+  faUtensils,
+  faBalanceScaleRight,
+  faRunning,
+  faHeartbeat
+} from '@fortawesome/free-solid-svg-icons'
+
 
 import './Home.scss'
 
 const Home = ({ currentUser, userData }) => {
   const [data, setData] = useState({
     formula: 'MifflinStJeor',
-    open: false
+    open: true
   })
 
   const { formula, open } = data
+  const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData))
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -85,35 +98,68 @@ const Home = ({ currentUser, userData }) => {
           {open && (
             <div className="results">
               <div className="results__row">
-                <h4>Resting Metabolic Rate: </h4>
+                <div className="results__row--title">
+                  <div className="results__row--icon">
+                    <FontAwesomeIcon icon={faBed} size="2x" />
+                  </div>
+                  <h4>Resting Metabolic Rate: </h4>
+                </div>
                 <div>
                   {formula === 'MifflinStJeor' ? restingMifflinStJeor(userData) : restingHarrisBenedict(userData)} kcal
                 </div>
               </div>
+
               <div className="results__row">
-                <h4>BMR:</h4>
+                <div className="results__row--title">
+                  <div className="results__row--icon">
+                    <FontAwesomeIcon icon={faUtensils} size="2x" />
+                  </div>
+                  <h4>BMR:</h4>
+                </div>
                 <div>
                   {formula === 'MifflinStJeor' ? MifflinStJeor(userData) : HarrisBenedict(userData)} kcal
                 </div>
               </div>
+
               <div className="results__row">
-                <h4>BMI: </h4>
+                <div className="results__row--title">
+                  <div className="results__row--icon">
+                    <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
+                  </div>
+                  <h4>BMI:</h4>
+                </div>
                 <div>
                   {calcBMI(userData)}, {rangeBMI(calcBMI(userData))}
                 </div>
               </div>
+
               <div className="results__row">
-                <h4>Training Heart Rate: </h4>
+                <div className="results__row--title">
+                  <div className="results__row--icon">
+                    <FontAwesomeIcon icon={faHeartbeat} size="2x" />
+                  </div>
+                  <h4>Maximum Heart Rate: </h4>
+                </div>
                 <div>
-                  ...
+
+                  {maxHeartRate(userData)}
                 </div>
               </div>
+
               <div className="results__row">
-                <h4>Heart Rate Max: </h4>
+                <div className="results__row--title">
+                  <div className="results__row--icon">
+                    <FontAwesomeIcon icon={faRunning} size="2x" />
+                  </div>
+                  <h4>Training Heart Rate: </h4>
+                </div>
                 <div>
-                  ...
+                  {trainingMin} - {trainingMax}
                 </div>
               </div>
+
+
+
               {/* TODO: FA ICONS, Body fat input in personalData
               separate actions in personalData,
               customButton hover (white background),

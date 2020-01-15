@@ -160,8 +160,7 @@ const Home = ({ currentUser, userData }) => {
 
 
 
-              {/* , Body fat input in personalData
-              separate actions in personalData,
+              {/* , separate actions in personalData,
               customButton hover (white background),
               css transformations in home.js on button click
               */}

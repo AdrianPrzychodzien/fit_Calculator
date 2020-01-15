@@ -6,6 +6,7 @@
 
   &__title {
     text-align: center;
+    color: rgb(0, 56, 160);
   }
 
   &__description {
@@ -18,6 +19,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    color: rgb(0, 56, 160);
   }
 
   &__button {
@@ -49,6 +51,7 @@
 
     &--icon {
       width: 3rem;
+      color: rgb(0, 56, 160);
     }
   }
 }

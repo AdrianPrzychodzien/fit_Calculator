@@ -1,30 +1,30 @@
 import styled, { css } from 'styled-components'
 
 const buttonStyles = css`
-background-color: black;
-color: white;
-border: none;
+  background-color: rgb(8, 95, 255);
+  color: white;
+  border: none;
 
 &:hover {
-  background-color: white;
+  background-color: #e2efff;
   color: black;
   border: 1px solid black;
 }`
 
 const invertedButtonStyles = css`
-background-color: white;
-color: black;
-border: 1px solid black;
+  background-color: #e2efff;
+  color: black;
+  border: 1px solid black;
 
 &:hover {
-  background-color: black;
+  background-color: rgb(8, 95, 255);
   color: white;
   border: none;
 }`
 
 const googleSignInStyles = css`
-background-color: #4285f4;
-color: white;
+  background-color: #4285f4;
+  color: white;
 
 &:hover {
   background-color: #357ae8;
@@ -40,21 +40,21 @@ const getButtonStyles = props => {
 }
 
 export const CustomButtonContainer = styled.button`
-min-width: 100px;
-width: auto;
-height: 40px;
-letter-spacing: 0.3px;
-line-height: 40px;
-padding: 0 15px 0 15px;
-font-size: 15px;
-border-radius: 10px;
-text-transform: uppercase;
-font-family: "Open Sans Condensed";
-font-weight: bolder;
-cursor: pointer;
-display: flex;
-justify-content: center;
-align-items: center
+  min-width: 100px;
+  width: auto;
+  height: 40px;
+  letter-spacing: 0.3px;
+  line-height: 40px;
+  padding: 0 15px 0 15px;
+  font-size: 15px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-family: "Open Sans Condensed";
+  font-weight: bolder;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center
 &:focus {
   outline: none
 }

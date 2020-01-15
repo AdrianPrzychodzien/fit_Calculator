@@ -59,73 +59,102 @@ const PersonalData = ({ setData, currentUser }) => {
       <h2 className="personalData__title">Add your personal data</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form__field">
-          <FontAwesomeIcon icon={faArrowsAltV} size="2x" />
-          <FormInput
-            type='number'
-            name='height'
-            value={height}
-            onChange={handleChange}
-            label='Height (cm)'
-            required
-          />
+          <div className="form__field--icon">
+            <FontAwesomeIcon icon={faArrowsAltV} size="2x" />
+          </div>
+          <div className="form__field--input">
+            <FormInput
+              type='number'
+              name='height'
+              value={height}
+              onChange={handleChange}
+              label='Height (cm)'
+              required
+            />
+          </div>
         </div>
+
         <div className="form__field">
-          <FontAwesomeIcon icon={faWeight} size="2x" />
-          <FormInput
-            type='number'
-            name='weight'
-            value={weight}
-            onChange={handleChange}
-            label='Weight (kg)'
-            required
-          />
+          <div className="form__field--icon">
+            <FontAwesomeIcon icon={faWeight} size="2x" />
+          </div>
+          <div className="form__field--input">
+            <FormInput
+              type='number'
+              name='weight'
+              value={weight}
+              onChange={handleChange}
+              label='Weight (kg)'
+              required
+            />
+          </div>
         </div>
+
         <div className="form__field">
-          <FontAwesomeIcon icon={faBirthdayCake} size="2x" />
-          <FormInput
-            type='number'
-            name='age'
-            value={age}
-            onChange={handleChange}
-            label='Age'
-            required
-          />
+          <div className="form__field--icon">
+            <FontAwesomeIcon icon={faBirthdayCake} size="2x" />
+          </div>
+          <div className="form__field--input">
+            <FormInput
+              type='number'
+              name='age'
+              value={age}
+              onChange={handleChange}
+              label='Age'
+              required
+            />
+          </div>
         </div>
+
         <div className="form__field">
-          <FontAwesomeIcon icon={faPercentage} size="2x" />
-          <FormInput
-            type='number'
-            name='fat'
-            value={fat}
-            onChange={handleChange}
-            label='Body Fat % (optional)'
-          />
+          <div className="form__field--icon">
+            <FontAwesomeIcon icon={faPercentage} size="2x" />
+          </div>
+          <div className="form__field--input">
+            <FormInput
+              type='number'
+              name='fat'
+              value={fat}
+              onChange={handleChange}
+              label='Body Fat % (optional)'
+            />
+          </div>
         </div>
+
         <div className="form__field--radio">
           <h2>Sex:</h2>
-          <label>
-            <input
-              type='radio'
-              name='sex'
-              value='Male'
-              checked={sex === 'Male'}
-              onChange={handleChange}
-              required
-            />
-            <FontAwesomeIcon icon={faMale} size="2x" className="form__icon" />
-          </label>
-          <label>
-            <input
-              type='radio'
-              name='sex'
-              value='Female'
-              checked={sex === 'Female'}
-              onChange={handleChange}
-              required
-            />
-            <FontAwesomeIcon icon={faFemale} size="2x" className="form__icon" />
-          </label>
+          <div className="form__field--radio--input">
+            <label>
+              <input
+                type='radio'
+                name='sex'
+                value='Male'
+                checked={sex === 'Male'}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <div className="form__field--icon">
+              <FontAwesomeIcon icon={faMale} size="2x" className="form__icon" />
+            </div>
+          </div>
+          <div className="form__field--radio--input">
+            <label>
+              <input
+                type='radio'
+                name='sex'
+                value='Female'
+                checked={sex === 'Female'}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <div className="form__field--icon">
+              <FontAwesomeIcon icon={faFemale} size="2x" className="form__icon" />
+            </div>
+          </div>
         </div>
+
         <div className="form__field--activity">
           <h2>Life activity: </h2>
           <Rating
@@ -137,8 +166,11 @@ const PersonalData = ({ setData, currentUser }) => {
             }}
             required
           />
-          <ActivityInfo />
+          <div className="form__field--icon">
+            <ActivityInfo />
+          </div>
         </div>
+
         <br />
         <div className="form__button">
           <CustomButton type='submit' >ADD DATA</CustomButton>

@@ -18,25 +18,27 @@ const NavBar = ({ currentUser }) => {
 
   return (
     <div className="header">
-      <Link to='/' className="header__icon">
-        <HomeIcon fontSize="large" />
-      </Link>
-      <div className="header__options">
-        <Link to='/personalData' className="header__options--link">
-          <AddIcon fontSize="large" />
+      <div className="header__container">
+        <Link to='/' className="header__icon">
+          <HomeIcon fontSize="large" />
         </Link>
-        <Link to='/help' className="header__options--link">
-          <HelpIcon fontSize="large" />
-        </Link>
-        {currentUser ? (
-          <Link to='/' className="header__options--link" onClick={() => auth.signOut()}>
-            <ExitToApp fontSize="large" />
+        <div className="header__options">
+          <Link to='/personalData' className="header__options--link">
+            <AddIcon fontSize="large" />
           </Link>
-        ) : (
-            <Link to='/signin' className="header__options--link" >
-              <PersonAdd fontSize="large" />
+          <Link to='/help' className="header__options--link">
+            <HelpIcon fontSize="large" />
+          </Link>
+          {currentUser ? (
+            <Link to='/' className="header__options--link" onClick={() => auth.signOut()}>
+              <ExitToApp fontSize="large" />
             </Link>
-          )}
+          ) : (
+              <Link to='/signin' className="header__options--link" >
+                <PersonAdd fontSize="large" />
+              </Link>
+            )}
+        </div>
       </div>
     </div>
   )

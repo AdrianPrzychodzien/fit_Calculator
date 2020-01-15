@@ -12,7 +12,8 @@ import {
   faArrowsAltV,
   faFemale,
   faMale,
-  faWeight
+  faWeight,
+  faPercentage
 } from '@fortawesome/free-solid-svg-icons'
 import { Rating } from '@material-ui/lab'
 
@@ -24,10 +25,11 @@ const PersonalData = ({ setData, currentUser }) => {
     weight: '',
     age: '',
     sex: '',
-    lifeActivity: 1
+    lifeActivity: 1,
+    fat: ''
   })
 
-  const { height, weight, age, sex, lifeActivity } = userData
+  const { height, weight, age, sex, lifeActivity, fat } = userData
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -47,7 +49,8 @@ const PersonalData = ({ setData, currentUser }) => {
       weight: '',
       age: '',
       sex: '',
-      lifeActivity: 1
+      lifeActivity: 1,
+      fat: ''
     })
   }
 
@@ -58,7 +61,7 @@ const PersonalData = ({ setData, currentUser }) => {
         <div className="form__field">
           <FontAwesomeIcon icon={faArrowsAltV} size="2x" />
           <FormInput
-            type='text'
+            type='number'
             name='height'
             value={height}
             onChange={handleChange}
@@ -69,7 +72,7 @@ const PersonalData = ({ setData, currentUser }) => {
         <div className="form__field">
           <FontAwesomeIcon icon={faWeight} size="2x" />
           <FormInput
-            type='text'
+            type='number'
             name='weight'
             value={weight}
             onChange={handleChange}
@@ -80,12 +83,22 @@ const PersonalData = ({ setData, currentUser }) => {
         <div className="form__field">
           <FontAwesomeIcon icon={faBirthdayCake} size="2x" />
           <FormInput
-            type='text'
+            type='number'
             name='age'
             value={age}
             onChange={handleChange}
             label='Age'
             required
+          />
+        </div>
+        <div className="form__field">
+          <FontAwesomeIcon icon={faPercentage} size="2x" />
+          <FormInput
+            type='number'
+            name='fat'
+            value={fat}
+            onChange={handleChange}
+            label='Body Fat % (optional)'
           />
         </div>
         <div className="form__field--radio">

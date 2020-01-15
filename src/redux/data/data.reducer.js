@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   age: '',
   sex: '',
   lifeActivity: 1,
+  fat: '',
   userId: ''
 }
 
@@ -19,6 +20,7 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         age: action.payload.userData.age,
         sex: action.payload.userData.sex,
         lifeActivity: action.payload.userData.lifeActivity,
+        fat: action.payload.userData.fat,
         userId: action.payload.userId
       }
     default:

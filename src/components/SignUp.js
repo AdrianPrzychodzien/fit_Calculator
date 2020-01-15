@@ -67,22 +67,28 @@ const SignUp = () => {
           label='email'
           required
         />
-        <FormInput
-          type='password'
-          name='password'
-          value={password}
-          onChange={handleChange}
-          label='password'
-          required
-        />
-        <FormInput
-          type='password'
-          name='confirmPassword'
-          value={confirmPassword}
-          onChange={handleChange}
-          label='confirm password'
-          required
-        />
+        <div className="signup__passwordGroup">
+          <div className="signup__passwordGroup--1">
+            <FormInput
+              type='password'
+              name='password'
+              value={password}
+              onChange={handleChange}
+              label='password'
+              required
+            />
+          </div>
+          <div className="signup__passwordGroup--2">
+            <FormInput
+              type='password'
+              name='confirmPassword'
+              value={confirmPassword}
+              onChange={handleChange}
+              label='confirm password'
+              required
+            />
+          </div>
+        </div>
         <CustomButton type='submit'>SIGN UP</CustomButton>
       </form>
     </div>

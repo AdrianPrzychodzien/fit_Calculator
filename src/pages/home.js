@@ -160,7 +160,7 @@ const Home = ({ currentUser, userData }) => {
 
 
 
-              {/* TODO: FA ICONS, Body fat input in personalData
+              {/* , Body fat input in personalData
               separate actions in personalData,
               customButton hover (white background),
               css transformations in home.js on button click

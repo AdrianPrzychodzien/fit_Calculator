@@ -7,9 +7,14 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #e2efff;
+  height: 100%;
 }
 
 a {
   text-decoration: none;
   color: black
+}
+
+.App {
+  height: 100%;
 }

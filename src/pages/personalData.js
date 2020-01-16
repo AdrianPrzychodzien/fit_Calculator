@@ -114,7 +114,7 @@ const PersonalData = ({ setData, currentUser, history }) => {
           <div className="form__field--icon">
             <FontAwesomeIcon icon={faPercentage} size="2x" />
           </div>
-          <div className="form__field--input">
+          <div className="form__field--inputFat">
             <FormInput
               type='number'
               name='fat'

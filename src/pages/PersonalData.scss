@@ -33,6 +33,10 @@
       width: 50%;
     }
 
+    &--inputFat {
+      width: 30%;
+    }
+
     &--radio {
       display: flex;
       justify-content: space-evenly;
@@ -49,6 +53,7 @@
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      text-align: center;
       margin: 1.7rem 0.1rem;
     }
   }

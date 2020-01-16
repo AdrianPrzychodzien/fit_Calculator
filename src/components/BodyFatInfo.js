@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import InfoIcon from '@material-ui/icons/Info'
-import StarIcon from '@material-ui/icons/Star';
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import { Close as CloseIcon } from '@material-ui/icons'
 
 import './BodyFatInfo.scss'
 
-const BodyFatInfo = () => {
+const BodyFatInfo = ({ history }) => {
   const [open, setOpen] = useState(false)
 
   const handleOpen = () => {
@@ -51,15 +51,17 @@ const BodyFatInfo = () => {
         </div>
         <DialogContent className="info__content">
           <div>
-            You can check your body fat percentage by using skinfold caliper, but
+            You can check your body fat percentage by using <b>skinfold caliper</b>, but
              the most commonly used estimation formula in body fat
-            percentage calculations is the U.S. Navy fitness formula
-            </div>
+            percentage calculations is the <b>U.S. Navy fitness formula</b>
+          </div>
+          <br />
           <div>
             Calculation require giving body measurements in specific areas
             </div>
+          <br />
           <div>
-            You can add them <span>here</span>
+            You can add them <span onClick={() => history.push('/bodyFat')}>here</span>
           </div>
         </DialogContent>
       </Dialog>
@@ -67,4 +69,4 @@ const BodyFatInfo = () => {
   )
 }
 
-export default BodyFatInfo
+export default withRouter(BodyFatInfo)

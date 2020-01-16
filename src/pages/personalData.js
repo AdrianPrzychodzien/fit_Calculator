@@ -46,12 +46,12 @@ const PersonalData = ({ setData, currentUser, history }) => {
     })
 
     setUserData({
-      height: '',
-      weight: '',
-      age: '',
-      sex: '',
-      lifeActivity: 1,
-      fat: ''
+      // height: '',
+      // weight: '',
+      // age: '',
+      // sex: '',
+      // lifeActivity: 1,
+      // fat: ''
     })
 
     history.push('/')

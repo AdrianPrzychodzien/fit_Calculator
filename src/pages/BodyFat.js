@@ -3,59 +3,63 @@ import { connect } from 'react-redux'
 
 import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
-import { setFatData } from '../redux/actions'
+import { setFatData, setFatPercentage } from '../redux/actions'
+import { bodyFatFormula } from '../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faBirthdayCake,
-  faArrowsAltV,
-  faFemale,
-  faMale,
-  faWeight,
-  faPercentage
-} from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import './BodyFat.scss'
 
-const BodyFat = ({ setFatData, currentUser }) => {
-  const [userData, setUserData] = useState({
+const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history }) => {
+  const [userSize, setUserSize] = useState({
     waist: '',
     hip: '',
-    neck: ''
+    neck: '',
+    open: false
   })
 
-  const { waist, hip, neck } = userData
+  const { waist, hip, neck, open } = userSize
 
   const handleChange = e => {
     const { name, value } = e.target
-    setUserData({ ...userData, [name]: value })
+    setUserSize({ ...userSize, [name]: value })
   }
 
   const handleSubmit = e => {
     e.preventDefault()
 
     setFatData({
-      userData,
+      userSize,
       userId: currentUser.id
     })
 
-    setUserData({
-      waist: '',
-      hip: '',
-      neck: ''
+    setUserSize({ ...userSize, open: !open })
+    // setUserSize({
+    //   waist: '',
+    //   hip: '',
+    //   neck: '',
+    //   open
+    // })
+  }
+
+  const handleUpdate = () => {
+    setFatPercentage({
+      fatPercentage: bodyFatFormula(userData),
+      userId: currentUser.id
     })
 
-    // history.push('/')
+    history.push('/')
   }
 
   return (
     <div className="personalData">
-      <h2 className="personalData__title">Measure your body</h2>
+      <h2 className="personalData__title">Body fat percentage</h2>
       <hr />
       <form onSubmit={handleSubmit} className="form">
         <div className="form__field">
           <div className="form__field--icon">
-            <FontAwesomeIcon icon={faArrowsAltV} size="2x" />
+            <FontAwesomeIcon icon={faCheck} size="2x" />
           </div>
           <div className="form__field--input">
             <FormInput
@@ -71,7 +75,7 @@ const BodyFat = ({ setFatData, currentUser }) => {
 
         <div className="form__field">
           <div className="form__field--icon">
-            <FontAwesomeIcon icon={faWeight} size="2x" />
+            <FontAwesomeIcon icon={faCheck} size="2x" />
           </div>
           <div className="form__field--input">
             <FormInput
@@ -87,7 +91,7 @@ const BodyFat = ({ setFatData, currentUser }) => {
 
         <div className="form__field">
           <div className="form__field--icon">
-            <FontAwesomeIcon icon={faBirthdayCake} size="2x" />
+            <FontAwesomeIcon icon={faCheck} size="2x" />
           </div>
           <div className="form__field--input">
             <FormInput
@@ -103,19 +107,31 @@ const BodyFat = ({ setFatData, currentUser }) => {
 
         <hr />
         <div className="form__button">
-          <CustomButton type='submit' >ADD DATA</CustomButton>
+          <CustomButton type='submit' >CALCULATE</CustomButton>
         </div>
       </form>
+      <hr />
+
+      <div className="personalData__result">
+        <h2 className="personalData__result--title">
+          Your body fat is {open && bodyFatFormula(userData)} %
+        </h2>
+        {open && <div onClick={handleUpdate} className="personalData__result--text">
+          Update your data and go to home page
+        </div>}
+      </div>
     </div>
   )
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = ({ user, data }) => ({
+  currentUser: user.currentUser,
+  userData: data
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFatData: data => dispatch(setFatData(data))
+  setFatData: data => dispatch(setFatData(data)),
+  setFatPercentage: data => dispatch(setFatPercentage(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BodyFat)

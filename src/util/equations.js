@@ -143,10 +143,12 @@ export const activityLevelComment = data => {
 export const bodyFatFormula = data => {
   let result
   if (data.sex === 'Male') {
-    result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist - data.neck) + 0.22100 * Math.log10(data.height)) - 450
+    // result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist - data.neck) + 0.22100 * Math.log10(data.height)) - 450
+    result = 495 / (1.0324 - 0.19077 * Math.log10(data.waist - data.neck) + 0.15456 * Math.log10(data.height)) - 450
   } else if (data.sex === "Female") {
-    result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist + data.hip - data.neck) + 0.22100 * Math.log10(data.height))
+    // result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist + data.hip - data.neck) + 0.22100 * Math.log10(data.height)) - 450
+    result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist + data.hip - data.neck) + 0.22100 * Math.log10(data.height)) - 450
   }
 
-  return result
+  return Math.round(result)
 }

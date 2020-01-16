@@ -30,5 +30,11 @@
     &--bold {
       font-weight: bold;
     }
+
+    span {
+      color: red;
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 }

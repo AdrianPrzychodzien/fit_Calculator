@@ -7,6 +7,9 @@ const INITIAL_STATE = {
   sex: '',
   lifeActivity: 1,
   fat: '',
+  waist: '',
+  hip: '',
+  neck: '',
   userId: ''
 }
 
@@ -21,6 +24,20 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         sex: action.payload.userData.sex,
         lifeActivity: action.payload.userData.lifeActivity,
         fat: action.payload.userData.fat,
+        userId: action.payload.userId
+      }
+    case DataActionTypes.SET_FAT_DATA:
+      return {
+        ...state,
+        waist: action.payload.userSize.waist,
+        hip: action.payload.userSize.hip,
+        neck: action.payload.userSize.neck,
+        userId: action.payload.userId
+      }
+    case DataActionTypes.SET_FAT_PERCENTAGE:
+      return {
+        ...state,
+        fat: action.payload.fatPercentage,
         userId: action.payload.userId
       }
     default:

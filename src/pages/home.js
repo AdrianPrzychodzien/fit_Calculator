@@ -43,7 +43,7 @@ const Home = ({ currentUser, userData }) => {
   }
 
   const handleOpen = () => {
-    setData({ open: !open })
+    setData({ ...data, open: !open })
   }
 
   return (

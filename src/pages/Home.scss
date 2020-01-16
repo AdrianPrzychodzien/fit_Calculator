@@ -26,6 +26,13 @@
     display: flex;
     justify-content: center;
   }
+
+  & hr {
+    background-color: rgb(0, 56, 160);
+    margin: 1rem auto;
+    width: 90%;
+    padding: 1px;
+  }
 }
 
 .close {

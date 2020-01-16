@@ -7,6 +7,7 @@ import './SignInAndSignUp.scss'
 const SignInAndSignUp = () => (
   <div className="signInSignUp">
     <SignIn />
+    <hr />
     <SignUp />
   </div>
 )

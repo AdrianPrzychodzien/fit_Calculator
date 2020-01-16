@@ -36,7 +36,6 @@ export const maxHeartRate = data => {
 }
 
 export const trainingHeartRate = max => {
-  console.log(max);
   let resultMin = Math.round(max * 0.65)
   let resultMax = Math.round(max * 0.85)
 

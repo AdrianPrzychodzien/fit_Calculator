@@ -8,13 +8,13 @@ const buttonStyles = css`
 &:hover {
   background-color: #e2efff;
   color: black;
-  border: 1px solid black;
+  border: 1px solid rgb(0, 56, 160);
 }`
 
 const invertedButtonStyles = css`
   background-color: #e2efff;
   color: black;
-  border: 1px solid black;
+  border: 1px solid rgb(0, 56, 160);
 
 &:hover {
   background-color: rgb(8, 95, 255);

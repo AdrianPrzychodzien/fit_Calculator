@@ -50,6 +50,7 @@ const Home = ({ currentUser, userData }) => {
       {currentUser ? (
         <div className="homeContainer">
           <h2 className="homeContainer__title">Hello {currentUser.displayName}</h2>
+          <hr />
 
           {open ? (
             <p className="homeContainer__description">
@@ -90,13 +91,15 @@ const Home = ({ currentUser, userData }) => {
               />
             </div>
           </div>
-          <br />
+          <hr />
           <div className="homeContainer__button">
             <CustomButton onClick={handleOpen}>Calculate</CustomButton>
           </div>
 
+
           {open && (
             <div className="results">
+              <hr />
               <div className="results__row">
                 <div className="results__row--title">
                   <div className="results__row--icon">
@@ -160,7 +163,7 @@ const Home = ({ currentUser, userData }) => {
 
 
 
-              {/* , separate actions in personalData,
+              {/* narrow inputs in personalData
               customButton hover (white background),
               css transformations in home.js on button click
               */}

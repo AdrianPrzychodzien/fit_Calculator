@@ -52,6 +52,11 @@ export const HarrisBenedict = data => {
   return output
 }
 
+export const KatchMcardle = data => {
+  let output = Math.round(restingKatchMcardle(data) * activityLevel(data.lifeActivity))
+  return output
+}
+
 export const restingMifflinStJeor = data => {
   let result
   if (data.sex === 'Male') {
@@ -75,6 +80,14 @@ export const restingHarrisBenedict = data => {
   }
 
   return Math.round(result)
+}
+
+export const restingKatchMcardle = data => {
+  const leanBodyMass = (data.weight * (100 - data.fat)) / 100
+
+  const BMR = Math.round(370 + (21.6 * leanBodyMass))
+
+  return BMR
 }
 
 const activityLevel = data => {
@@ -122,6 +135,17 @@ export const activityLevelComment = data => {
       break
     default:
       alert('Choose your activity level')
+  }
+
+  return result
+}
+
+export const bodyFatFormula = data => {
+  let result
+  if (data.sex === 'Male') {
+    result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist - data.neck) + 0.22100 * Math.log10(data.height)) - 450
+  } else if (data.sex === "Female") {
+    result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist + data.hip - data.neck) + 0.22100 * Math.log10(data.height))
   }
 
   return result

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import ActivityInfo from '../components/ActivityInfo'
+import BodyFatInfo from '../components/BodyFatInfo'
 import { setData } from '../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -122,7 +123,11 @@ const PersonalData = ({ setData, currentUser, history }) => {
               label='Body Fat %'
             />
           </div>
+          <div className="form__field--icon">
+            <BodyFatInfo />
+          </div>
         </div>
+
 
         <div className="form__field--radio">
           <h2>Sex:</h2>

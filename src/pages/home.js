@@ -8,9 +8,11 @@ import {
   calcBMI,
   MifflinStJeor,
   HarrisBenedict,
+  KatchMcardle,
   rangeBMI,
   restingMifflinStJeor,
   restingHarrisBenedict,
+  restingKatchMcardle,
   trainingHeartRate,
   maxHeartRate
 } from '../util/equations'
@@ -23,7 +25,6 @@ import {
   faRunning,
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons'
-
 
 import './Home.scss'
 
@@ -67,8 +68,7 @@ const Home = ({ currentUser, userData }) => {
             )}
 
           <div className="homeContainer__radio">
-            <h3>BMR equation:</h3>
-            <div>
+            <div className="homeContainer__radio--field">
               <label>Mifflin - St Jeor</label>
               <input
                 type='radio'
@@ -79,7 +79,7 @@ const Home = ({ currentUser, userData }) => {
                 required
               />
             </div>
-            <div>
+            <div className="homeContainer__radio--field">
               <label>Harris Benedict</label>
               <input
                 type='radio'
@@ -90,12 +90,22 @@ const Home = ({ currentUser, userData }) => {
                 required
               />
             </div>
+            <div className="homeContainer__radio--field">
+              <label>Katch-Mcardle</label>
+              <input
+                type='radio'
+                name='formula'
+                value='KatchMcardle'
+                checked={formula === 'KatchMcardle'}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           <hr />
           <div className="homeContainer__button">
             <CustomButton onClick={handleOpen}>Calculate</CustomButton>
           </div>
-
 
           {open && (
             <div className="results">
@@ -108,7 +118,9 @@ const Home = ({ currentUser, userData }) => {
                   <h4>Resting Metabolic Rate: </h4>
                 </div>
                 <div>
-                  {formula === 'MifflinStJeor' ? restingMifflinStJeor(userData) : restingHarrisBenedict(userData)} kcal
+                  {formula === 'MifflinStJeor' ?
+                    restingMifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
+                      restingHarrisBenedict(userData) : restingKatchMcardle(userData))} kcal
                 </div>
               </div>
 
@@ -120,7 +132,9 @@ const Home = ({ currentUser, userData }) => {
                   <h4>BMR:</h4>
                 </div>
                 <div>
-                  {formula === 'MifflinStJeor' ? MifflinStJeor(userData) : HarrisBenedict(userData)} kcal
+                  {formula === 'MifflinStJeor' ?
+                    MifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
+                      HarrisBenedict(userData) : KatchMcardle(userData))} kcal
                 </div>
               </div>
 
@@ -163,8 +177,7 @@ const Home = ({ currentUser, userData }) => {
 
 
 
-              {/* narrow inputs in personalData
-              customButton hover (white background),
+              {/* 
               css transformations in home.js on button click
               */}
 

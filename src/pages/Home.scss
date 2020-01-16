@@ -20,6 +20,16 @@
     justify-content: center;
     text-align: center;
     color: rgb(0, 56, 160);
+
+    &--field {
+      display: flex;
+      flex-flow: wrap;
+      justify-content: center;
+
+      & label {
+        font-size: 0.9rem;
+      }
+    }
   }
 
   &__button {
@@ -41,7 +51,7 @@
 
 .results {
   text-align: center;
-  margin: 1.5rem auto;
+  margin: 1rem auto;
   max-width: 340px;
   padding: "10px 20px";
 

@@ -10,3 +10,8 @@ export const setData = data => ({
   type: DataActionTypes.SET_USER_DATA,
   payload: data
 })
+
+export const setFatData = data => ({
+  type: DataActionTypes.SET_FAT_DATA,
+  payload: data
+})

@@ -13,10 +13,16 @@
     margin: 0 auto;
   }
 
-  &__icon {
-    width: 20%;
+  &__navigation {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    width: 25%;
+    margin-left: 0.5rem;
+
+    &--link {
+      cursor: pointer;
+    }
   }
 
   &__options {

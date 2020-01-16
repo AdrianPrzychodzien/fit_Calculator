@@ -1,27 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import { Link } from 'react-router-dom'
-import { auth } from '../firebase/firebase.utils'
+
+import HamburgerButton from '../HamburgerButton/HamburgerButton'
+import { auth } from '../../firebase/firebase.utils'
 import {
   Add as AddIcon,
   Help as HelpIcon,
   Home as HomeIcon,
   PersonAdd,
-  ExitToApp
+  ExitToApp,
 } from '@material-ui/icons'
 
 import './NavBar.scss'
 
-
-const NavBar = ({ currentUser }) => {
+const NavBar = ({ currentUser, toggleSideBar }) => {
 
   return (
     <div className="header">
       <div className="header__container">
-        <Link to='/' className="header__icon">
-          <HomeIcon fontSize="large" />
-        </Link>
+        <div className="header__navigation">
+          <HamburgerButton toggleSideBar={toggleSideBar} />
+          <Link to='/' className="header__navigation--link">
+            <HomeIcon fontSize="large" />
+          </Link>
+        </div>
         <div className="header__options">
           <Link to='/personalData' className="header__options--link">
             <AddIcon fontSize="large" />
@@ -44,8 +47,8 @@ const NavBar = ({ currentUser }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
 })
 
 export default connect(mapStateToProps)(NavBar)

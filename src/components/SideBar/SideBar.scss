@@ -1,0 +1,30 @@
+.sidebar {
+  height: 100%;
+  background-color: white;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60%;
+  max-width: 250px;
+  z-index: 200;
+  transform: translate3d(0, -100%, 0);
+  transition: all 0.3s ease-out;
+
+  &.open {
+    transform: translate3d(0, 0, 0);
+  }
+
+  ul {
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  li {
+    font-size: 2rem;
+    margin: 4rem auto;
+  }
+}

@@ -28,10 +28,10 @@ import {
 
 import './Home.scss'
 
-const Home = ({ currentUser, userData }) => {
+const Home = ({ currentUser, userData, history }) => {
   const [data, setData] = useState({
     formula: 'MifflinStJeor',
-    open: true
+    open: false
   })
 
   const { formula, open } = data
@@ -43,7 +43,7 @@ const Home = ({ currentUser, userData }) => {
   }
 
   const handleOpen = () => {
-    setData({ ...data, open: !open })
+    setData({ ...data, open: true })
   }
 
   return (
@@ -60,11 +60,17 @@ const Home = ({ currentUser, userData }) => {
                 while <b>{activityLevelComment(userData.lifeActivity)}</b>
             </p>
           ) : (
-              <p className="homeContainer__description">
-                Add your personal data and choose one of the following
-                two equations to calculate basic indicators
-                (Resting Metabolic Rate, Body Mass Index,
-              Training Heart Rate or Heart Rate Max </p>
+              <>
+                <p className="homeContainer__description">
+                  Add your personal data and choose one of the following
+                  two equations to calculate basic indicators
+                  (Resting Metabolic Rate, Body Mass Index,
+                  Training Heart Rate or Heart Rate Max </p>
+                <div className="homeContainer__button">
+                  <CustomButton onClick={() => history.push('/personalData')}>Add personal data</CustomButton>
+                </div>
+                <br />
+              </>
             )}
 
           <div className="homeContainer__radio">
@@ -174,19 +180,21 @@ const Home = ({ currentUser, userData }) => {
                   {trainingMin} - {trainingMax}
                 </div>
               </div>
-
-
-
-              {/* 
-              css transformations in home.js on button click
-              */}
-
             </div>
-
           )}
         </div>
       ) : (
-          <p>Login in first, please!</p>
+          <div className="homeContainer">
+            <br />
+            <h2 className="homeContainer__title">
+              Login in first, please!
+              </h2>
+            <br />
+            <br />
+            <div className="homeContainer__button">
+              <CustomButton onClick={() => history.push('/signin')}>Go TO LOGIN PAGE</CustomButton>
+            </div>
+          </div>
         )}
     </>
   )

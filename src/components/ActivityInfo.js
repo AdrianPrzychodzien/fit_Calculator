@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import InfoIcon from '@material-ui/icons/Info'
 import StarIcon from '@material-ui/icons/Star';
-import { Dialog, Tooltip, DialogTitle, DialogContent } from '@material-ui/core'
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Tooltip
+} from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
 import './ActivityInfo.scss'
@@ -30,12 +36,12 @@ const ActivityInfo = () => {
         maxWidth="sm"
       >
         <div className="info__header">
-          <Tooltip
-            title="Close"
-            onClose={handleClose}
-            className="info__close"
-          >
-            <CloseIcon fontSize="large" />
+          <Tooltip title="Close" >
+            <IconButton onClick={handleClose} >
+              <div className="info__close">
+                <CloseIcon fontSize="large" />
+              </div>
+            </IconButton>
           </Tooltip>
           <DialogTitle
             disableTypography
@@ -64,7 +70,6 @@ const ActivityInfo = () => {
             <p><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon /><br />
               I am <span className="info__content--bold">super active</span> (very hard exercise or sports and a physical job)</p>
           </div>
-
         </DialogContent>
       </Dialog>
     </>

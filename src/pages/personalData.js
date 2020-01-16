@@ -19,7 +19,7 @@ import { Rating } from '@material-ui/lab'
 
 import './PersonalData.scss'
 
-const PersonalData = ({ setData, currentUser }) => {
+const PersonalData = ({ setData, currentUser, history }) => {
   const [userData, setUserData] = useState({
     height: '',
     weight: '',
@@ -52,11 +52,14 @@ const PersonalData = ({ setData, currentUser }) => {
       lifeActivity: 1,
       fat: ''
     })
+
+    history.push('/')
   }
 
   return (
     <div className="personalData">
       <h2 className="personalData__title">Add your personal data</h2>
+      <hr />
       <form onSubmit={handleSubmit} className="form">
         <div className="form__field">
           <div className="form__field--icon">
@@ -116,7 +119,7 @@ const PersonalData = ({ setData, currentUser }) => {
               name='fat'
               value={fat}
               onChange={handleChange}
-              label='Body Fat % (optional)'
+              label='Body Fat %'
             />
           </div>
         </div>
@@ -171,7 +174,7 @@ const PersonalData = ({ setData, currentUser }) => {
           </div>
         </div>
 
-        <br />
+        <hr />
         <div className="form__button">
           <CustomButton type='submit' >ADD DATA</CustomButton>
         </div>

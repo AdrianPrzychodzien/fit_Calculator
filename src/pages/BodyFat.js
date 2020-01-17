@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
+import FatPercentageInfo from '../components/FatPercentageInfo'
 import FormInput from '../util/FormInput/FormInput'
 import CustomButton from '../util/CustomButton/CustomButton'
 import { setFatData, setFatPercentage } from '../redux/actions'
@@ -16,7 +17,7 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
     waist: '',
     hip: '',
     neck: '',
-    open: false
+    open: true
   })
 
   const { waist, hip, neck, open } = userSize
@@ -115,6 +116,7 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
       <div className="personalData__result">
         <h2 className="personalData__result--title">
           Your body fat is {open && bodyFatFormula(userData)} %
+          {open && <FatPercentageInfo />}
         </h2>
         {open && <div onClick={handleUpdate} className="personalData__result--text">
           Update your data and go to home page

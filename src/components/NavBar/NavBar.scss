@@ -8,20 +8,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 480px;
+    max-width: 400px;
     height: 100%;
     margin: 0 auto;
   }
 
   &__navigation {
     display: flex;
-    justify-content: space-around;
+    float: left;
     align-items: center;
     width: 25%;
-    margin-left: 0.5rem;
+    margin-left: 1rem;
 
     &--link {
       cursor: pointer;
+      margin-left: 0.5rem;
+
+      .close {
+        display: none;
+      }
     }
   }
 
@@ -35,6 +40,10 @@
     &--link {
       padding: 10px 15px;
       cursor: pointer;
+
+      .close {
+        display: none;
+      }
     }
   }
 }

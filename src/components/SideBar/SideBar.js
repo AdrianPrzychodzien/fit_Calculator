@@ -1,41 +1,58 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 
+import { setSidebarState } from '../../redux/actions'
+
 import './SideBar.scss'
 
-const SideBar = ({ show }) => {
-  let drawerClasses = 'sidebar'
-  if (show) {
-    drawerClasses = 'sidebar open'
-  }
+const SideBar = ({ sidebarOpen, setSidebarState }) => {
 
   return (
-    <nav className={drawerClasses}>
+    <nav className={sidebarOpen ? 'sidebar open' : 'sidebar'}>
       <ul className="sidebar__nav">
-        <li className="sidebar__nav--item">
-          <Link to="/" className="nav--link" >
-            Home page
-            </Link>
+        <li className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}>
+          <div className="nav--link">
+            <Link to="/" >Home page</Link>
+          </div>
         </li>
-        <li className="sidebar__nav--item">
-          <Link to="/personalData" className="nav--link" >
-            Personal rates page
-            </Link>
+        <hr />
+
+        <li className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}>
+          <div className="nav--link">
+            <Link to="/personalData" >Personal rates page</Link>
+          </div>
         </li>
-        <li className="sidebar__nav--item">
-          <Link to="/bodyFat" className="nav--link" >
-            Body Fat page
-            </Link>
+        <hr />
+
+        <li className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}>
+          <div className="nav--link">
+            <Link to="/bodyFat" >Body Fat page</Link>
+          </div>
         </li>
-        <li className="sidebar__nav--item">
-          <Link to="/bmi" className="nav--link" >
-            BMI page
-            </Link>
+        <hr />
+
+        <li className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}>
+          <div className="nav--link">
+            <Link to="/bmi" >BMI page</Link>
+          </div>
         </li>
       </ul>
     </nav>
   )
 }
 
-export default SideBar
+const mapStateToProps = ({ ui }) => ({
+  sidebarOpen: ui.sidebarOpen
+})
+
+const mapDispatchToProps = dispatch => ({
+  setSidebarState: data => dispatch(setSidebarState(data))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar)

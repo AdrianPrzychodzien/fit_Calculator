@@ -1,9 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import { setSidebarState } from '../../redux/actions'
 
 import './Backdrop.scss'
 
-const Backdrop = ({ click }) => (
-  <div className="backdrop" onClick={click} />
+const Backdrop = ({ setSidebarState }) => (
+  <div className="backdrop" onClick={() => setSidebarState(false)} />
 )
 
-export default Backdrop
+const mapDispatchToProps = dispatch => ({
+  setSidebarState: data => dispatch(setSidebarState(data))
+})
+
+export default connect(null, mapDispatchToProps)(Backdrop)

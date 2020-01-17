@@ -5,45 +5,73 @@ import { Link } from 'react-router-dom'
 
 import { setSidebarState } from '../../redux/actions'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faHome,
+  faPlus,
+  faBalanceScaleRight,
+  faPercentage
+} from '@fortawesome/free-solid-svg-icons'
+
 import './SideBar.scss'
 
 const SideBar = ({ sidebarOpen, setSidebarState }) => {
 
   return (
-    <nav className={sidebarOpen ? 'sidebar open' : 'sidebar'}>
-      <ul className="sidebar__nav">
-        <li className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
-          onClick={() => setSidebarState(false)}>
-          <div className="nav--link">
-            <Link to="/" >Home page</Link>
+    <div className={sidebarOpen ? 'sidebar open' : 'sidebar'}>
+      <div className="sidebar__nav">
+        <Link to="/"
+          className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}
+        >
+          <div className="nav--icon">
+            <FontAwesomeIcon icon={faHome} size="2x" />
           </div>
-        </li>
+          <div className="nav--link">
+            Home
+          </div>
+        </Link>
         <hr />
 
-        <li className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
-          onClick={() => setSidebarState(false)}>
-          <div className="nav--link">
-            <Link to="/personalData" >Personal rates page</Link>
+        <Link to="/personalData"
+          className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}
+        >
+          <div className="nav--icon">
+            <FontAwesomeIcon icon={faPlus} size="2x" />
           </div>
-        </li>
+          <div className="nav--link">
+            Personal data
+          </div>
+        </Link>
         <hr />
 
-        <li className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
-          onClick={() => setSidebarState(false)}>
-          <div className="nav--link">
-            <Link to="/bodyFat" >Body Fat page</Link>
+        <Link to="/bodyFat"
+          className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}
+        >
+          <div className="nav--icon">
+            <FontAwesomeIcon icon={faPercentage} size="2x" />
           </div>
-        </li>
+          <div className="nav--link">
+            Body Fat
+          </div>
+        </Link>
         <hr />
 
-        <li className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
-          onClick={() => setSidebarState(false)}>
-          <div className="nav--link">
-            <Link to="/bmi" >BMI page</Link>
+        <Link to="/bmi"
+          className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}
+        >
+          <div className="nav--icon">
+            <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
           </div>
-        </li>
-      </ul>
-    </nav>
+          <div className="nav--link">
+            BMI
+          </div>
+        </Link>
+      </div>
+    </div>
   )
 }
 

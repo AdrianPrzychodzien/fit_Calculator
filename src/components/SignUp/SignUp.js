@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import FormInput from '../util/FormInput/FormInput'
-import CustomButton from '../util/CustomButton/CustomButton'
+import FormInput from '../../util/FormInput/FormInput'
+import CustomButton from '../../util/CustomButton/CustomButton'
 
-import { auth, createUserProfileDocument } from '../firebase/firebase.utils'
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'
 
 import './SignUp.scss'
 

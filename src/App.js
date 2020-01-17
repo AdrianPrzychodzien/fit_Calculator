@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
-import Home from './pages/Home'
-import PersonalData from './pages/PersonalData'
-import Help from './pages/Help'
-import BodyFat from './pages/BodyFat'
-import SignInAndSignUp from './pages/SignInAndSignUp'
-import Bmi from './pages/Bmi'
+import Home from './pages/home/Home'
+import PersonalData from './pages/personalData/PersonalData'
+import Help from './pages/help/Help'
+import BodyFat from './pages/bodyFat/BodyFat'
+import SignInAndSignUp from './pages/signInAndSignUp/SignInAndSignUp'
+import Bmi from './pages/bmi/Bmi'
 
 import NavBar from './components/NavBar/NavBar'
 import SideBar from './components/SideBar/SideBar'

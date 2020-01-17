@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import CustomButton from '../util/CustomButton/CustomButton'
+import CustomButton from '../../util/CustomButton/CustomButton'
 
 import {
   activityLevelComment,
@@ -15,7 +15,7 @@ import {
   restingKatchMcardle,
   trainingHeartRate,
   maxHeartRate
-} from '../util/equations'
+} from '../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {

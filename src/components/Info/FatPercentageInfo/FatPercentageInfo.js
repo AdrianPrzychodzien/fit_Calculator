@@ -49,8 +49,8 @@ const FatPercentageInfo = () => {
           >
             Fat % Categories</DialogTitle>
         </div>
-        <DialogContent className="info__content">
-          <table class="table">
+        <DialogContent className="info__contentTable">
+          <table className="table">
             <thead>
               <tr>
                 <th>Category</th>
@@ -81,8 +81,8 @@ const FatPercentageInfo = () => {
               </tr>
               <tr>
                 <td>Obese</td>
-                <td>32% +</td>
-                <td>25% +</td>
+                <td>32%+</td>
+                <td>25%+</td>
               </tr>
             </tbody>
           </table>

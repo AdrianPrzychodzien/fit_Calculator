@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import FormInput from '../util/FormInput/FormInput'
-import CustomButton from '../util/CustomButton/CustomButton'
-import ActivityInfo from '../components/ActivityInfo'
-import BodyFatInfo from '../components/BodyFatInfo'
-import { setData } from '../redux/actions'
+import FormInput from '../../util/FormInput/FormInput'
+import CustomButton from '../../util/CustomButton/CustomButton'
+import ActivityInfo from '../../components/Info/ActivityInfo/ActivityInfo'
+import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo'
+import { setData } from '../../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {

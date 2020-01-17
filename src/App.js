@@ -15,11 +15,11 @@ import SideBar from './components/SideBar/SideBar'
 import Backdrop from './util/Backdrop/Backdrop'
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
-import { setCurrentUser, setSidebarState } from './redux/actions'
+import { setCurrentUser } from './redux/actions'
 
 import './App.css'
 
-const App = ({ currentUser, setCurrentUser, sidebarOpen, setSidebarState }) => {
+const App = ({ currentUser, setCurrentUser, sidebarOpen }) => {
 
   useEffect(() => {
     let unsubscribeFromAuth = null
@@ -42,24 +42,12 @@ const App = ({ currentUser, setCurrentUser, sidebarOpen, setSidebarState }) => {
     return () => unsubscribeFromAuth()
   }, [setCurrentUser])
 
-  const handleToggleSideBar = () => {
-    setSidebarState(!sidebarOpen)
-  }
-
-  const handleBackdropClick = () => {
-    setSidebarState(false)
-  }
-
-  // TODO
-  // SIDEBAR TRANSITION
-  // SIDEBAR LINKS
-
   return (
     <div className="App">
       <Router>
-        <NavBar toggleSideBar={handleToggleSideBar} />
-        {sidebarOpen && <SideBar show={sidebarOpen} />}
-        {sidebarOpen && <Backdrop click={handleBackdropClick} />}
+        <NavBar />
+        <SideBar />
+        {sidebarOpen && <Backdrop />}
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/personalData' component={PersonalData} />
@@ -85,8 +73,7 @@ const mapStateToProps = ({ user, ui }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
-  setSidebarState: data => dispatch(setSidebarState(data))
+  setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
 export default connect(

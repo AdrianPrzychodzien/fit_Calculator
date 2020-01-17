@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import FatPercentageInfo from '../components/FatPercentageInfo'
-import FormInput from '../util/FormInput/FormInput'
-import CustomButton from '../util/CustomButton/CustomButton'
-import { setFatData, setFatPercentage } from '../redux/actions'
-import { bodyFatFormula } from '../util/equations'
+import FatPercentageInfo from '../../components/Info/FatPercentageInfo/FatPercentageInfo'
+import FormInput from '../../util/FormInput/FormInput'
+import CustomButton from '../../util/CustomButton/CustomButton'
+import { setFatData, setFatPercentage } from '../../redux/actions'
+import { bodyFatFormula } from '../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'

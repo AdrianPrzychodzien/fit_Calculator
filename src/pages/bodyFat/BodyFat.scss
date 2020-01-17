@@ -25,7 +25,8 @@
       margin: 1rem auto;
       text-align: center;
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: red;
         cursor: pointer;
       }

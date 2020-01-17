@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -8,22 +8,18 @@ import PersonalData from './pages/PersonalData'
 import Help from './pages/Help'
 import BodyFat from './pages/BodyFat'
 import SignInAndSignUp from './pages/SignInAndSignUp'
+import Bmi from './pages/Bmi'
 
 import NavBar from './components/NavBar/NavBar'
 import SideBar from './components/SideBar/SideBar'
 import Backdrop from './util/Backdrop/Backdrop'
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
-import { setCurrentUser } from './redux/actions'
+import { setCurrentUser, setSidebarState } from './redux/actions'
 
 import './App.css'
 
-const App = ({ currentUser, setCurrentUser }) => {
-  const [sideBar, setSideBar] = useState({
-    open: false
-  })
-
-  const { open } = sideBar
+const App = ({ currentUser, setCurrentUser, sidebarOpen, setSidebarState }) => {
 
   useEffect(() => {
     let unsubscribeFromAuth = null
@@ -47,13 +43,11 @@ const App = ({ currentUser, setCurrentUser }) => {
   }, [setCurrentUser])
 
   const handleToggleSideBar = () => {
-    setSideBar((prevState) => {
-      return { open: !prevState.open }
-    })
+    setSidebarState(!sidebarOpen)
   }
 
   const handleBackdropClick = () => {
-    setSideBar({ open: false })
+    setSidebarState(false)
   }
 
   // TODO
@@ -64,13 +58,14 @@ const App = ({ currentUser, setCurrentUser }) => {
     <div className="App">
       <Router>
         <NavBar toggleSideBar={handleToggleSideBar} />
-        {open && <SideBar show={open} />}
-        {open && <Backdrop click={handleBackdropClick} />}
+        {sidebarOpen && <SideBar show={sidebarOpen} />}
+        {sidebarOpen && <Backdrop click={handleBackdropClick} />}
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/personalData' component={PersonalData} />
           <Route exact path='/help' component={Help} />
           <Route exact path='/bodyFat' component={BodyFat} />
+          <Route exact path='/bmi' component={Bmi} />
           <Route exact path='/signin' render={() =>
             currentUser ? (
               <Redirect to='/' />
@@ -84,12 +79,14 @@ const App = ({ currentUser, setCurrentUser }) => {
   )
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = ({ user, ui }) => ({
+  currentUser: user.currentUser,
+  sidebarOpen: ui.sidebarOpen
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setSidebarState: data => dispatch(setSidebarState(data))
 })
 
 export default connect(

@@ -1,9 +1,9 @@
 .sidebar {
-  height: 100%;
-  background-color: white;
+  max-height: 480px;
+  background-color: #e2efff;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
   position: fixed;
-  top: 0;
+  top: 4rem;
   left: 0;
   width: 60%;
   max-width: 250px;
@@ -15,16 +15,17 @@
     transform: translate3d(0, 0, 0);
   }
 
-  ul {
+  &__nav {
     height: 100%;
     list-style: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 
   li {
-    font-size: 2rem;
-    margin: 4rem auto;
+    font-size: 1.2rem;
+    margin: 2rem auto;
   }
 }

@@ -17,7 +17,7 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
     waist: '',
     hip: '',
     neck: '',
-    open: true
+    open: false
   })
 
   const { waist, hip, neck, open } = userSize

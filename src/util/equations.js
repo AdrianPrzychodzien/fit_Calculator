@@ -16,12 +16,20 @@ export const rangeBMI = data => {
   } else if (18.5 < data && data <= 25) {
     result = 'Normal Weight'
   } else if (25 < data && data <= 30) {
-    result = 'OverWeight'
+    result = 'Overweight'
   } else {
     result = 'Obese'
   }
 
   return result
+}
+
+export const idealBMI = data => {
+  const height = data.height / 100
+  const resultMax = (25 * height * height).toFixed(1)
+  const resultMin = (18.5 * height * height).toFixed(1)
+
+  return [resultMin, resultMax]
 }
 
 export const maxHeartRate = data => {

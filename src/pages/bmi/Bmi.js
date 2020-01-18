@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { setFatData, setFatPercentage } from '../../redux/actions'
-import { calcBMI, rangeBMI, idealBMI } from '../../util/equations'
+import { calcBMI, rangeBMI, idealBMI, userBmiTip } from '../../util/equations'
 
 import CustomButton from '../../util/CustomButton/CustomButton'
 
@@ -19,6 +19,7 @@ const BodyFat = ({ userData, history }) => {
         <h4>which means you are classified as {rangeBMI(calcBMI(userData))}</h4>
         <hr />
         <h4>Healthy BMI range: {normalBMIMin}kg - {normalBMIMax}kg</h4>
+        <h4>{userBmiTip(userData)}</h4>
         <div className="input__range">
           <div className="description">
             <p>Underweight</p>
@@ -33,18 +34,15 @@ const BodyFat = ({ userData, history }) => {
         <h5>
           Please note that BMI is not the most
           accurate way to measure body weight.
-          <br />
-          <br />
+          <br /><br />
           It fails to take into account a person`s bone density,
           waist size, age, race and other important factors
           to determine obesity.
           <br />
-          <br />
           Trained athletes are at a great disadvantage:
           their excess muscle puts them at a higher BMI,
           so they may be considered obese.
-          <br />
-          <br />
+          <br /><br />
           For more accurate informations
           <br />
           <span onClick={() => history.push('bodyfat')} style={{ color: 'red' }}>

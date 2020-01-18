@@ -32,6 +32,28 @@ export const idealBMI = data => {
   return [resultMin, resultMax]
 }
 
+export const userBmiTip = data => {
+  const [normalBMIMin, normalBMIMax] = idealBMI(data)
+  let userBmiTip, top, bottom
+
+  if (rangeBMI(calcBMI(data)) === 'Normal Weight') {
+    top = normalBMIMax - data.weight
+    bottom = data.weight - normalBMIMin
+
+    userBmiTip = `You are ${bottom} kg above the lower limit and ${top} below upper limit`
+  } else if (rangeBMI(calcBMI(data)) === 'Overweight' || rangeBMI(calcBMI(data)) === 'Obese') {
+    bottom = data.weight - normalBMIMax
+
+    userBmiTip = `You are ${bottom} kg above the upper limit`
+  } else {
+    top = normalBMIMin - data.weight
+
+    userBmiTip = `You are ${top} kg under the lower limit`
+  }
+
+  return userBmiTip
+}
+
 export const maxHeartRate = data => {
   let result
   if (data.sex === 'Male') {

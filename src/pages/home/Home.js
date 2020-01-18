@@ -124,9 +124,11 @@ const Home = ({ currentUser, userData, history }) => {
                   <h4>Resting Metabolic Rate: </h4>
                 </div>
                 <div>
-                  {formula === 'MifflinStJeor' ?
-                    restingMifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
-                      restingHarrisBenedict(userData) : restingKatchMcardle(userData))} kcal
+                  <b>
+                    {formula === 'MifflinStJeor' ?
+                      restingMifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
+                        restingHarrisBenedict(userData) : restingKatchMcardle(userData))} kcal
+                  </b>
                 </div>
               </div>
 
@@ -138,9 +140,11 @@ const Home = ({ currentUser, userData, history }) => {
                   <h4>BMR:</h4>
                 </div>
                 <div>
-                  {formula === 'MifflinStJeor' ?
-                    MifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
-                      HarrisBenedict(userData) : KatchMcardle(userData))} kcal
+                  <b>
+                    {formula === 'MifflinStJeor' ?
+                      MifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
+                        HarrisBenedict(userData) : KatchMcardle(userData))} kcal
+                  </b>
                 </div>
               </div>
 
@@ -152,7 +156,9 @@ const Home = ({ currentUser, userData, history }) => {
                   <h4 onClick={() => history.push('/bmi')}>BMI:</h4>
                 </div>
                 <div>
-                  {calcBMI(userData)}, {rangeBMI(calcBMI(userData))}
+                  <b>
+                    {calcBMI(userData)}, {rangeBMI(calcBMI(userData))}
+                  </b>
                 </div>
               </div>
 
@@ -164,8 +170,9 @@ const Home = ({ currentUser, userData, history }) => {
                   <h4>Maximum Heart Rate: </h4>
                 </div>
                 <div>
-
-                  {maxHeartRate(userData)}
+                  <b>
+                    {maxHeartRate(userData)}
+                  </b>
                 </div>
               </div>
 
@@ -177,7 +184,9 @@ const Home = ({ currentUser, userData, history }) => {
                   <h4>Training Heart Rate: </h4>
                 </div>
                 <div>
-                  {trainingMin} - {trainingMax}
+                  <b>
+                    {trainingMin} - {trainingMax}
+                  </b>
                 </div>
               </div>
             </div>

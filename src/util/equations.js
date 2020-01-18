@@ -14,7 +14,7 @@ export const rangeBMI = data => {
   } else if (17 < data && data <= 18.5) {
     result = 'Mild Thinness'
   } else if (18.5 < data && data <= 25) {
-    result = 'Normal'
+    result = 'Normal Weight'
   } else if (25 < data && data <= 30) {
     result = 'OverWeight'
   } else {

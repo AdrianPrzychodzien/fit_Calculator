@@ -146,10 +146,10 @@ const Home = ({ currentUser, userData, history }) => {
 
               <div className="results__row">
                 <div className="results__row--title">
-                  <div className="results__row--icon">
+                  <div onClick={() => history.push('/bmi')} className="results__row--icon">
                     <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
                   </div>
-                  <h4>BMI:</h4>
+                  <h4 onClick={() => history.push('/bmi')}>BMI:</h4>
                 </div>
                 <div>
                   {calcBMI(userData)}, {rangeBMI(calcBMI(userData))}

@@ -88,11 +88,13 @@ export const KatchMcardle = data => {
 }
 
 export const restingMifflinStJeor = data => {
+  const { sex, weight, height, age } = data
   let result
-  if (data.sex === 'Male') {
-    result = (10 * data.weight) + (6.25 * data.height) - (5 * data.age) + 5
-  } else if (data.sex === 'Female') {
-    result = (10 * data.weight) + (6.25 * data.height) - (5 * data.age) - 161
+
+  if (sex === 'Male') {
+    result = (10 * weight) + (6.25 * height) - (5 * age) + 5
+  } else if (sex === 'Female') {
+    result = (10 * weight) + (6.25 * height) - (5 * age) - 161
   } else {
     alert('Choose your sex')
   }
@@ -170,14 +172,67 @@ export const activityLevelComment = data => {
   return result
 }
 
-export const bodyFatFormula = data => {
+export const idealBodyFatPercentage = data => {
+  const { sex, age } = data
   let result
-  if (data.sex === 'Male') {
-    // result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist - data.neck) + 0.22100 * Math.log10(data.height)) - 450
-    result = 495 / (1.0324 - 0.19077 * Math.log10(data.waist - data.neck) + 0.15456 * Math.log10(data.height)) - 450
-  } else if (data.sex === "Female") {
-    // result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist + data.hip - data.neck) + 0.22100 * Math.log10(data.height)) - 450
-    result = 495 / (1.29579 - 0.35004 * Math.log10(data.waist + data.hip - data.neck) + 0.22100 * Math.log10(data.height)) - 450
+
+  if (sex === 'Male') {
+    if (age < 20) {
+      result = 8.5
+    } else if (20 < age && age <= 25) {
+      result = 10.5
+    } else if (25 < age && age <= 30) {
+      result = 12.7
+    } else if (30 < age && age <= 35) {
+      result = 13.7
+    } else if (35 < age && age <= 40) {
+      result = 15.3
+    } else if (40 < age && age <= 45) {
+      result = 16.4
+    } else if (45 < age && age <= 50) {
+      result = 18.9
+    } else if (50 < age && age <= 55) {
+      result = 20.9
+    } else {
+      result = '21+'
+    }
+  }
+
+  if (sex === 'Female') {
+    if (age < 20) {
+      result = 17.7
+    } else if (20 < age && age <= 25) {
+      result = 18.4
+    } else if (25 < age && age <= 30) {
+      result = 19.3
+    } else if (30 < age && age <= 35) {
+      result = 21.5
+    } else if (35 < age && age <= 40) {
+      result = 22.2
+    } else if (40 < age && age <= 45) {
+      result = 22.9
+    } else if (45 < age && age <= 50) {
+      result = 25.5
+    } else if (50 < age && age <= 55) {
+      result = 26.3
+    } else {
+      result = '27+'
+    }
+  }
+
+  return result
+}
+
+export const bodyFatFormula = data => {
+  const { sex, waist, neck, height, hip } = data
+  let result
+
+  if (sex === 'Male') {
+    // result = 495 / (1.29579 - 0.35004 * Math.log10(waist - neck) + 0.22100 * Math.log10(height)) - 450
+    result = 495 / (1.0324 - 0.19077 * Math.log10(waist - neck) + 0.15456 * Math.log10(height)) - 450
+  } else if (sex === "Female") {
+    // result = 495 / (1.29579 - 0.35004 * Math.log10(waist + hip - neck) + 0.22100 * Math.log10(height)) - 450
+    result = 495 / (1.29579 - 0.35004 * Math.log10(waist + hip - neck) + 0.22100 * Math.log10(height)) - 450
   }
 
   return Math.round(result)

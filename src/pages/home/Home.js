@@ -47,165 +47,163 @@ const Home = ({ currentUser, userData, history }) => {
   }
 
   return (
-    <>
-      {currentUser ? (
-        <div className="homeContainer">
-          <h2 className="homeContainer__title">Hello {currentUser.displayName}</h2>
-          <hr />
+    currentUser ? (
+      <div className="homeContainer">
+        <h2 className="homeContainer__title">Hello {currentUser.displayName}</h2>
+        <hr />
 
-          {open ? (
-            <p className="homeContainer__description">
-              You are a <b>{userData.age}</b> year old <b>{(userData.sex).toLowerCase()}</b> who
+        {open ? (
+          <p className="homeContainer__description">
+            You are a <b>{userData.age}</b> year old <b>{(userData.sex).toLowerCase()}</b> who
                is <b>{userData.height}</b> cm tall and weights <b>{userData.weight}</b> kg
                 while <b>{activityLevelComment(userData.lifeActivity)}</b>
-            </p>
-          ) : (
-              <>
-                <p className="homeContainer__description">
-                  Add your personal data and choose one of the following
-                  two equations to calculate basic indicators
-                  (Resting Metabolic Rate, Body Mass Index,
+          </p>
+        ) : (
+            <>
+              <p className="homeContainer__description">
+                Add your personal data and choose one of the following
+                two equations to calculate basic indicators
+                (Resting Metabolic Rate, Body Mass Index,
                   Training Heart Rate or Heart Rate Max </p>
-                <div className="homeContainer__button">
-                  <CustomButton onClick={() => history.push('/personalData')}>Add personal data</CustomButton>
-                </div>
-                <br />
-              </>
-            )}
-
-          <div className="homeContainer__radio">
-            <div className="homeContainer__radio--field">
-              <label>Mifflin - St Jeor</label>
-              <input
-                type='radio'
-                name='formula'
-                value='MifflinStJeor'
-                checked={formula === 'MifflinStJeor'}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="homeContainer__radio--field">
-              <label>Harris Benedict</label>
-              <input
-                type='radio'
-                name='formula'
-                value='HarrisBenedict'
-                checked={formula === 'HarrisBenedict'}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="homeContainer__radio--field">
-              <label>Katch-Mcardle</label>
-              <input
-                type='radio'
-                name='formula'
-                value='KatchMcardle'
-                checked={formula === 'KatchMcardle'}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <hr />
-          <div className="homeContainer__button">
-            <CustomButton onClick={handleOpen}>Calculate</CustomButton>
-          </div>
-
-          {open && (
-            <div className="results">
-              <hr />
-              <div className="results__row">
-                <div className="results__row--title">
-                  <div className="results__row--icon">
-                    <FontAwesomeIcon icon={faBed} size="2x" />
-                  </div>
-                  <h4>Resting Metabolic Rate: </h4>
-                </div>
-                <div>
-                  <b>
-                    {formula === 'MifflinStJeor' ?
-                      restingMifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
-                        restingHarrisBenedict(userData) : restingKatchMcardle(userData))} kcal
-                  </b>
-                </div>
+              <div className="homeContainer__button">
+                <CustomButton onClick={() => history.push('/personalData')}>Add personal data</CustomButton>
               </div>
-
-              <div className="results__row">
-                <div className="results__row--title">
-                  <div className="results__row--icon">
-                    <FontAwesomeIcon icon={faUtensils} size="2x" />
-                  </div>
-                  <h4>BMR:</h4>
-                </div>
-                <div>
-                  <b>
-                    {formula === 'MifflinStJeor' ?
-                      MifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
-                        HarrisBenedict(userData) : KatchMcardle(userData))} kcal
-                  </b>
-                </div>
-              </div>
-
-              <div className="results__row">
-                <div className="results__row--title">
-                  <div onClick={() => history.push('/bmi')} className="results__row--icon">
-                    <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
-                  </div>
-                  <h4 onClick={() => history.push('/bmi')}>BMI:</h4>
-                </div>
-                <div>
-                  <b>
-                    {calcBMI(userData)}, {rangeBMI(calcBMI(userData))}
-                  </b>
-                </div>
-              </div>
-
-              <div className="results__row">
-                <div className="results__row--title">
-                  <div className="results__row--icon">
-                    <FontAwesomeIcon icon={faHeartbeat} size="2x" />
-                  </div>
-                  <h4>Maximum Heart Rate: </h4>
-                </div>
-                <div>
-                  <b>
-                    {maxHeartRate(userData)}
-                  </b>
-                </div>
-              </div>
-
-              <div className="results__row">
-                <div className="results__row--title">
-                  <div className="results__row--icon">
-                    <FontAwesomeIcon icon={faRunning} size="2x" />
-                  </div>
-                  <h4>Training Heart Rate: </h4>
-                </div>
-                <div>
-                  <b>
-                    {trainingMin} - {trainingMax}
-                  </b>
-                </div>
-              </div>
-            </div>
+              <br />
+            </>
           )}
+
+        <div className="homeContainer__radio">
+          <div className="homeContainer__radio--field">
+            <label>Mifflin - St Jeor</label>
+            <input
+              type='radio'
+              name='formula'
+              value='MifflinStJeor'
+              checked={formula === 'MifflinStJeor'}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="homeContainer__radio--field">
+            <label>Harris Benedict</label>
+            <input
+              type='radio'
+              name='formula'
+              value='HarrisBenedict'
+              checked={formula === 'HarrisBenedict'}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="homeContainer__radio--field">
+            <label>Katch-Mcardle</label>
+            <input
+              type='radio'
+              name='formula'
+              value='KatchMcardle'
+              checked={formula === 'KatchMcardle'}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
-      ) : (
-          <div className="homeContainer">
-            <br />
-            <h2 className="homeContainer__title">
-              Login in first, please!
-              </h2>
-            <br />
-            <br />
-            <div className="homeContainer__button">
-              <CustomButton onClick={() => history.push('/signin')}>Go TO LOGIN PAGE</CustomButton>
+        <hr />
+        <div className="homeContainer__button">
+          <CustomButton onClick={handleOpen}>Calculate</CustomButton>
+        </div>
+
+        {open && (
+          <div className="results">
+            <hr />
+            <div className="results__row">
+              <div className="results__row--title">
+                <div className="results__row--icon">
+                  <FontAwesomeIcon icon={faBed} size="2x" />
+                </div>
+                <h4>Resting Metabolic Rate: </h4>
+              </div>
+              <div>
+                <b>
+                  {formula === 'MifflinStJeor' ?
+                    restingMifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
+                      restingHarrisBenedict(userData) : restingKatchMcardle(userData))} kcal
+                  </b>
+              </div>
+            </div>
+
+            <div className="results__row">
+              <div className="results__row--title">
+                <div className="results__row--icon">
+                  <FontAwesomeIcon icon={faUtensils} size="2x" />
+                </div>
+                <h4>BMR:</h4>
+              </div>
+              <div>
+                <b>
+                  {formula === 'MifflinStJeor' ?
+                    MifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
+                      HarrisBenedict(userData) : KatchMcardle(userData))} kcal
+                  </b>
+              </div>
+            </div>
+
+            <div className="results__row">
+              <div className="results__row--title">
+                <div onClick={() => history.push('/bmi')} className="results__row--icon">
+                  <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
+                </div>
+                <h4 onClick={() => history.push('/bmi')}>BMI:</h4>
+              </div>
+              <div>
+                <b>
+                  {calcBMI(userData)}, {rangeBMI(calcBMI(userData))}
+                </b>
+              </div>
+            </div>
+
+            <div className="results__row">
+              <div className="results__row--title">
+                <div className="results__row--icon">
+                  <FontAwesomeIcon icon={faHeartbeat} size="2x" />
+                </div>
+                <h4>Maximum Heart Rate: </h4>
+              </div>
+              <div>
+                <b>
+                  {maxHeartRate(userData)}
+                </b>
+              </div>
+            </div>
+
+            <div className="results__row">
+              <div className="results__row--title">
+                <div className="results__row--icon">
+                  <FontAwesomeIcon icon={faRunning} size="2x" />
+                </div>
+                <h4>Training Heart Rate: </h4>
+              </div>
+              <div>
+                <b>
+                  {trainingMin} - {trainingMax}
+                </b>
+              </div>
             </div>
           </div>
         )}
-    </>
+      </div>
+    ) : (
+        <div className="homeContainer">
+          <br />
+          <h2 className="homeContainer__title">
+            Login in first, please!
+              </h2>
+          <br />
+          <br />
+          <div className="homeContainer__button">
+            <CustomButton onClick={() => history.push('/signin')}>Go TO LOGIN PAGE</CustomButton>
+          </div>
+        </div>
+      )
   )
 }
 

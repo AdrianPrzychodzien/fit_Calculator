@@ -5,7 +5,7 @@ import FatPercentageInfo from '../../components/Info/FatPercentageInfo/FatPercen
 import FormInput from '../../util/FormInput/FormInput'
 import CustomButton from '../../util/CustomButton/CustomButton'
 import { setFatData, setFatPercentage } from '../../redux/actions'
-import { bodyFatFormula } from '../../util/equations'
+import { bodyFatFormula, idealBodyFatPercentage } from '../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -21,6 +21,10 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
   })
 
   const { waist, hip, neck, open } = userSize
+  const bodyFat = bodyFatFormula(userData)
+  const bodyFatMass = (userData.weight * bodyFat) / 100
+  const leanBodyMass = userData.weight - bodyFatMass
+  const bodyFatToLose = (bodyFat - idealBodyFatPercentage(userData)).toFixed(1)
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -108,16 +112,25 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
 
         <hr />
         <div className="form__button">
-          <CustomButton type='submit' >CALCULATE</CustomButton>
+          <CustomButton
+            type='submit'
+          >CALCULATE</CustomButton>
         </div>
       </form>
       <hr />
 
       <div className="personalData__result">
         <h2 className="personalData__result--title">
-          Your body fat is {open && bodyFatFormula(userData)} %
+          Your body fat is {open && bodyFat} %
           {open && <FatPercentageInfo />}
         </h2>
+        <h4>Body fat mass: {open && bodyFatMass} kg</h4>
+        <h4>Lean body mass: {open && leanBodyMass} kg</h4>
+        <h4>Ideal body fat for given age: {open && idealBodyFatPercentage(userData)} %</h4>
+        <h4>
+          Body fat to lose to reach ideal:
+          {open && (bodyFatToLose > 0 ? bodyFatToLose : <span> 0</span>)} %
+        </h4>
         {open && <div onClick={handleUpdate} className="personalData__result--text">
           Update your data and go to home page
         </div>}

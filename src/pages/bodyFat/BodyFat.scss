@@ -22,8 +22,9 @@
 
   &__result {
     &--title {
-      text-align: center;
-      margin: 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
     }
 
     &--text {
@@ -35,6 +36,10 @@
         color: red;
         cursor: pointer;
       }
+    }
+
+    &--icon {
+      color: rgb(0, 56, 160);
     }
   }
 

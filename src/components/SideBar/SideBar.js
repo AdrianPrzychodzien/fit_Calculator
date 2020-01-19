@@ -73,7 +73,7 @@ const SideBar = ({ sidebarOpen, setSidebarState }) => {
         </Link>
         <hr />
 
-        <Link to="/bmr"
+        <Link to="/calories"
           className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
           onClick={() => setSidebarState(false)}
         >
@@ -81,7 +81,7 @@ const SideBar = ({ sidebarOpen, setSidebarState }) => {
             <FontAwesomeIcon icon={faUtensils} size="2x" />
           </div>
           <div className="nav--link">
-            BMR
+            Calories
           </div>
         </Link>
 

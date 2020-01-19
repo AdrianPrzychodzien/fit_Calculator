@@ -5,7 +5,7 @@ import FormInput from '../../util/FormInput/FormInput'
 import CustomButton from '../../util/CustomButton/CustomButton'
 import ActivityInfo from '../../components/Info/ActivityInfo/ActivityInfo'
 import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo'
-import { setData } from '../../redux/actions'
+import { setData, setFatPercentage } from '../../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -26,19 +26,24 @@ const PersonalData = ({ setData, currentUser, history }) => {
     weight: JSON.parse(localStorage.userData).weight || '',
     age: JSON.parse(localStorage.userData).age || '',
     sex: JSON.parse(localStorage.userData).sex || '',
-    lifeActivity: JSON.parse(localStorage.userData).lifeActivity || 1,
-    fat: JSON.parse(localStorage.userData).fat || ''
+    lifeActivity: JSON.parse(localStorage.userData).lifeActivity || 1
+  })
+
+  const [userFatData, setUserFatData] = useState({
+    fat: localStorage.getItem('userFatData') || ''
   })
 
   useEffect(() => {
     localStorage.setItem('userData', JSON.stringify(userData))
   }, [userData])
 
-  const { height, weight, age, sex, lifeActivity, fat } = userData
+  const { height, weight, age, sex, lifeActivity } = userData
+  const { fat } = userFatData
 
   const handleChange = e => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
+    setUserFatData({ [name]: value })
   }
 
   const handleSubmit = e => {
@@ -48,6 +53,13 @@ const PersonalData = ({ setData, currentUser, history }) => {
       userData,
       userId: currentUser.id
     })
+
+    setFatPercentage({
+      fatPercentage: userFatData,
+      userId: currentUser.id
+    })
+
+    localStorage.setItem('userFatData', fat)
 
     history.push('/')
   }
@@ -188,7 +200,8 @@ const mapStateToProps = ({ user }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setData: data => dispatch(setData(data))
+  setData: data => dispatch(setData(data)),
+  setFatPercentage: data => dispatch(setFatPercentage(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonalData)

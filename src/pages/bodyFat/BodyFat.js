@@ -22,6 +22,7 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
 
   useEffect(() => {
     localStorage.setItem('userSize', JSON.stringify(userSize))
+    localStorage.setItem('userFatData', bodyFatFormula(userSize, userData))
   }, [userSize])
 
   const { waist, hip, neck, open } = userSize

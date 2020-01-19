@@ -23,7 +23,6 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         age: action.payload.userData.age,
         sex: action.payload.userData.sex,
         lifeActivity: action.payload.userData.lifeActivity,
-        fat: action.payload.userData.fat,
         userId: action.payload.userId
       }
     case DataActionTypes.SET_FAT_DATA:

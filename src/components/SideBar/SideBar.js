@@ -10,7 +10,8 @@ import {
   faHome,
   faPlus,
   faBalanceScaleRight,
-  faPercentage
+  faPercentage,
+  faUtensils
 } from '@fortawesome/free-solid-svg-icons'
 
 import './SideBar.scss'
@@ -70,6 +71,20 @@ const SideBar = ({ sidebarOpen, setSidebarState }) => {
             BMI
           </div>
         </Link>
+        <hr />
+
+        <Link to="/bmr"
+          className={sidebarOpen ? 'sidebar__nav--item open' : 'sidebar__nav--item'}
+          onClick={() => setSidebarState(false)}
+        >
+          <div className="nav--icon">
+            <FontAwesomeIcon icon={faUtensils} size="2x" />
+          </div>
+          <div className="nav--link">
+            BMR
+          </div>
+        </Link>
+
       </div>
     </div>
   )

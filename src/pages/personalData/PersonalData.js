@@ -125,7 +125,7 @@ const PersonalData = ({ setData, currentUser, history }) => {
             <FormInput
               type='number'
               name='fat'
-              value={fat}
+              value={fat || ''}
               onChange={handleChange}
               label='Body Fat %'
             />

@@ -29,7 +29,7 @@
       display: flex;
       align-items: center;
       float: left;
-      padding: 1.5rem 0;
+      padding: 1.3rem 0;
       margin: 0 auto;
       color: blue;
 
@@ -62,7 +62,7 @@
 }
 
 // Delay each nav items slide by 0.1s
-@for $x from 1 through 8 {
+@for $x from 1 through 10 {
   .sidebar__nav--item:nth-child(#{$x}) {
     transition-delay: $x * 0.1s;
   }

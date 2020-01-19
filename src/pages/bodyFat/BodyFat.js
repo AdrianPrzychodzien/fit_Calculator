@@ -35,7 +35,7 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
   const handleSubmit = e => {
     e.preventDefault()
 
-    setUserSize({ ...userSize, open: !open })
+    setUserSize({ ...userSize, open: true })
 
     setFatData({
       userSize,
@@ -110,26 +110,31 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
       </form>
       <hr />
 
-      <div className="personalData__result">
-        <h2 className="personalData__result--title">
-          Your body fat is {open && bodyFat} %
-          {open && <FatPercentageInfo />}
-        </h2>
-        <h4>Body fat mass: {open && bodyFatMass} kg</h4>
-        <h4>Lean body mass: {open && leanBodyMass} kg</h4>
-        <h4>Ideal body fat for given age: {open && idealBodyFatPercentage(userData)} %</h4>
-        <h4>
-          Body fat to lose to reach ideal:
-          {open && (bodyFatToLose > 0 ? bodyFatToLose : <span> 0</span>)} %
-        </h4>
-        {open && (
+      {open && bodyFat > 0 ? (
+        <div className="personalData__result">
+          <h2 className="personalData__result--title">
+            Your body fat is {bodyFat} %
+          <FatPercentageInfo />
+          </h2>
+          <h4>Body fat mass: {bodyFatMass} kg</h4>
+          <h4>Lean body mass: {leanBodyMass} kg</h4>
+          <h4>Ideal body fat for given age: {idealBodyFatPercentage(userData)} %</h4>
+
+          {bodyFatToLose > 0 ? (
+            <h4>Body fat to lose to reach ideal: {bodyFatToLose} %</h4>) : (
+              <h4>You are below ideal fat percentage!</h4>)}
+
           <div className="form__button">
             <CustomButton onClick={() => history.push('/')}>
               go to home page
             </CustomButton>
           </div>
+        </div>
+      ) : (open &&
+        <div className="personalData__warning">
+          Make sure you entered your measurements correctly!
+        </div>
         )}
-      </div>
     </div>
   )
 }

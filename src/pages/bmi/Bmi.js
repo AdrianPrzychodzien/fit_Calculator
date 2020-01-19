@@ -17,7 +17,6 @@ const BodyFat = ({ userData, history }) => {
   // BMR PAGE - calories, maintenance kcal & kcal on different activity level
   //          - ideal weight?
   // Macronutrients table 
-  // Body fat page calculate button (setting fat state)
 
   if (height && weight && age && sex && lifeActivity && fat) {
     return (

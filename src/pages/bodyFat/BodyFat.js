@@ -21,7 +21,8 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
   })
 
   const { waist, hip, neck, open } = userSize
-  const bodyFat = bodyFatFormula(userData)
+
+  const bodyFat = bodyFatFormula(userSize, userData)
   const bodyFatMass = (userData.weight * bodyFat) / 100
   const leanBodyMass = userData.weight - bodyFatMass
   const bodyFatToLose = (bodyFat - idealBodyFatPercentage(userData)).toFixed(1)
@@ -34,27 +35,17 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
   const handleSubmit = e => {
     e.preventDefault()
 
+    setUserSize({ ...userSize, open: !open })
+
     setFatData({
       userSize,
       userId: currentUser.id
     })
 
-    setUserSize({ ...userSize, open: !open })
-    // setUserSize({
-    //   waist: '',
-    //   hip: '',
-    //   neck: '',
-    //   open
-    // })
-  }
-
-  const handleUpdate = () => {
     setFatPercentage({
-      fatPercentage: bodyFatFormula(userData),
+      fatPercentage: bodyFat,
       userId: currentUser.id
     })
-
-    history.push('/')
   }
 
   return (
@@ -131,9 +122,13 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
           Body fat to lose to reach ideal:
           {open && (bodyFatToLose > 0 ? bodyFatToLose : <span> 0</span>)} %
         </h4>
-        {open && <div onClick={handleUpdate} className="personalData__result--text">
-          Update your data and go to home page
-        </div>}
+        {open && (
+          <div className="form__button">
+            <CustomButton onClick={() => history.push('/')}>
+              go to home page
+            </CustomButton>
+          </div>
+        )}
       </div>
     </div>
   )

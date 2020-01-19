@@ -35,6 +35,7 @@ const Home = ({ currentUser, userData, history }) => {
   })
 
   const { formula, open } = data
+  const { weight, height, age, sex, lifeActivity, fat } = userData
   const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData))
 
   const handleChange = e => {
@@ -46,13 +47,13 @@ const Home = ({ currentUser, userData, history }) => {
     setData({ ...data, open: true })
   }
 
-  return (
-    currentUser ? (
+  if (currentUser) {
+    return (
       <div className="homeContainer">
         <h2 className="homeContainer__title">Hello {currentUser.displayName}</h2>
         <hr />
 
-        {open ? (
+        {(open && weight && height && age && sex && lifeActivity) ? (
           <p className="homeContainer__description">
             You are a <b>{userData.age}</b> year old <b>{(userData.sex).toLowerCase()}</b> who
                is <b>{userData.height}</b> cm tall and weights <b>{userData.weight}</b> kg
@@ -112,9 +113,15 @@ const Home = ({ currentUser, userData, history }) => {
           <CustomButton onClick={handleOpen}>Calculate</CustomButton>
         </div>
 
-        {open && (
+        {(open && weight && height && age && sex && lifeActivity) ? (
           <div className="results">
             <hr />
+            {formula === 'KatchMcardle' && !fat && (
+              <div className="homeContainer__warning">
+                Katch-Mcardle BMR calculator needs body fat percentage data.
+                Add them <span onClick={() => history.push('/bodyFat')}>HERE</span>
+              </div>
+            )}
             <div className="results__row">
               <div className="results__row--title">
                 <div className="results__row--icon">
@@ -122,12 +129,13 @@ const Home = ({ currentUser, userData, history }) => {
                 </div>
                 <h4>Resting Metabolic Rate: </h4>
               </div>
-              <div>
-                <b>
-                  {formula === 'MifflinStJeor' ?
-                    restingMifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
-                      restingHarrisBenedict(userData) : restingKatchMcardle(userData))} kcal
-                  </b>
+              <div className="results__row--kcal">
+                {formula === 'MifflinStJeor' ?
+                  restingMifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
+                    restingHarrisBenedict(userData) : (
+                      fat ? restingKatchMcardle(userData) :
+                        (<div style={{ color: 'red' }}>no data</div>)))}
+                {fat ? <p> kcal</p> : null}
               </div>
             </div>
 
@@ -138,12 +146,13 @@ const Home = ({ currentUser, userData, history }) => {
                 </div>
                 <h4>BMR:</h4>
               </div>
-              <div>
-                <b>
-                  {formula === 'MifflinStJeor' ?
-                    MifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
-                      HarrisBenedict(userData) : KatchMcardle(userData))} kcal
-                  </b>
+              <div className="results__row--kcal">
+                {formula === 'MifflinStJeor' ?
+                  MifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
+                    HarrisBenedict(userData) : (
+                      fat ? KatchMcardle(userData) :
+                        (<div style={{ color: 'red' }}>no data</div>)))}
+                {fat ? <p> kcal</p> : null}
               </div>
             </div>
 
@@ -189,22 +198,31 @@ const Home = ({ currentUser, userData, history }) => {
               </div>
             </div>
           </div>
-        )}
+        ) : (
+            open && (
+              <div className="homeContainer__warning">
+                Complete data first!
+            </div>
+            )
+          )
+        }
       </div>
-    ) : (
-        <div className="homeContainer">
-          <br />
-          <h2 className="homeContainer__title">
-            Login in first, please!
+    )
+  } else {
+    return (
+      <div className="homeContainer">
+        <br />
+        <h2 className="homeContainer__title">
+          Login in first, please!
               </h2>
-          <br />
-          <br />
-          <div className="homeContainer__button">
-            <CustomButton onClick={() => history.push('/signin')}>Go TO LOGIN PAGE</CustomButton>
-          </div>
+        <br />
+        <br />
+        <div className="homeContainer__button">
+          <CustomButton onClick={() => history.push('/signin')}>Go TO LOGIN PAGE</CustomButton>
         </div>
-      )
-  )
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = ({ user, data }) => ({

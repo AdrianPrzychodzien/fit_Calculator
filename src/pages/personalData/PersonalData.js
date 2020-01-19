@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import FormInput from '../../util/FormInput/FormInput'
@@ -22,13 +22,17 @@ import './PersonalData.scss'
 
 const PersonalData = ({ setData, currentUser, history }) => {
   const [userData, setUserData] = useState({
-    height: '',
-    weight: '',
-    age: '',
-    sex: '',
-    lifeActivity: 1,
-    fat: ''
+    height: JSON.parse(localStorage.userData).height || '',
+    weight: JSON.parse(localStorage.userData).weight || '',
+    age: JSON.parse(localStorage.userData).age || '',
+    sex: JSON.parse(localStorage.userData).sex || '',
+    lifeActivity: JSON.parse(localStorage.userData).lifeActivity || 1,
+    fat: JSON.parse(localStorage.userData).fat || ''
   })
+
+  useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify(userData))
+  }, [userData])
 
   const { height, weight, age, sex, lifeActivity, fat } = userData
 
@@ -43,15 +47,6 @@ const PersonalData = ({ setData, currentUser, history }) => {
     setData({
       userData,
       userId: currentUser.id
-    })
-
-    setUserData({
-      // height: '',
-      // weight: '',
-      // age: '',
-      // sex: '',
-      // lifeActivity: 1,
-      // fat: ''
     })
 
     history.push('/')

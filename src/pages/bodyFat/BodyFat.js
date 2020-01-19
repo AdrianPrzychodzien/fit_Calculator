@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import FatPercentageInfo from '../../components/Info/FatPercentageInfo/FatPercentageInfo'
@@ -14,11 +14,15 @@ import './BodyFat.scss'
 
 const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history }) => {
   const [userSize, setUserSize] = useState({
-    waist: '',
-    hip: '',
-    neck: '',
+    waist: JSON.parse(localStorage.userSize).waist || '',
+    hip: JSON.parse(localStorage.userSize).hip || '',
+    neck: JSON.parse(localStorage.userSize).neck || '',
     open: false
   })
+
+  useEffect(() => {
+    localStorage.setItem('userSize', JSON.stringify(userSize))
+  }, [userSize])
 
   const { waist, hip, neck, open } = userSize
 

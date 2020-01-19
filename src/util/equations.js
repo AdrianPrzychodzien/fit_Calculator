@@ -223,8 +223,9 @@ export const idealBodyFatPercentage = data => {
   return result
 }
 
-export const bodyFatFormula = data => {
-  const { sex, waist, neck, height, hip } = data
+export const bodyFatFormula = (fatData, userData) => {
+  const { waist, neck, hip } = fatData
+  const { sex, height } = userData
   let result
 
   if (sex === 'Male') {

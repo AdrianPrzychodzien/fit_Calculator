@@ -12,6 +12,13 @@ const BodyFat = ({ userData, history }) => {
   const { height, weight, age, sex, lifeActivity, fat } = userData
   const [normalBMIMin, normalBMIMax] = idealBMI(userData)
 
+
+  // TO DO
+  // BMR PAGE - calories, maintenance kcal & kcal on different activity level
+  //          - ideal weight?
+  // Macronutrients table 
+  // Body fat page calculate button (setting fat state)
+
   if (height && weight && age && sex && lifeActivity && fat) {
     return (
       <div className="bmi">

@@ -26,6 +26,12 @@
     width: 90%;
     padding: 1px;
   }
+
+  &__button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .input__range {

@@ -122,7 +122,7 @@ export const restingKatchMcardle = data => {
   return BMR
 }
 
-const activityLevel = data => {
+export const activityLevel = data => {
   let result
   switch (data) {
     case 1:

@@ -2,32 +2,37 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { setFatData, setFatPercentage } from '../../redux/actions'
-import { calcBMI } from '../../util/equations'
+import { MifflinStJeor } from '../../util/equations'
 
+import ActivityCaloriesInfo from '../../components/Info/ActivityCaloriesInfo/ActivityCaloriesInfo'
 import CustomButton from '../../util/CustomButton/CustomButton'
 
-import './Bmr.scss'
+import './Calories.scss'
 
-const BasalMetabolicRate = ({ userData, history }) => {
+const Calories = ({ userData, history }) => {
   const { height, weight, age, sex, lifeActivity, fat } = userData
 
 
   if (height && weight && age && sex && lifeActivity && fat) {
     return (
-      <div className="bmr">
-        <h2 className="bmr__title">BMR Score: {calcBMI(userData)} %</h2>
+      <div className="calories">
+        <h2 className="calories__title">Caloric needs: {MifflinStJeor(userData)} kcal</h2>
         <h4>Based on your stats, the best estimate for your maintenance calories
            is 3,577 calories per day based on the Mifflin-St Jeor Formula</h4>
         <hr />
+        <h4 className="calories__text">
+          Calories intake on a different activity level
+          <ActivityCaloriesInfo />
+        </h4>
       </div>
     )
   } else
     return (
-      <div className="bmr">
-        <h2 className="bmr__title">
+      <div className="calories">
+        <h2 className="calories__title">
           Complete informations about yourself first
       </h2>
-        <div className="bmr__button">
+        <div className="calories__button">
           <CustomButton
             onClick={() => history.push('./personalData')}
           >
@@ -48,4 +53,4 @@ const mapDispatchToProps = dispatch => ({
   setFatPercentage: data => dispatch(setFatPercentage(data))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(BasalMetabolicRate)
+export default connect(mapStateToProps, mapDispatchToProps)(Calories)

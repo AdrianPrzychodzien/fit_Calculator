@@ -119,7 +119,9 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
         <div className="personalData__result">
           <h2 className="personalData__result--title">
             Your body fat is {bodyFat} %
-          <FatPercentageInfo />
+            <div className="personalData__result--icon">
+              <FatPercentageInfo />
+            </div>
           </h2>
           <h4>Body fat mass: {bodyFatMass} kg</h4>
           <h4>Lean body mass: {leanBodyMass} kg</h4>

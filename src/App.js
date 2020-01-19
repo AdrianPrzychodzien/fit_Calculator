@@ -9,7 +9,7 @@ import Help from './pages/help/Help'
 import BodyFat from './pages/bodyFat/BodyFat'
 import SignInAndSignUp from './pages/signInAndSignUp/SignInAndSignUp'
 import Bmi from './pages/bmi/Bmi'
-import Bmr from './pages/bmr/Bmr'
+import Calories from './pages/calories/Calories'
 
 import NavBar from './components/NavBar/NavBar'
 import SideBar from './components/SideBar/SideBar'
@@ -55,7 +55,7 @@ const App = ({ currentUser, setCurrentUser, sidebarOpen }) => {
           <Route exact path='/help' component={Help} />
           <Route exact path='/bodyFat' component={BodyFat} />
           <Route exact path='/bmi' component={Bmi} />
-          <Route exact path='/bmr' component={Bmr} />
+          <Route exact path='/calories' component={Calories} />
           <Route exact path='/signin' render={() =>
             currentUser ? (
               <Redirect to='/' />

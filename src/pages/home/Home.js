@@ -144,7 +144,7 @@ const Home = ({ currentUser, userData, history }) => {
                 <div className="results__row--icon">
                   <FontAwesomeIcon icon={faUtensils} size="2x" />
                 </div>
-                <h4>BMR:</h4>
+                <h4 onClick={() => history.push('/calories')}>Caloric needs:</h4>
               </div>
               <div className="results__row--kcal">
                 {formula === 'MifflinStJeor' ?

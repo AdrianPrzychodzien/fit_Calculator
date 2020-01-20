@@ -1,3 +1,6 @@
+//
+// BMI equations
+//
 export const calcBMI = data => {
   const height = data.height / 100
   const result = (data.weight / (height * height)).toFixed(2)
@@ -54,6 +57,9 @@ export const userBmiTip = data => {
   return userBmiTip
 }
 
+//
+// Heart Rate equations
+//
 export const maxHeartRate = data => {
   let result
   if (data.sex === 'Male') {
@@ -72,6 +78,9 @@ export const trainingHeartRate = max => {
   return [resultMin, resultMax]
 }
 
+//
+// BMR & Resting Metabolic Age equations
+//
 export const MifflinStJeor = data => {
   let output = Math.round(restingMifflinStJeor(data) * activityLevel(data.lifeActivity))
   return output
@@ -122,6 +131,9 @@ export const restingKatchMcardle = data => {
   return BMR
 }
 
+// 
+// Activity level equations
+//
 export const activityLevel = data => {
   let result
   switch (data) {
@@ -172,6 +184,9 @@ export const activityLevelComment = data => {
   return result
 }
 
+//
+// Body Fat equations
+//
 export const idealBodyFatPercentage = data => {
   const { sex, age } = data
   let result
@@ -237,4 +252,31 @@ export const bodyFatFormula = (fatData, userData) => {
   }
 
   return Math.round(result)
+}
+
+//
+// Macronutrients equations
+//
+export const ModerateCarb = data => {
+  const protein = Math.round((data * 0.3) / 4)
+  const carbs = Math.round((data * 0.35) / 4)
+  const fats = Math.round((data * 0.35) / 9)
+
+  return [protein, carbs, fats]
+}
+
+export const LowCarb = data => {
+  const protein = Math.round((data * 0.4) / 4)
+  const carbs = Math.round((data * 0.2) / 4)
+  const fats = Math.round((data * 0.4) / 9)
+
+  return [protein, carbs, fats]
+}
+
+export const HighCarb = data => {
+  const protein = Math.round((data * 0.3) / 4)
+  const carbs = Math.round((data * 0.5) / 4)
+  const fats = Math.round((data * 0.2) / 9)
+
+  return [protein, carbs, fats]
 }

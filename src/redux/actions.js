@@ -26,3 +26,8 @@ export const setSidebarState = data => ({
   type: UiActionTypes.SET_SIDEBAR_STATE,
   payload: data
 })
+
+export const setFormula = data => ({
+  type: DataActionTypes.SET_FORMULA,
+  payload: data
+})

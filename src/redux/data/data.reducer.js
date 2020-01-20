@@ -10,7 +10,8 @@ const INITIAL_STATE = {
   waist: '',
   hip: '',
   neck: '',
-  userId: ''
+  userId: '',
+  formula: ''
 }
 
 const dataReducer = (state = INITIAL_STATE, action) => {
@@ -38,6 +39,11 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         ...state,
         fat: action.payload.fatPercentage,
         userId: action.payload.userId
+      }
+    case DataActionTypes.SET_FORMULA:
+      return {
+        ...state,
+        formula: action.payload.formula
       }
     default:
       return state

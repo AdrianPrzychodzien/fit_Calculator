@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import CustomButton from '../../util/CustomButton/CustomButton'
 
+import { setFormula } from '../../redux/actions'
+
 import {
   activityLevelComment,
   calcBMI,
@@ -28,15 +30,18 @@ import {
 
 import './Home.scss'
 
-const Home = ({ currentUser, userData, history }) => {
+const Home = ({ currentUser, userData, setFormula, history }) => {
   const [data, setData] = useState({
-    formula: 'MifflinStJeor',
+    localFormula: '',
     open: false
   })
 
-  const { formula, open } = data
-  const { weight, height, age, sex, lifeActivity, fat } = userData
+  const { localFormula, open } = data
+  const { weight, height, age, sex, lifeActivity, fat, formula } = userData
   const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData))
+
+  console.log(localFormula);
+  console.log(formula);
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -44,6 +49,9 @@ const Home = ({ currentUser, userData, history }) => {
   }
 
   const handleOpen = () => {
+    setFormula({
+      formula: localFormula
+    })
     setData({ ...data, open: true })
   }
 
@@ -63,7 +71,7 @@ const Home = ({ currentUser, userData, history }) => {
             <>
               <p className="homeContainer__description">
                 Add your personal data and choose one of the following
-                two equations to calculate basic indicators
+                three equations to calculate basic indicators
                 (Resting Metabolic Rate, Body Mass Index,
                   Training Heart Rate or Heart Rate Max </p>
               <div className="homeContainer__button">
@@ -78,9 +86,9 @@ const Home = ({ currentUser, userData, history }) => {
             <label>Mifflin - St Jeor</label>
             <input
               type='radio'
-              name='formula'
+              name='localFormula'
               value='MifflinStJeor'
-              checked={formula === 'MifflinStJeor'}
+              checked={localFormula === 'MifflinStJeor'}
               onChange={handleChange}
               required
             />
@@ -89,9 +97,9 @@ const Home = ({ currentUser, userData, history }) => {
             <label>Harris Benedict</label>
             <input
               type='radio'
-              name='formula'
+              name='localFormula'
               value='HarrisBenedict'
-              checked={formula === 'HarrisBenedict'}
+              checked={localFormula === 'HarrisBenedict'}
               onChange={handleChange}
               required
             />
@@ -100,9 +108,9 @@ const Home = ({ currentUser, userData, history }) => {
             <label>Katch-Mcardle</label>
             <input
               type='radio'
-              name='formula'
+              name='localFormula'
               value='KatchMcardle'
-              checked={formula === 'KatchMcardle'}
+              checked={localFormula === 'KatchMcardle'}
               onChange={handleChange}
               required
             />
@@ -110,7 +118,7 @@ const Home = ({ currentUser, userData, history }) => {
         </div>
         <hr />
         <div className="homeContainer__button">
-          <CustomButton onClick={handleOpen}>Calculate</CustomButton>
+          {localFormula && <CustomButton onClick={handleOpen}>Calculate</CustomButton>}
         </div>
 
         {(open && weight && height && age && sex && lifeActivity) ? (
@@ -230,4 +238,8 @@ const mapStateToProps = ({ user, data }) => ({
   userData: data
 })
 
-export default connect(mapStateToProps)(Home)
+const mapDispatchToProps = dispatch => ({
+  setFormula: data => dispatch(setFormula(data))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -7,13 +7,26 @@
     margin: 0.4rem;
   }
 
-  &__passwordGroup {
-    display: flex;
-    justify-content: space-between;
+  &__password--1,
+  &__password--2 {
+    display: inline-block;
+    max-width: 49%;
+    margin-top: -1rem;
+  }
 
-    &--1,
-    &--2 {
-      max-width: 49%;
-    }
+  &__password--1 {
+    margin-right: 6px;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__errors {
+    color: red;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
   }
 }

@@ -26,7 +26,7 @@ const PersonalData = ({ setData, currentUser, history }) => {
     localUserData = '' : localUserData = JSON.parse(localStorage.getItem('userData'))
 
   let localUserFatData
-  isNaN(localStorage.getItem('userFatData')) ?
+  localStorage.getItem('userFatData') === undefined ?
     localUserFatData = '' : localUserFatData = localStorage.getItem('userFatData')
 
   const [userData, setUserData] = useState({
@@ -38,16 +38,16 @@ const PersonalData = ({ setData, currentUser, history }) => {
   })
 
   const [userFatData, setUserFatData] = useState({
-    fat: localUserFatData || ''
+    fat: localUserFatData || localStorage.getItem('userFatData')
   })
-
-  useEffect(() => {
-    localStorage.setItem('userData', JSON.stringify(userData))
-  }, [userData])
 
   const { height, weight, age, sex, lifeActivity } = userData
   const { fat } = userFatData
-  console.log(fat);
+
+  useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify(userData))
+    localStorage.setItem('userFatData', fat)
+  }, [userData, fat])
 
   const handleChange = e => {
     const { name, value } = e.target

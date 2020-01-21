@@ -12,7 +12,12 @@ const SignIn = () => {
     password: ''
   })
 
+  const [error, setError] = useState({
+    errors: ''
+  })
+
   const { email, password } = userCredentials
+  const { errors } = error
 
   const handleChange = e => {
     const { value, name } = e.target
@@ -27,7 +32,8 @@ const SignIn = () => {
       await auth.signInWithEmailAndPassword(email, password)
       setUserCredentials({ email: '', password: '' })
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      setError({ errors: error.message })
     }
   }
 
@@ -53,6 +59,7 @@ const SignIn = () => {
           label='password'
           required
         />
+        {errors && <div className="signup__errors">{errors}</div>}
         <div className="signin__buttons">
           <CustomButton type='submit'>Sign In</CustomButton>
           <CustomButton

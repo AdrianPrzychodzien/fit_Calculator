@@ -21,16 +21,23 @@ import { Rating } from '@material-ui/lab'
 import './PersonalData.scss'
 
 const PersonalData = ({ setData, currentUser, history }) => {
+  let localUserData
+  JSON.parse(localStorage.getItem('userData')) === null ?
+    localUserData = '' : localUserData = JSON.parse(localStorage.getItem('userData'))
+
+  let localUserFatData
+  isNaN(localStorage.getItem('userFatData')) && (localUserFatData = '')
+
   const [userData, setUserData] = useState({
-    height: JSON.parse(localStorage.userData).height || '',
-    weight: JSON.parse(localStorage.userData).weight || '',
-    age: JSON.parse(localStorage.userData).age || '',
-    sex: JSON.parse(localStorage.userData).sex || '',
-    lifeActivity: JSON.parse(localStorage.userData).lifeActivity || 1
+    height: localUserData.height || '',
+    weight: localUserData.weight || '',
+    age: localUserData.age || '',
+    sex: localUserData.sex || '',
+    lifeActivity: localUserData.lifeActivity || 1
   })
 
   const [userFatData, setUserFatData] = useState({
-    fat: localStorage.getItem('userFatData') || ''
+    fat: localUserFatData || ''
   })
 
   useEffect(() => {
@@ -39,6 +46,7 @@ const PersonalData = ({ setData, currentUser, history }) => {
 
   const { height, weight, age, sex, lifeActivity } = userData
   const { fat } = userFatData
+  console.log(fat);
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -174,7 +182,7 @@ const PersonalData = ({ setData, currentUser, history }) => {
           <h2>Life activity: </h2>
           <Rating
             size="large"
-            name="life activity"
+            name="lifeActivity"
             value={lifeActivity}
             onChange={(event, newValue) => {
               setUserData({ ...userData, lifeActivity: newValue })

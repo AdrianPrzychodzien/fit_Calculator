@@ -13,10 +13,14 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import './BodyFat.scss'
 
 const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history }) => {
+  let localUserSize
+  JSON.parse(localStorage.getItem('userSize')) === null ?
+    localUserSize = '' : localUserSize = JSON.parse(localStorage.getItem('userSize'))
+
   const [userSize, setUserSize] = useState({
-    waist: JSON.parse(localStorage.userSize).waist || '',
-    hip: JSON.parse(localStorage.userSize).hip || '',
-    neck: JSON.parse(localStorage.userSize).neck || '',
+    waist: localUserSize.waist || '',
+    hip: localUserSize.hip || '',
+    neck: localUserSize.neck || '',
     open: false
   })
 
@@ -26,6 +30,7 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
   }, [userSize, userData])
 
   const { waist, hip, neck, open } = userSize
+  const { sex, height } = userData
 
   const bodyFat = bodyFatFormula(userSize, userData)
   const bodyFatMass = (userData.weight * bodyFat) / 100
@@ -40,8 +45,6 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
   const handleSubmit = e => {
     e.preventDefault()
 
-    setUserSize({ ...userSize, open: true })
-
     setFatData({
       userSize,
       userId: currentUser.id
@@ -51,6 +54,8 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
       fatPercentage: bodyFat,
       userId: currentUser.id
     })
+
+    setUserSize({ ...userSize, open: true })
   }
 
   return (
@@ -115,32 +120,46 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
       </form>
       <hr />
 
-      {open && bodyFat > 0 ? (
-        <div className="personalData__result">
-          <h2 className="personalData__result--title">
-            Your body fat is {bodyFat} %
+      {sex && height ? (
+        open && bodyFat > 0 ? (
+          <div className="personalData__result">
+            <h2 className="personalData__result--title">
+              Your body fat is {bodyFat} %
             <div className="personalData__result--icon">
-              <FatPercentageInfo />
+                <FatPercentageInfo />
+              </div>
+            </h2>
+            <h4>Body fat mass: {bodyFatMass} kg</h4>
+            <h4>Lean body mass: {leanBodyMass} kg</h4>
+            <h4>Ideal body fat for given age: {idealBodyFatPercentage(userData)} %</h4>
+
+            {bodyFatToLose > 0 ? (
+              <h4>Body fat to lose to reach ideal: {bodyFatToLose} %</h4>) : (
+                <h4>You are below ideal fat percentage!</h4>)}
+
+            <div className="form__button">
+              <CustomButton onClick={() => history.push('/')}>
+                go to home page
+              </CustomButton>
             </div>
-          </h2>
-          <h4>Body fat mass: {bodyFatMass} kg</h4>
-          <h4>Lean body mass: {leanBodyMass} kg</h4>
-          <h4>Ideal body fat for given age: {idealBodyFatPercentage(userData)} %</h4>
-
-          {bodyFatToLose > 0 ? (
-            <h4>Body fat to lose to reach ideal: {bodyFatToLose} %</h4>) : (
-              <h4>You are below ideal fat percentage!</h4>)}
-
-          <div className="form__button">
-            <CustomButton onClick={() => history.push('/')}>
-              go to home page
-            </CustomButton>
           </div>
+        ) : (open &&
+          <div className="personalData__warning">
+            Make sure you entered your measurements correctly!
         </div>
-      ) : (open &&
-        <div className="personalData__warning">
-          Make sure you entered your measurements correctly!
-        </div>
+          )
+      ) : (
+          <div className="personalData__warning">
+            Make sure you added information about your sex and height!
+          <br />
+            This data are necessary to make calculations
+            <div className="form__button">
+              <CustomButton
+                onClick={() => history.push('/personalData')}>
+                add data
+              </CustomButton>
+            </div>
+          </div>
         )}
     </div>
   )

@@ -44,9 +44,6 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
   const { weight, height, age, sex, lifeActivity, fat, formula } = userData
   const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData))
 
-  console.log(localFormula);
-  console.log(formula);
-
   const handleChange = e => {
     const { name, value } = e.target
     setData({ ...data, [name]: value })

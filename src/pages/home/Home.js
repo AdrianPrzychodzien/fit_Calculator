@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import CustomButton from '../../util/CustomButton/CustomButton'
@@ -32,9 +32,13 @@ import './Home.scss'
 
 const Home = ({ currentUser, userData, setFormula, history }) => {
   const [data, setData] = useState({
-    localFormula: '',
+    localFormula: JSON.parse(localStorage.getItem('formula')) || '',
     open: false
   })
+
+  useEffect(() => {
+    localStorage.setItem('formula', JSON.stringify(data.localFormula))
+  }, [data])
 
   const { localFormula, open } = data
   const { weight, height, age, sex, lifeActivity, fat, formula } = userData

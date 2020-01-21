@@ -120,7 +120,7 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
       </form>
       <hr />
 
-      {sex && height ? (
+      {open && sex && height ? (
         open && bodyFat > 0 ? (
           <div className="personalData__result">
             <h2 className="personalData__result--title">

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import { setFatData, setFatPercentage } from '../../redux/actions'
-import { MifflinStJeor, ModerateCarb, LowCarb, HighCarb } from '../../util/equations'
+import { MifflinStJeor, HarrisBenedict, KatchMcardle, ModerateCarb, LowCarb, HighCarb } from '../../util/equations'
 
 import ActivityCaloriesInfo from '../../components/Info/ActivityCaloriesInfo/ActivityCaloriesInfo'
 import CustomButton from '../../util/CustomButton/CustomButton'
@@ -14,11 +14,15 @@ const Calories = ({ userData, history }) => {
     diet: 'Maintenance'
   })
 
-  const { height, weight, age, sex, lifeActivity, fat } = userData
+  const { height, weight, age, sex, lifeActivity, fat, formula } = userData
+
+  const formulaOption = formula === 'MifflinStJeor' ?
+    MifflinStJeor(userData) : formula === 'HarrisBenedict' ?
+      HarrisBenedict(userData) : KatchMcardle(userData)
 
   const kcalAmount = data.diet === 'Maintenance' ?
-    MifflinStJeor(userData) : data.diet === 'Cutting' ?
-      MifflinStJeor(userData) - 500 : MifflinStJeor(userData) + 500
+    formulaOption : data.diet === 'Cutting' ?
+      formulaOption - 500 : formulaOption + 500
 
   const [proteinModerate, carbsModerate, fatsModerate] = ModerateCarb(kcalAmount)
   const [proteinLow, carbsLow, fatsLow] = LowCarb(kcalAmount)
@@ -51,9 +55,14 @@ const Calories = ({ userData, history }) => {
   if (height && weight && age && sex && lifeActivity && fat) {
     return (
       <div className="calories">
-        <h2 className="calories__title">Caloric needs: {MifflinStJeor(userData)} kcal</h2>
-        <h4>Based on your stats, the best estimate for your maintenance calories
-           is {MifflinStJeor(userData)} calories per day based on the Mifflin-St Jeor Formula</h4>
+        <h2 className="calories__title">Caloric needs: {formulaOption} kcal</h2>
+        <h4>
+          Based on your stats, the best estimate for your maintenance calories
+           is {formulaOption} calories per day based on the
+          {formula === 'MifflinStJeor' ? ' Mifflin - St Jeor ' : formula === 'HarrisBenedict' ?
+            ' Harris Benedict ' : ' Katch-Mcardle '}
+          Formula
+           </h4>
         <hr />
         <h4 className="calories__text">
           Calories intake on a different activity level
@@ -91,7 +100,7 @@ const Calories = ({ userData, history }) => {
             {/* Tab Content 1 - Maintenance */}
             <div id="tab--1--content" className="tabContent--item show">
               <h5>These macronutrient values reflect your
-              maintenance calories of {MifflinStJeor(userData)} kcal per day.</h5>
+              maintenance calories of {formulaOption} kcal per day.</h5>
 
               <table className="tabContent__table">
                 <thead>
@@ -128,9 +137,9 @@ const Calories = ({ userData, history }) => {
             {/* Tab Content 2 - Cutting */}
             <div id="tab--2--content" className="tabContent--item">
               <h5>These macronutrient values reflect your
-                cutting calories of {MifflinStJeor(userData) - 500} kcal per day,
+                cutting calories of {formulaOption - 500} kcal per day,
                 which is a 500 calorie deficit from
-              your maintenance of {MifflinStJeor(userData)} calories.</h5>
+              your maintenance of {formulaOption} calories.</h5>
 
               <table className="tabContent__table">
                 <thead>
@@ -167,9 +176,9 @@ const Calories = ({ userData, history }) => {
             {/* Tab Content 3 - Bulking */}
             <div id="tab--3--content" className="tabContent--item">
               <h5>These macronutrient values reflect your
-                bulking calories of {MifflinStJeor(userData) + 500} kcal per day,
+                bulking calories of {formulaOption + 500} kcal per day,
                 which is +500 calories from
-               your maintenance of {MifflinStJeor(userData)} calories.</h5>
+               your maintenance of {formulaOption} calories.</h5>
 
               <table className="tabContent__table">
                 <thead>

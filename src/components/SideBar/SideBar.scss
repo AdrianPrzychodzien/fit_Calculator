@@ -1,12 +1,12 @@
 .sidebar {
-  max-height: 380px;
+  max-height: 340px;
   background: rgba((#e2efff), 0.9);
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 4rem;
   left: 0;
-  width: 70%;
-  max-width: 250px;
+  width: 50%;
+  max-width: 170px;
   z-index: 200;
   transform: translate3d(-103%, 0, 0);
   transition: all 0.3s ease-out;
@@ -38,7 +38,7 @@
         background: white;
       }
 
-      transform: translate3d(-400px, 0, 0);
+      transform: translate3d(-300px, 0, 0);
       transition: transform 0.5s ease-out;
 
       &.open {
@@ -50,21 +50,23 @@
 }
 
 .nav--icon {
-  width: 20%;
+  margin-left: 0.5rem;
+  width: 14%;
   display: flex;
   justify-content: center;
 }
 
 .nav--link {
   margin-left: 0.5rem;
-  font-size: 1.7rem;
+  font-size: 1.1rem;
+  font-weight: bold;
   transition: transform 0.5s ease-out;
 }
 
 // Delay each nav items slide by 0.1s
 @for $x from 1 through 10 {
   .sidebar__nav--item:nth-child(#{$x}) {
-    transition-delay: $x * 0.1s;
+    transition-delay: $x * 0.07s;
   }
 }
 

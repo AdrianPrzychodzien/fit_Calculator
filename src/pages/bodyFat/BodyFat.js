@@ -33,8 +33,8 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
   const { sex, height } = userData
 
   const bodyFat = bodyFatFormula(userSize, userData)
-  const bodyFatMass = (userData.weight * bodyFat) / 100
-  const leanBodyMass = userData.weight - bodyFatMass
+  const bodyFatMass = ((userData.weight * bodyFat) / 100).toFixed(2)
+  const leanBodyMass = (userData.weight - bodyFatMass).toFixed(2)
   const bodyFatToLose = (bodyFat - idealBodyFatPercentage(userData)).toFixed(1)
 
   const handleChange = e => {

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 
 import FormInput from '../../util/FormInput/FormInput'
 import CustomButton from '../../util/CustomButton/CustomButton'
@@ -16,7 +15,12 @@ const SignUp = () => {
     confirmPassword: ''
   })
 
+  const [error, setError] = useState({
+    errors: ''
+  })
+
   const { displayName, email, password, confirmPassword } = userCredentials
+  const { errors } = error
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -26,7 +30,7 @@ const SignUp = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      alert('passwords don`t match')
+      setError({ errors: 'Passwords don`t match' })
       return
     }
 
@@ -42,7 +46,8 @@ const SignUp = () => {
       })
 
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      setError({ errors: error.message })
     }
   }
 
@@ -67,35 +72,33 @@ const SignUp = () => {
           label='email'
           required
         />
-        <div className="signup__passwordGroup">
-          <div className="signup__passwordGroup--1">
-            <FormInput
-              type='password'
-              name='password'
-              value={password}
-              onChange={handleChange}
-              label='password'
-              required
-            />
-          </div>
-          <div className="signup__passwordGroup--2">
-            <FormInput
-              type='password'
-              name='confirmPassword'
-              value={confirmPassword}
-              onChange={handleChange}
-              label='confirm password'
-              required
-            />
-          </div>
+        <div className="signup__password--1">
+          <FormInput
+            type='password'
+            name='password'
+            value={password}
+            onChange={handleChange}
+            label='password'
+            required
+          />
         </div>
-        <CustomButton type='submit'>SIGN UP</CustomButton>
+        <div className="signup__password--2">
+          <FormInput
+            type='password'
+            name='confirmPassword'
+            value={confirmPassword}
+            onChange={handleChange}
+            label='confirm password'
+            required
+          />
+        </div>
+        {errors && <div className="signup__errors">{errors}</div>}
+        <div className="signup__button">
+          <CustomButton type='submit'>SIGN UP</CustomButton>
+        </div>
       </form>
     </div>
   )
 }
 
-export default connect(
-  null,
-  {}
-)(SignUp)
+export default SignUp

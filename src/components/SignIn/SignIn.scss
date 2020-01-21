@@ -13,4 +13,10 @@
     display: flex;
     justify-content: space-evenly;
   }
+
+  &__errors {
+    color: red;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
 }

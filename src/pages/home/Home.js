@@ -74,7 +74,7 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
                 Add your personal data and choose one of the following
                 three equations to calculate basic indicators
                 (Resting Metabolic Rate, Body Mass Index,
-                  Training Heart Rate or Heart Rate Max </p>
+                  Training Heart Rate or Heart Rate Max) </p>
               <div className="homeContainer__button">
                 <CustomButton onClick={() => history.push('/personalData')}>Add personal data</CustomButton>
               </div>

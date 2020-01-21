@@ -26,7 +26,7 @@ const SideBar = ({ sidebarOpen, setSidebarState }) => {
           onClick={() => setSidebarState(false)}
         >
           <div className="nav--icon">
-            <FontAwesomeIcon icon={faHome} size="2x" />
+            <FontAwesomeIcon icon={faHome} size="1x" />
           </div>
           <div className="nav--link">
             Home
@@ -39,7 +39,7 @@ const SideBar = ({ sidebarOpen, setSidebarState }) => {
           onClick={() => setSidebarState(false)}
         >
           <div className="nav--icon">
-            <FontAwesomeIcon icon={faPlus} size="2x" />
+            <FontAwesomeIcon icon={faPlus} size="1x" />
           </div>
           <div className="nav--link">
             Personal data
@@ -52,7 +52,7 @@ const SideBar = ({ sidebarOpen, setSidebarState }) => {
           onClick={() => setSidebarState(false)}
         >
           <div className="nav--icon">
-            <FontAwesomeIcon icon={faPercentage} size="2x" />
+            <FontAwesomeIcon icon={faPercentage} size="1x" />
           </div>
           <div className="nav--link">
             Body Fat
@@ -65,7 +65,7 @@ const SideBar = ({ sidebarOpen, setSidebarState }) => {
           onClick={() => setSidebarState(false)}
         >
           <div className="nav--icon">
-            <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
+            <FontAwesomeIcon icon={faBalanceScaleRight} size="1x" />
           </div>
           <div className="nav--link">
             BMI
@@ -78,7 +78,7 @@ const SideBar = ({ sidebarOpen, setSidebarState }) => {
           onClick={() => setSidebarState(false)}
         >
           <div className="nav--icon">
-            <FontAwesomeIcon icon={faUtensils} size="2x" />
+            <FontAwesomeIcon icon={faUtensils} size="1x" />
           </div>
           <div className="nav--link">
             Calories

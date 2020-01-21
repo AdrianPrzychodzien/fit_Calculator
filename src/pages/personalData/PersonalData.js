@@ -26,7 +26,8 @@ const PersonalData = ({ setData, currentUser, history }) => {
     localUserData = '' : localUserData = JSON.parse(localStorage.getItem('userData'))
 
   let localUserFatData
-  isNaN(localStorage.getItem('userFatData')) && (localUserFatData = '')
+  isNaN(localStorage.getItem('userFatData')) ?
+    localUserFatData = '' : localUserFatData = localStorage.getItem('userFatData')
 
   const [userData, setUserData] = useState({
     height: localUserData.height || '',

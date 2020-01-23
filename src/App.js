@@ -13,14 +13,12 @@ import Calories from './pages/calories/Calories'
 
 import NavBar from './components/NavBar/NavBar'
 import SideBar from './components/SideBar/SideBar'
-import Backdrop from './util/Backdrop/Backdrop'
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { setCurrentUser } from './redux/actions'
+import { Jumbotron, Container } from 'reactstrap'
 
-import './App.css'
-
-const App = ({ currentUser, setCurrentUser, sidebarOpen }) => {
+const App = ({ currentUser, setCurrentUser }) => {
 
   useEffect(() => {
     let unsubscribeFromAuth = null
@@ -45,26 +43,28 @@ const App = ({ currentUser, setCurrentUser, sidebarOpen }) => {
 
   return (
     <Router>
-      <NavBar />
-      <SideBar />
-      {sidebarOpen && <Backdrop />}
-      <div className="App">
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/personalData' component={PersonalData} />
-          <Route exact path='/help' component={Help} />
-          <Route exact path='/bodyFat' component={BodyFat} />
-          <Route exact path='/bmi' component={Bmi} />
-          <Route exact path='/calories' component={Calories} />
-          <Route exact path='/signin' render={() =>
-            currentUser ? (
-              <Redirect to='/' />
-            ) : (
-                <SignInAndSignUp />
-              )}
-          />
-        </Switch>
-      </div>
+      <Jumbotron fluid className="pt-5">
+        <NavBar>
+        </NavBar>
+        <SideBar />
+        <Container fluid className="mt-3" >
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/personalData' component={PersonalData} />
+            <Route exact path='/help' component={Help} />
+            <Route exact path='/bodyFat' component={BodyFat} />
+            <Route exact path='/bmi' component={Bmi} />
+            <Route exact path='/calories' component={Calories} />
+            <Route exact path='/signin' render={() =>
+              currentUser ? (
+                <Redirect to='/' />
+              ) : (
+                  <SignInAndSignUp />
+                )}
+            />
+          </Switch>
+        </Container>
+      </Jumbotron>
     </Router>
 
   )

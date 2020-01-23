@@ -40,10 +40,10 @@ export const userBmiTip = data => {
   let userBmiTip, top, bottom
 
   if (rangeBMI(calcBMI(data)) === 'Normal Weight') {
-    top = normalBMIMax - data.weight
-    bottom = data.weight - normalBMIMin
+    top = (normalBMIMax - data.weight).toFixed(1)
+    bottom = (data.weight - normalBMIMin).toFixed(1)
 
-    userBmiTip = `You are ${bottom} kg above the lower limit and ${top} below upper limit`
+    userBmiTip = `You are ${bottom} kg above the lower limit and ${top} kg below upper limit`
   } else if (rangeBMI(calcBMI(data)) === 'Overweight' || rangeBMI(calcBMI(data)) === 'Obese') {
     bottom = data.weight - normalBMIMax
 

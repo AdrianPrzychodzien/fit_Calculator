@@ -44,11 +44,11 @@ const App = ({ currentUser, setCurrentUser, sidebarOpen }) => {
   }, [setCurrentUser])
 
   return (
-    <div className="App">
-      <Router>
-        <NavBar />
-        <SideBar />
-        {sidebarOpen && <Backdrop />}
+    <Router>
+      <NavBar />
+      <SideBar />
+      {sidebarOpen && <Backdrop />}
+      <div className="App">
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/personalData' component={PersonalData} />
@@ -64,8 +64,9 @@ const App = ({ currentUser, setCurrentUser, sidebarOpen }) => {
               )}
           />
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </Router>
+
   )
 }
 

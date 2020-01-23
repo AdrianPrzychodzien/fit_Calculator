@@ -1,58 +1,106 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
-import HamburgerButton from '../HamburgerButton/HamburgerButton'
 import { auth } from '../../firebase/firebase.utils'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faHome,
-  faPlus,
-  faSignOutAlt,
-  faQuestionCircle,
-  faUserPlus,
+  faHome, faPlus, faSignOutAlt, faQuestionCircle, faUserPlus, faBars,
+  faTimes, faPercentage, faBalanceScaleRight, faUtensils
 } from '@fortawesome/free-solid-svg-icons'
+import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap'
 
-import './NavBar.scss'
+const dropdownStyle = {
+  position: 'fixed',
+  width: '100%',
+  height: '100%',
+  background: 'rgba(0, 0, 0, 0.4)',
+  top: '3rem',
+  left: 0,
+  zIndex: 10
+}
 
-const NavBar = ({ currentUser, sidebarOpen }) => {
+const NavBar = ({ currentUser }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  const toggle = () => setDropdownOpen(!dropdownOpen)
 
   return (
-    <div className="header">
-      <div className="header__container">
-        <div className="header__navigation">
-          <HamburgerButton />
-          <Link to='/' className={sidebarOpen ? 'close header__navigation--link' : "header__navigation--link"}>
-            <FontAwesomeIcon icon={faHome} size="2x" />
-          </Link>
-        </div>
-        <div className="header__options">
-          <Link to='/personalData' className={sidebarOpen ? 'close header__options--link' : 'header__options--link'}>
-            <FontAwesomeIcon icon={faPlus} size="2x" />
-          </Link>
-          <Link to='/help' className={sidebarOpen ? 'close header__options--link' : 'header__options--link'}>
-            <FontAwesomeIcon icon={faQuestionCircle} size="2x" />
-          </Link>
-          {currentUser ? (
-            <Link to='/' className={sidebarOpen ? 'close header__options--link' : 'header__options--link'}
-              onClick={() => auth.signOut()}>
-              <FontAwesomeIcon icon={faSignOutAlt} size="2x" />
-            </Link>
-          ) : (
-              <Link to='/signin' className={sidebarOpen ? 'close header__options--link' : 'header__options--link'} >
-                <FontAwesomeIcon icon={faUserPlus} size="2x" />
+    <div>
+      <Nav tabs className="bg-primary fixed-top w-100 h-10 d-flex flex-nowrap justify-content-between">
+        <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
+          <DropdownToggle className="bg-primary" nav >
+            {dropdownOpen ? (
+              <FontAwesomeIcon color="white" icon={faTimes} size="2x" />
+            ) : (
+                <FontAwesomeIcon color="white" icon={faBars} size="2x" />
+              )}
+          </DropdownToggle>
+          <DropdownMenu className="w-20"  >
+            <DropdownItem className="py-2">
+              <Link to="/bodyFat" className='d-flex' >
+                <FontAwesomeIcon icon={faPercentage} size="2x" />
+                <p className="h4 ml-2">Body Fat</p>
               </Link>
-            )}
-        </div>
-      </div>
+            </DropdownItem>
+            <DropdownItem className="py-2">
+              <Link to='bmi' className="d-flex">
+                <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
+                <p className="h4 ml-2">BMI</p>
+              </Link>
+            </DropdownItem>
+            <DropdownItem className="py-2">
+              <Link to='calories' className="d-flex">
+                <FontAwesomeIcon icon={faUtensils} size="2x" />
+                <p className="h4 ml-2">Calories</p>
+              </Link>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+
+        <p className="m-0 d-flex justify-content-center">
+          <NavItem>
+            <NavLink href="/">
+              <FontAwesomeIcon color="white" icon={faHome} size="2x" />
+            </NavLink>
+          </NavItem>
+
+          <NavItem>
+            <NavLink href="/personalData">
+              <FontAwesomeIcon color="white" icon={faPlus} size="2x" />
+            </NavLink>
+          </NavItem>
+
+          <NavItem>
+            <NavLink href="/help">
+              <FontAwesomeIcon color="white" icon={faQuestionCircle} size="2x" />
+            </NavLink>
+          </NavItem>
+        </p>
+
+        {currentUser ? (
+          <NavItem className="">
+            <NavLink href='/' onClick={() => auth.signOut()}>
+              <FontAwesomeIcon color="white" icon={faSignOutAlt} size="2x" />
+            </NavLink>
+          </NavItem>
+        ) : (
+            <NavItem className="">
+              <NavLink href='/signin'  >
+                <FontAwesomeIcon color="white" icon={faUserPlus} size="2x" />
+              </NavLink>
+            </NavItem>
+          )}
+      </Nav>
+      {dropdownOpen ? (
+        <div style={dropdownStyle} />
+      ) : null}
     </div>
   )
 }
 
-const mapStateToProps = ({ user, ui }) => ({
-  currentUser: user.currentUser,
-  sidebarOpen: ui.sidebarOpen
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
 })
 
 export default connect(mapStateToProps)(NavBar)

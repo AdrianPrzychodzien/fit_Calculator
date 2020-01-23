@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import CustomButton from '../../util/CustomButton/CustomButton'
-
 import { setFormula } from '../../redux/actions'
 
 import {
@@ -28,12 +26,12 @@ import {
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons'
 
-import './Home.scss'
+import { Button } from 'reactstrap'
 
 const Home = ({ currentUser, userData, setFormula, history }) => {
   const [data, setData] = useState({
     localFormula: JSON.parse(localStorage.getItem('formula')) || '',
-    open: false
+    open: true
   })
 
   useEffect(() => {
@@ -58,32 +56,33 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
 
   if (currentUser) {
     return (
-      <div className="homeContainer">
-        <h2 className="homeContainer__title">Hello {currentUser.displayName}</h2>
+      <>
+        <p className="h2 text-center">Hello {currentUser.displayName}</p>
         <hr />
 
         {(open && weight && height && age && sex && lifeActivity) ? (
-          <p className="homeContainer__description">
+          <p className="text-center">
             You are a <b>{userData.age}</b> year old <b>{(userData.sex).toLowerCase()}</b> who
                is <b>{userData.height}</b> cm tall and weights <b>{userData.weight}</b> kg
                 while <b>{activityLevelComment(userData.lifeActivity)}</b>
           </p>
         ) : (
             <>
-              <p className="homeContainer__description">
+              <p className="text-center">
                 Add your personal data and choose one of the following
                 three equations to calculate basic indicators
                 (Resting Metabolic Rate, Body Mass Index,
                   Training Heart Rate or Heart Rate Max) </p>
-              <div className="homeContainer__button">
-                <CustomButton onClick={() => history.push('/personalData')}>Add personal data</CustomButton>
-              </div>
-              <br />
+              <Button block className="d-flex justify-content-center my-4" color="primary"
+                onClick={() => history.push('/personalData')}
+              >
+                Add personal data
+                </Button>{' '}
             </>
           )}
 
-        <div className="homeContainer__radio">
-          <div className="homeContainer__radio--field">
+        <div className="d-flex justify-content-center text-center">
+          <div className="d-flex flex-wrap justify-content-center">
             <label>Mifflin - St Jeor</label>
             <input
               type='radio'
@@ -94,7 +93,7 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
               required
             />
           </div>
-          <div className="homeContainer__radio--field">
+          <div className="d-flex flex-wrap justify-content-center">
             <label>Harris Benedict</label>
             <input
               type='radio'
@@ -105,7 +104,7 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
               required
             />
           </div>
-          <div className="homeContainer__radio--field">
+          <div className="d-flex flex-wrap justify-content-center">
             <label>Katch-Mcardle</label>
             <input
               type='radio'
@@ -118,117 +117,115 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
           </div>
         </div>
         <hr />
-        <div className="homeContainer__button">
-          {localFormula && <CustomButton onClick={handleOpen}>Calculate</CustomButton>}
-        </div>
+        {localFormula && <Button onClick={handleOpen}
+          block className="d-flex justify-content-center my-3" color="primary">
+          Calculate
+          </Button>}
 
         {(open && weight && height && age && sex && lifeActivity) ? (
-          <div className="results">
+          <div>
             <hr />
             {formula === 'KatchMcardle' && !fat && (
-              <div className="homeContainer__warning">
-                Katch-Mcardle BMR calculator needs body fat percentage data.
-                Add them <span onClick={() => history.push('/bodyFat')}>HERE</span>
-              </div>
+              <p className="h5 text-center text-danger">
+                Katch-Mcardle equation needs body fat percentage data.
+                <Button color="danger" className="my-3"
+                  onClick={() => history.push('/bodyFat')}
+                >
+                  click here to complete</Button>
+              </p>
             )}
-            <div className="results__row">
-              <div className="results__row--title">
-                <div className="results__row--icon">
-                  <FontAwesomeIcon icon={faBed} size="2x" />
-                </div>
-                <h4>Resting Metabolic Rate: </h4>
+            <div className="w-100 d-flex justify-content-between ">
+              <div className="w-85 d-flex  ">
+                <p className="w-20 d-flex ">
+                  <FontAwesomeIcon className="text-primary" icon={faBed} size="2x" />
+                </p>
+                <p className="h5 ml-1">Resting Metabolic Rate: </p>
               </div>
-              <div className="results__row--kcal">
+              <div className="h5 d-flex">
                 {formula === 'MifflinStJeor' ?
                   restingMifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
                     restingHarrisBenedict(userData) : (
                       fat ? restingKatchMcardle(userData) :
-                        (<div style={{ color: 'red' }}>no data</div>)))}
-                {fat ? <p> kcal</p> : null}
+                        (<p className="h5 text-danger">no data</p>)))}
+                {fat ? <p className="h5"> kcal</p> : null}
               </div>
             </div>
 
-            <div className="results__row">
-              <div className="results__row--title">
-                <div className="results__row--icon">
-                  <FontAwesomeIcon icon={faUtensils} size="2x" />
-                </div>
-                <h4 onClick={() => history.push('/calories')}>Caloric needs:</h4>
+            <div className="w-100 d-flex justify-content-between ">
+              <div onClick={() => history.push('/calories')} className="w-80 d-flex">
+                <p className="w-20 d-flex justify-content-center">
+                  <FontAwesomeIcon className="text-primary" icon={faUtensils} size="2x" />
+                </p>
+                <p className="h5 ml-3">Caloric needs:</p>
               </div>
-              <div className="results__row--kcal">
+              <div className="h5 d-flex">
                 {formula === 'MifflinStJeor' ?
                   MifflinStJeor(userData) : (formula === 'HarrisBenedict' ?
                     HarrisBenedict(userData) : (
                       fat ? KatchMcardle(userData) :
-                        (<div style={{ color: 'red' }}>no data</div>)))}
-                {fat ? <p> kcal</p> : null}
+                        (<p className="h5 text-danger">no data</p>)))}
+                {fat ? <p className="h5"> kcal</p> : null}
               </div>
             </div>
 
-            <div className="results__row">
-              <div className="results__row--title">
-                <div onClick={() => history.push('/bmi')} className="results__row--icon">
-                  <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
-                </div>
-                <h4 onClick={() => history.push('/bmi')}>BMI:</h4>
+            <div className="w-100 d-flex justify-content-between ">
+              <div onClick={() => history.push('/bmi')} className="w-80 d-flex">
+                <p className="w-20 d-flex ">
+                  <FontAwesomeIcon className="text-primary" icon={faBalanceScaleRight} size="2x" />
+                </p>
+                <p className="h5 ml-1">BMI:</p>
               </div>
-              <div>
-                <b>
-                  {calcBMI(userData)}, {rangeBMI(calcBMI(userData))}
-                </b>
+              <div className="h5 d-flex">
+                {calcBMI(userData)}, {rangeBMI(calcBMI(userData))}
               </div>
             </div>
 
-            <div className="results__row">
-              <div className="results__row--title">
-                <div className="results__row--icon">
-                  <FontAwesomeIcon icon={faHeartbeat} size="2x" />
-                </div>
-                <h4>Maximum Heart Rate: </h4>
+            <div className="w-100 d-flex justify-content-between ">
+              <div className="w-80 d-flex">
+                <p className="w-20 d-flex">
+                  <FontAwesomeIcon className="text-primary" icon={faHeartbeat} size="2x" />
+                </p>
+                <p className="h5 ml-2">Maximum Heart Rate:</p>
               </div>
-              <div>
-                <b>
-                  {maxHeartRate(userData)}
-                </b>
+              <p className="h5 d-flex">
+                {maxHeartRate(userData)}
+              </p>
+            </div>
+
+            <div className="w-100 d-flex justify-content-between ">
+              <div className="w-80 d-flex">
+                <p className="w-20 d-flex">
+                  <FontAwesomeIcon className="text-primary" icon={faRunning} size="2x" />
+                </p>
+                <p className="h5 ml-3">Training Heart Rate:</p>
+              </div>
+              <div className="h5 d-flex">
+                {trainingMin} - {trainingMax}
               </div>
             </div>
 
-            <div className="results__row">
-              <div className="results__row--title">
-                <div className="results__row--icon">
-                  <FontAwesomeIcon icon={faRunning} size="2x" />
-                </div>
-                <h4>Training Heart Rate: </h4>
-              </div>
-              <div>
-                <b>
-                  {trainingMin} - {trainingMax}
-                </b>
-              </div>
-            </div>
           </div>
         ) : (
             open && (
-              <div className="homeContainer__warning">
+              <p className="h4 text-center text-danger">
                 Complete data first!
-            </div>
+              </p>
             )
           )
         }
-      </div>
+      </>
     )
   } else {
     return (
-      <div className="homeContainer">
+      <div className="h2 text-center">
         <br />
-        <h2 className="homeContainer__title">
+        <p className="text-center">
           Login in first, please!
-              </h2>
-        <br />
-        <br />
-        <div className="homeContainer__button">
-          <CustomButton onClick={() => history.push('/signin')}>Go TO LOGIN PAGE</CustomButton>
-        </div>
+        </p>
+        <Button onClick={() => history.push('/signin')}
+          block className="d-flex justify-content-center my-5" color="primary">
+          Go to login page
+        </Button>
       </div>
     )
   }

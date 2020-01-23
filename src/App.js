@@ -12,7 +12,6 @@ import Bmi from './pages/bmi/Bmi'
 import Calories from './pages/calories/Calories'
 
 import NavBar from './components/NavBar/NavBar'
-import SideBar from './components/SideBar/SideBar'
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { setCurrentUser } from './redux/actions'
@@ -44,9 +43,7 @@ const App = ({ currentUser, setCurrentUser }) => {
   return (
     <Router>
       <Jumbotron fluid className="pt-5">
-        <NavBar>
-        </NavBar>
-        <SideBar />
+        <NavBar />
         <Container fluid className="mt-3" >
           <Switch>
             <Route exact path='/' component={Home} />

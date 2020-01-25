@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 
 import Home from './pages/home/Home'
 import PersonalData from './pages/personalData/PersonalData'
+import FormikPersonalData from './pages/personalData/FormikPersonalData'
 import Help from './pages/help/Help'
 import BodyFat from './pages/bodyFat/BodyFat'
 import SignInAndSignUp from './pages/signInAndSignUp/SignInAndSignUp'
@@ -47,7 +48,7 @@ const App = ({ currentUser, setCurrentUser }) => {
         <Container fluid className="mt-3" >
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/personalData' component={PersonalData} />
+            <Route exact path='/personalData' component={FormikPersonalData} />
             <Route exact path='/help' component={Help} />
             <Route exact path='/bodyFat' component={BodyFat} />
             <Route exact path='/bmi' component={Bmi} />

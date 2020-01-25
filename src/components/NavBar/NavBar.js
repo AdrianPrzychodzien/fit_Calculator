@@ -27,7 +27,7 @@ const NavBar = ({ currentUser }) => {
 
   return (
     <div>
-      <Nav tabs className="bg-primary fixed-top w-100 h-10 d-flex flex-nowrap justify-content-between">
+      <Nav tabs className="bg-primary fixed-top w-100 mx-auto h-10 d-flex flex-nowrap justify-content-between">
         <Dropdown nav isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle className="bg-primary" nav >
             {dropdownOpen ? (

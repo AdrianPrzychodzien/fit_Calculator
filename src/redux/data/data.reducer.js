@@ -32,6 +32,7 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         waist: action.payload.userSize.waist,
         hip: action.payload.userSize.hip,
         neck: action.payload.userSize.neck,
+        fat: action.payload.userSize.fat,
         userId: action.payload.userId
       }
     case DataActionTypes.SET_FAT_PERCENTAGE:

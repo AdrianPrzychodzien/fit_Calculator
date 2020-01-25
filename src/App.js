@@ -8,6 +8,7 @@ import PersonalData from './pages/personalData/PersonalData'
 import FormikPersonalData from './pages/personalData/FormikPersonalData'
 import Help from './pages/help/Help'
 import BodyFat from './pages/bodyFat/BodyFat'
+import FormikBodyFat from './pages/bodyFat/FormikBodyFat'
 import SignInAndSignUp from './pages/signInAndSignUp/SignInAndSignUp'
 import Bmi from './pages/bmi/Bmi'
 import Calories from './pages/calories/Calories'
@@ -50,7 +51,7 @@ const App = ({ currentUser, setCurrentUser }) => {
             <Route exact path='/' component={Home} />
             <Route exact path='/personalData' component={FormikPersonalData} />
             <Route exact path='/help' component={Help} />
-            <Route exact path='/bodyFat' component={BodyFat} />
+            <Route exact path='/bodyFat' component={FormikBodyFat} />
             <Route exact path='/bmi' component={Bmi} />
             <Route exact path='/calories' component={Calories} />
             <Route exact path='/signin' render={() =>

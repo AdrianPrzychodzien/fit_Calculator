@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import ActivitInfo from '../../components/Info/ActivityInfo/ActivityInfo'
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
@@ -37,9 +39,10 @@ Stars.defaultProps = {
 export const StarsInput = ({ fieldName }) => (
   <Field name={fieldName} id={fieldName} type="number">
     {({ field: { value }, form: { setFieldValue } }) => (
-      <div>
-        <label className={"label-color"}>
+      <div className="d-flex flex-column justify-content-center align-items-center">
+        <label className="h4 d-flex align-items-center">
           Life Activity
+          <ActivitInfo />
         </label>
         <div>
           <Stars
@@ -54,20 +57,23 @@ export const StarsInput = ({ fieldName }) => (
 
 export const MyRadio = ({ label, ...props }) => {
   const [field] = useField(props)
+
   return (
     <FormControlLabel {...field} control={<Radio />} label={label} />
   )
-
-  MyRadio.propTypes = {
-    label: PropTypes.string.isRequired
-  }
 }
 
-export const MyTextField = ({ placeholder, ...props }) => {
+MyRadio.propTypes = {
+  label: PropTypes.string.isRequired
+}
+
+export const MyTextField = ({ type, placeholder, ...props }) => {
   const [field, meta] = useField(props)
   const errorText = meta.error && meta.touched ? meta.error : ''
+
   return (
     <TextField
+      type={type}
       placeholder={placeholder}
       {...field}
       helperText={errorText}

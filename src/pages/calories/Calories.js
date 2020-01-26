@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { setFatData, setFatPercentage } from '../../redux/actions'
+import { setFatData } from '../../redux/actions'
 import {
   MifflinStJeor,
   HarrisBenedict,
@@ -223,8 +223,7 @@ const mapStateToProps = ({ user, data }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFatData: data => dispatch(setFatData(data)),
-  setFatPercentage: data => dispatch(setFatPercentage(data))
+  setFatData: data => dispatch(setFatData(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calories)

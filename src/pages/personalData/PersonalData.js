@@ -5,7 +5,7 @@ import FormInput from '../../util/FormInput/FormInput'
 import CustomButton from '../../util/CustomButton/CustomButton'
 import ActivityInfo from '../../components/Info/ActivityInfo/ActivityInfo'
 import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo'
-import { setData, setFatPercentage } from '../../redux/actions'
+import { setData } from '../../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -60,11 +60,6 @@ const PersonalData = ({ setData, currentUser, history }) => {
 
     setData({
       userData,
-      userId: currentUser.id
-    })
-
-    setFatPercentage({
-      fatPercentage: userFatData,
       userId: currentUser.id
     })
 
@@ -209,8 +204,7 @@ const mapStateToProps = ({ user }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setData: data => dispatch(setData(data)),
-  setFatPercentage: data => dispatch(setFatPercentage(data))
+  setData: data => dispatch(setData(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonalData)

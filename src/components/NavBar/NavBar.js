@@ -36,25 +36,29 @@ const NavBar = ({ currentUser }) => {
                 <FontAwesomeIcon color="white" icon={faBars} size="2x" />
               )}
           </DropdownToggle>
-          <DropdownMenu className="w-20"  >
+          <DropdownMenu className="w-20 py-0"  >
+            <hr className="mt-0" />
             <DropdownItem className="py-2">
               <Link to="/bodyFat" className='d-flex' >
                 <FontAwesomeIcon icon={faPercentage} size="2x" />
                 <p className="h4 ml-2">Body Fat</p>
               </Link>
             </DropdownItem>
+            <hr />
             <DropdownItem className="py-2">
               <Link to='bmi' className="d-flex">
                 <FontAwesomeIcon icon={faBalanceScaleRight} size="2x" />
                 <p className="h4 ml-2">BMI</p>
               </Link>
             </DropdownItem>
+            <hr />
             <DropdownItem className="py-2">
               <Link to='calories' className="d-flex">
                 <FontAwesomeIcon icon={faUtensils} size="2x" />
                 <p className="h4 ml-2">Calories</p>
               </Link>
             </DropdownItem>
+            <hr className="mb-0" />
           </DropdownMenu>
         </Dropdown>
 

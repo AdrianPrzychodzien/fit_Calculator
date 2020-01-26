@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-import FormInput from '../../util/FormInput/FormInput'
-import CustomButton from '../../util/CustomButton/CustomButton'
-import ActivityInfo from '../../components/Info/ActivityInfo/ActivityInfo'
+import { MyRadio, MyTextField, StarsInput } from '../../util/Formik/FormikFunctions'
+
+import { Formik, Form } from 'formik'
+import * as yup from 'yup'
+import { TextField } from '@material-ui/core'
+import { Button } from 'reactstrap'
+
 import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo'
 import { setData } from '../../redux/actions'
 
@@ -16,191 +20,97 @@ import {
   faWeight,
   faPercentage
 } from '@fortawesome/free-solid-svg-icons'
-import { Rating } from '@material-ui/lab'
 
-import './PersonalData.scss'
+let localUserData
+JSON.parse(localStorage.getItem('userData')) === null ?
+  localUserData = '' : localUserData = JSON.parse(localStorage.getItem('userData'))
 
-const PersonalData = ({ setData, currentUser, history }) => {
-  let localUserData
-  JSON.parse(localStorage.getItem('userData')) === null ?
-    localUserData = '' : localUserData = JSON.parse(localStorage.getItem('userData'))
+const validationSchema = yup.object({
+  height: yup.number('It must be a number').required('Height is required').positive(),
+  weight: yup.number('It must be a number').required('Weight is required').positive(),
+  age: yup.number('It must be a number').required('Age is required').positive(),
+  fat: yup.number('It must be a number').positive().max(70, 'Are you sure?')
+})
 
-  let localUserFatData
-  localStorage.getItem('userFatData') === undefined ?
-    localUserFatData = '' : localUserFatData = localStorage.getItem('userFatData')
-
-  const [userData, setUserData] = useState({
-    height: localUserData.height || '',
-    weight: localUserData.weight || '',
-    age: localUserData.age || '',
-    sex: localUserData.sex || '',
-    lifeActivity: localUserData.lifeActivity || 1
-  })
-
-  const [userFatData, setUserFatData] = useState({
-    fat: localUserFatData || localStorage.getItem('userFatData')
-  })
-
-  const { height, weight, age, sex, lifeActivity } = userData
-  const { fat } = userFatData
-
-  useEffect(() => {
-    localStorage.setItem('userData', JSON.stringify(userData))
-    localStorage.setItem('userFatData', fat)
-  }, [userData, fat])
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    setUserData({ ...userData, [name]: value })
-    setUserFatData({ [name]: value })
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault()
-
-    setData({
-      userData,
-      userId: currentUser.id
-    })
-
-    localStorage.setItem('userFatData', fat)
-
-    history.push('/')
-  }
-
+const PersonalData = ({ currentUser, userData, setData, history }) => {
   return (
-    <div className="personalData">
-      <h2 className="personalData__title">Add your personal data</h2>
-      <hr />
-      <form onSubmit={handleSubmit} className="form">
-        <div className="form__field">
-          <div className="form__field--icon">
-            <FontAwesomeIcon icon={faArrowsAltV} size="2x" />
-          </div>
-          <div className="form__field--input">
-            <FormInput
-              type='number'
-              name='height'
-              value={height}
-              onChange={handleChange}
-              label='Height (cm)'
-              required
-            />
-          </div>
-        </div>
+    <div>
+      <Formik initialValues={{
+        height: localUserData.height || '',
+        weight: localUserData.weight || '',
+        age: localUserData.age || '',
+        fat: userData.fat || localUserData.fat || '',
+        sex: localUserData.sex || 'Male',
+        lifeActivity: localUserData.lifeActivity || 1,
+      }}
+        validationSchema={validationSchema}
+        onSubmit={data => {
+          setData({
+            ...data,
+            userId: currentUser.id
+          })
+          localStorage.setItem('userData', JSON.stringify(data))
+          history.push('/')
+        }}
+      >
+        {({ isSubmitting }) => (
+          <>
+            <p className="h3 text-center">Add your personal data</p>
+            <hr />
 
-        <div className="form__field">
-          <div className="form__field--icon">
-            <FontAwesomeIcon icon={faWeight} size="2x" />
-          </div>
-          <div className="form__field--input">
-            <FormInput
-              type='number'
-              name='weight'
-              value={weight}
-              onChange={handleChange}
-              label='Weight (kg)'
-              required
-            />
-          </div>
-        </div>
+            <Form className="w-100 d-flex flex-column justify-content-center">
+              <div className="mx-auto my-3 w-50 d-flex">
+                <FontAwesomeIcon className="mr-4 ml-2 text-primary" icon={faArrowsAltV} size="2x" />
+                <MyTextField type="number" name="height" placeholder="Height (cm)" as={TextField} />
+              </div>
 
-        <div className="form__field">
-          <div className="form__field--icon">
-            <FontAwesomeIcon icon={faBirthdayCake} size="2x" />
-          </div>
-          <div className="form__field--input">
-            <FormInput
-              type='number'
-              name='age'
-              value={age}
-              onChange={handleChange}
-              label='Age'
-              required
-            />
-          </div>
-        </div>
+              <div className="mx-auto my-3 w-50 d-flex">
+                <FontAwesomeIcon className="mr-3 text-primary" icon={faWeight} size="2x" />
+                <MyTextField type="number" name="weight" placeholder="Weight (kg)" as={TextField} />
+              </div>
 
-        <div className="form__field">
-          <div className="form__field--icon">
-            <FontAwesomeIcon icon={faPercentage} size="2x" />
-          </div>
-          <div className="form__field--inputFat">
-            <FormInput
-              type='number'
-              name='fat'
-              value={fat || ''}
-              onChange={handleChange}
-              label='Body Fat %'
-            />
-          </div>
-          <div className="form__field--icon">
-            <BodyFatInfo />
-          </div>
-        </div>
+              <div className="mx-auto my-3 w-50 d-flex">
+                <FontAwesomeIcon className="mr-3 ml-1 text-primary" icon={faBirthdayCake} size="2x" />
+                <MyTextField type="number" name="age" placeholder="Age" as={TextField} />
+              </div>
 
+              <div className="mx-auto my-3 w-50 d-flex">
+                <FontAwesomeIcon className="mr-3 ml-1 text-primary" icon={faPercentage} size="2x" />
+                <MyTextField type="number" name="fat" placeholder="BodyFat %" as={TextField} />
+                <BodyFatInfo />
+              </div>
 
-        <div className="form__field--radio">
-          <h2>Sex:</h2>
-          <div className="form__field--radio--input">
-            <label>
-              <input
-                type='radio'
-                name='sex'
-                value='Male'
-                checked={sex === 'Male'}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <div className="form__field--icon">
-              <FontAwesomeIcon icon={faMale} size="2x" className="form__icon" />
-            </div>
-          </div>
-          <div className="form__field--radio--input">
-            <label>
-              <input
-                type='radio'
-                name='sex'
-                value='Female'
-                checked={sex === 'Female'}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <div className="form__field--icon">
-              <FontAwesomeIcon icon={faFemale} size="2x" className="form__icon" />
-            </div>
-          </div>
-        </div>
+              <div className="mx-auto my-2 w-80 d-flex">
+                <div>
+                  <FontAwesomeIcon className="mr-2 text-primary" icon={faMale} size="2x" />
+                  <MyRadio type="radio" name="sex" value="Male" label="Male" />
+                </div>
+                <div>
+                  <FontAwesomeIcon className="mr-2 text-primary" icon={faFemale} size="2x" />
+                  <MyRadio type="radio" name="sex" value="Female" label="Female" />
+                </div>
+              </div>
 
-        <div className="form__field--activity">
-          <h2>Life activity: </h2>
-          <Rating
-            size="large"
-            name="lifeActivity"
-            value={lifeActivity}
-            onChange={(event, newValue) => {
-              setUserData({ ...userData, lifeActivity: newValue })
-            }}
-            required
-          />
-          <div className="form__field--icon">
-            <ActivityInfo />
-          </div>
-        </div>
+              <div className="mx-auto my-1 w-100 d-flex justify-content-center">
+                <StarsInput fieldName={'lifeActivity'} />
+              </div>
 
-        <hr />
-        <div className="form__button">
-          <CustomButton type='submit' >ADD DATA</CustomButton>
-        </div>
-      </form>
+              <Button disabled={isSubmitting} type='submit'
+                block className="d-flex justify-content-center my-3" color="primary"
+              >
+                Add data
+                </Button>
+            </Form>
+          </>
+        )}
+      </Formik>
     </div>
   )
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = ({ user, data }) => ({
+  currentUser: user.currentUser,
+  userData: data
 })
 
 const mapDispatchToProps = dispatch => ({

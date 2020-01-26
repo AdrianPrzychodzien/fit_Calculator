@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import Home from './pages/home/Home'
-import FormikPersonalData from './pages/personalData/FormikPersonalData'
+import PersonalData from './pages/personalData/PersonalData'
 import Help from './pages/help/Help'
-import FormikBodyFat from './pages/bodyFat/FormikBodyFat'
+import BodyFat from './pages/bodyFat/BodyFat'
 import SignInAndSignUp from './pages/signInAndSignUp/SignInAndSignUp'
 import Bmi from './pages/bmi/Bmi'
 import Calories from './pages/calories/Calories'
@@ -48,9 +48,9 @@ const App = ({ currentUser, setCurrentUser }) => {
           <Container fluid className="mt-3" >
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route exact path='/personalData' component={FormikPersonalData} />
+              <Route exact path='/personalData' component={PersonalData} />
               <Route exact path='/help' component={Help} />
-              <Route exact path='/bodyFat' component={FormikBodyFat} />
+              <Route exact path='/bodyFat' component={BodyFat} />
               <Route exact path='/bmi' component={Bmi} />
               <Route exact path='/calories' component={Calories} />
               <Route exact path='/signin' render={() =>
@@ -65,20 +65,15 @@ const App = ({ currentUser, setCurrentUser }) => {
         </Jumbotron>
       </div>
     </Router>
-
   )
 }
 
-const mapStateToProps = ({ user, ui }) => ({
-  currentUser: user.currentUser,
-  sidebarOpen: ui.sidebarOpen
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

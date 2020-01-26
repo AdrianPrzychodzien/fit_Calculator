@@ -1,0 +1,204 @@
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, Table } from 'reactstrap'
+import classnames from 'classnames'
+
+import {
+  MifflinStJeor,
+  HarrisBenedict,
+  KatchMcardle,
+  ModerateCarb,
+  LowCarb,
+  HighCarb
+} from '../../../util/equations'
+
+const Macronutrients = ({ userData }) => {
+  const [activeTab, setActiveTab] = useState('Maintenance')
+
+  const toggle = tab => {
+    if (activeTab !== tab) setActiveTab(tab);
+  }
+
+  const { formula } = userData
+
+  const formulaOption = formula === 'MifflinStJeor' ?
+    MifflinStJeor(userData) : formula === 'HarrisBenedict' ?
+      HarrisBenedict(userData) : KatchMcardle(userData)
+
+  const kcalAmount = activeTab === 'Maintenance' ?
+    formulaOption : activeTab === 'Cutting' ?
+      formulaOption - 500 : formulaOption + 500
+
+  const [proteinModerate, carbsModerate, fatsModerate] = ModerateCarb(kcalAmount)
+  const [proteinLow, carbsLow, fatsLow] = LowCarb(kcalAmount)
+  const [proteinHigh, carbsHigh, fatsHigh] = HighCarb(kcalAmount)
+
+  return (
+    <div>
+      <Nav tabs className="d-flex justify-content-center">
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === 'Maintenance' })}
+            onClick={() => { toggle('Maintenance'); }}
+          >
+            Maintenance
+          </NavLink>
+        </NavItem>
+
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === 'Cutting' })}
+            onClick={() => { toggle('Cutting'); }}
+          >
+            Cutting
+          </NavLink>
+        </NavItem>
+
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === 'Bulking' })}
+            onClick={() => { toggle('Bulking'); }}
+          >
+            Bulking
+          </NavLink>
+        </NavItem>
+      </Nav>
+
+      {/* Tab Content 1 - Maintenance */}
+      <TabContent activeTab={activeTab}>
+        <TabPane tabId="Maintenance">
+          <Row>
+            <Col sm="12">
+              <p className="h6 text-center my-3">
+                These macronutrient values reflect your maintenance calories
+                of {kcalAmount} kcal per day.
+                </p>
+            </Col>
+          </Row>
+          <Table>
+            <thead className="text-center">
+              <tr>
+                <th>Macro</th>
+                <th>Medium Carb</th>
+                <th>Low Carb</th>
+                <th>High Carb</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Protein</td>
+                <td>{proteinModerate}g</td>
+                <td>{proteinLow}g</td>
+                <td>{proteinHigh}g</td>
+              </tr>
+              <tr >
+                <td>Carbs</td>
+                <td>{carbsModerate}g</td>
+                <td>{carbsLow}g</td>
+                <td>{carbsHigh}g</td>
+              </tr>
+              <tr >
+                <td>Fats</td>
+                <td>{fatsModerate}g</td>
+                <td>{fatsLow}g</td>
+                <td>{fatsHigh}g</td>
+              </tr>
+            </tbody>
+          </Table>
+        </TabPane>
+
+        {/* Tab Content 2 - Cutting */}
+        <TabPane tabId="Cutting">
+          <Row>
+            <Col sm="12">
+              <p className="h6 text-center my-3">
+                These macronutrient values reflect your maintenance calories
+                of {kcalAmount} kcal per day, which is a 500 calorie deficit
+                from your maintenance.
+                </p>
+            </Col>
+          </Row>
+          <Table>
+            <thead className="text-center">
+              <tr>
+                <th>Macro</th>
+                <th>Medium Carb</th>
+                <th>Low Carb</th>
+                <th>High Carb</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Protein</td>
+                <td>{proteinModerate}g</td>
+                <td>{proteinLow}g</td>
+                <td>{proteinHigh}g</td>
+              </tr>
+              <tr >
+                <td>Carbs</td>
+                <td>{carbsModerate}g</td>
+                <td>{carbsLow}g</td>
+                <td>{carbsHigh}g</td>
+              </tr>
+              <tr >
+                <td>Fats</td>
+                <td>{fatsModerate}g</td>
+                <td>{fatsLow}g</td>
+                <td>{fatsHigh}g</td>
+              </tr>
+            </tbody>
+          </Table>
+        </TabPane>
+
+        {/* Tab Content 3 - Bulking */}
+        <TabPane tabId="Bulking">
+          <Row>
+            <Col sm="12">
+              <p className="h6 text-center my-3">
+                These macronutrient values reflect your maintenance calories
+                of {kcalAmount} kcal per day, which is +500 calories
+                from your maintenance.
+                </p>
+            </Col>
+          </Row>
+          <Table>
+            <thead className="text-center">
+              <tr>
+                <th>Macro</th>
+                <th>Medium Carb</th>
+                <th>Low Carb</th>
+                <th>High Carb</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Protein</td>
+                <td>{proteinModerate}g</td>
+                <td>{proteinLow}g</td>
+                <td>{proteinHigh}g</td>
+              </tr>
+              <tr >
+                <td>Carbs</td>
+                <td>{carbsModerate}g</td>
+                <td>{carbsLow}g</td>
+                <td>{carbsHigh}g</td>
+              </tr>
+              <tr >
+                <td>Fats</td>
+                <td>{fatsModerate}g</td>
+                <td>{fatsLow}g</td>
+                <td>{fatsHigh}g</td>
+              </tr>
+            </tbody>
+          </Table>
+        </TabPane>
+      </TabContent>
+    </div>
+  )
+}
+
+const mapStateToProps = ({ data }) => ({
+  userData: data
+})
+
+export default connect(mapStateToProps, null)(Macronutrients)

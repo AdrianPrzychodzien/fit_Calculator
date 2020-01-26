@@ -5,7 +5,7 @@ import SignUp from '../../components/SignUp/SignUp'
 import './SignInAndSignUp.scss'
 
 const SignInAndSignUp = () => (
-  <div className="signInSignUp">
+  <div className="text-center">
     <SignIn />
     <hr />
     <SignUp />

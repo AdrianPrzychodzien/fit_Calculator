@@ -106,12 +106,10 @@ const FormikBodyFat = ({ setFatData, currentUser, userData, history }) => {
         {sex && height ? (
           open && bodyFat > 0 ? (
             <div>
-              <p className="h3 mb-3 text-center">
+              <div className="h3 mb-3 d-flex align-items-center justify-content-center">
                 Your body fat is {bodyFat} %
-                <div className="personalData__result--icon">
                   <FatPercentageInfo />
-                </div>
-              </p>
+              </div>
               <p className="h5 mb-3 text-center">Body fat mass: {bodyFatMass} kg</p>
               <p className="h5 mb-3 text-center">Lean body mass: {leanBodyMass} kg</p>
               <p className="h5 mb-3 text-center">Ideal body fat for given age: {idealBodyFatPercentage(userData)} %</p>

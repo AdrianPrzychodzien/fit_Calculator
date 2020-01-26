@@ -1,30 +1,14 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { activityLevel, restingMifflinStJeor } from '../../../util/equations'
 
-import InfoIcon from '@material-ui/icons/Info'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Tooltip
-} from '@material-ui/core'
-import { Close as CloseIcon } from '@material-ui/icons'
+const ActivityCaloriesInfo = ({ userData }, props) => {
+  // const { buttonLabel, className } = props
 
-import './ActivityCaloriesInfo.scss'
+  const [modal, setModal] = useState(false)
 
-const ActivityCaloriesInfo = ({ userData }) => {
-  const [open, setOpen] = useState(false)
-
-  const handleOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const toggle = () => setModal(!modal)
 
   const kcalPerDay = (num) => {
     return Math.round(restingMifflinStJeor(userData) * activityLevel(num))
@@ -35,33 +19,15 @@ const ActivityCaloriesInfo = ({ userData }) => {
   const userActivity = (data, num) => data === num && true
 
   return (
-    <>
-      <Tooltip title="get some info" placement="top" >
-        <InfoIcon className="info__icon" onClick={handleOpen} />
-      </Tooltip>
-      <Dialog
-        className="info"
-        open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth="sm"
+    <div>
+      <Button className="rounded mb-0 ml-2" color="primary" size="sm" onClick={toggle}
       >
-        <div className="info__header">
-          <Tooltip title="Close" >
-            <IconButton onClick={handleClose} >
-              <div className="info__close">
-                <CloseIcon fontSize="large" />
-              </div>
-            </IconButton>
-          </Tooltip>
-          <DialogTitle
-            disableTypography
-            className="info__title"
-          >
-            Calories intake</DialogTitle>
-        </div>
-        <DialogContent className="info__contentTable">
-          <table className="table">
+        Check
+      </Button>
+      <Modal isOpen={modal} toggle={toggle} className="mt-5">
+        <ModalHeader toggle={toggle}>Calories intake</ModalHeader>
+        <ModalBody className="text-center">
+          <Table>
             <thead>
               <tr>
                 <th>Activity level</th>
@@ -73,31 +39,34 @@ const ActivityCaloriesInfo = ({ userData }) => {
                 <td>Basal Metabolic Rate</td>
                 <td>{restingMifflinStJeor(userData)}</td>
               </tr>
-              <tr className={userActivity(lifeActivity, 1) ? 'table__bold' : ''}>
+              <tr className={userActivity(lifeActivity, 1) ? 'font-weight-bold' : ''}>
                 <td>Sedentary</td>
                 <td>{kcalPerDay(1)}</td>
               </tr>
-              <tr className={userActivity(lifeActivity, 2) ? 'table__bold' : ''}>
+              <tr className={userActivity(lifeActivity, 2) ? 'font-weight-bold' : ''}>
                 <td>Light Exercise</td>
                 <td>{kcalPerDay(2)}</td>
               </tr>
-              <tr className={userActivity(lifeActivity, 3) ? 'table__bold' : ''}>
+              <tr className={userActivity(lifeActivity, 3) ? 'font-weight-bold' : ''}>
                 <td>Moderate Exercise</td>
                 <td>{kcalPerDay(3)}</td>
               </tr>
-              <tr className={userActivity(lifeActivity, 4) ? 'table__bold' : ''}>
+              <tr className={userActivity(lifeActivity, 4) ? 'font-weight-bold' : ''}>
                 <td>Heavy Exercise</td>
                 <td>{kcalPerDay(4)}</td>
               </tr>
-              <tr className={userActivity(lifeActivity, 5) ? 'table__bold' : ''}>
+              <tr className={userActivity(lifeActivity, 5) ? 'font-weight-bold' : ''}>
                 <td>Athlete</td>
                 <td>{kcalPerDay(5)}</td>
               </tr>
             </tbody>
-          </table>
-        </DialogContent>
-      </Dialog>
-    </>
+          </Table>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Ok</Button>{' '}
+        </ModalFooter>
+      </Modal>
+    </div>
   )
 }
 
@@ -105,4 +74,4 @@ const mapStateToProps = ({ data }) => ({
   userData: data
 })
 
-export default connect(mapStateToProps)(ActivityCaloriesInfo)
+export default connect(mapStateToProps, null)(ActivityCaloriesInfo)

@@ -31,7 +31,7 @@ const Calories = ({ userData, history }) => {
 
         <div className="h5 d-flex text-center align-items-center">
           Calories intake on a different activity level
-            <ActivityCaloriesInfo />
+            <ActivityCaloriesInfo userData={userData} />
         </div>
         <hr />
 

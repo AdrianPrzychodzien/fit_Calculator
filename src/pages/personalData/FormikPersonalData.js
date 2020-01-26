@@ -9,7 +9,6 @@ import { TextField } from '@material-ui/core'
 import { Button } from 'reactstrap'
 
 import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo'
-
 import { setData } from '../../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

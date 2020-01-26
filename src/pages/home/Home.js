@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-import { setFormula } from '../../redux/actions'
+import { setFormula, setHomeOpen } from '../../redux/actions'
+import { MyRadioFormula } from '../../util/Formik/FormikFunctions'
+import { Formik, Form } from 'formik'
+import { Button } from 'reactstrap'
 
 import {
   activityLevelComment,
@@ -26,33 +29,10 @@ import {
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons'
 
-import { Button } from 'reactstrap'
+const Home = ({ currentUser, userData, setFormula, setHomeOpen, history }) => {
 
-const Home = ({ currentUser, userData, setFormula, history }) => {
-  const [data, setData] = useState({
-    localFormula: JSON.parse(localStorage.getItem('formula')) || '',
-    open: true
-  })
-
-  useEffect(() => {
-    localStorage.setItem('formula', JSON.stringify(data.localFormula))
-  }, [data])
-
-  const { localFormula, open } = data
-  const { weight, height, age, sex, lifeActivity, fat, formula } = userData
+  const { weight, height, age, sex, lifeActivity, fat, formula, homeOpen } = userData
   const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData))
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    setData({ ...data, [name]: value })
-  }
-
-  const handleOpen = () => {
-    setFormula({
-      formula: localFormula
-    })
-    setData({ ...data, open: true })
-  }
 
   if (currentUser) {
     return (
@@ -60,7 +40,7 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
         <p className="h2 text-center">Hello {currentUser.displayName}</p>
         <hr />
 
-        {(open && weight && height && age && sex && lifeActivity) ? (
+        {(homeOpen && weight && height && age && sex && lifeActivity) ? (
           <p className="text-center">
             You are a <b>{userData.age}</b> year old <b>{(userData.sex).toLowerCase()}</b> who
                is <b>{userData.height}</b> cm tall and weights <b>{userData.weight}</b> kg
@@ -73,7 +53,7 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
                 three equations to calculate basic indicators
                 (Resting Metabolic Rate, Body Mass Index,
                   Training Heart Rate or Heart Rate Max) </p>
-              <Button block className="d-flex justify-content-center my-4" color="primary"
+              <Button block className="text-center my-4" color="primary"
                 onClick={() => history.push('/personalData')}
               >
                 Add personal data
@@ -81,48 +61,40 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
             </>
           )}
 
-        <div className="d-flex justify-content-center text-center">
-          <div className="d-flex flex-wrap justify-content-center">
-            <label>Mifflin - St Jeor</label>
-            <input
-              type='radio'
-              name='localFormula'
-              value='MifflinStJeor'
-              checked={localFormula === 'MifflinStJeor'}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="d-flex flex-wrap justify-content-center">
-            <label>Harris Benedict</label>
-            <input
-              type='radio'
-              name='localFormula'
-              value='HarrisBenedict'
-              checked={localFormula === 'HarrisBenedict'}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="d-flex flex-wrap justify-content-center">
-            <label>Katch-Mcardle</label>
-            <input
-              type='radio'
-              name='localFormula'
-              value='KatchMcardle'
-              checked={localFormula === 'KatchMcardle'}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-        <hr />
-        {localFormula && <Button onClick={handleOpen}
-          block className="d-flex justify-content-center my-3" color="primary">
-          Calculate
-          </Button>}
+        <Formik initialValues={{
+          formula: JSON.parse(localStorage.getItem('formula')) || ''
+        }}
+          onSubmit={data => {
+            setFormula({ ...data })
+            !homeOpen && setHomeOpen(true)
+            localStorage.setItem('formula', JSON.stringify(data.formula))
+          }}
+        >
+          {() => (
+            <>
+              <Form>
+                <div className="w-100 d-flex flex-wrap justify-content-center">
+                  <div className="mx-auto d-flex flex-column">
+                    <MyRadioFormula type="radio" name="formula" value="MifflinStJeor" label="MifflinStJeor" />
+                  </div>
+                  <div className="mx-auto d-flex flex-column">
+                    <MyRadioFormula type="radio" name="formula" value="HarrisBenedict" label="HarrisBenedict" />
+                  </div>
+                  <div className="mx-auto d-flex flex-column">
+                    <MyRadioFormula type="radio" name="formula" value="KatchMcardle" label="KatchMcardle" />
+                  </div>
+                </div>
+                <Button type="submit"
+                  block className="text-center my-2" color="primary"
+                >
+                  Calculate
+                </Button>
+              </Form>
+            </>
+          )}
+        </Formik>
 
-        {(open && weight && height && age && sex && lifeActivity) ? (
+        {(homeOpen && weight && height && age && sex && lifeActivity) ? (
           <div>
             <hr />
             {formula === 'KatchMcardle' && !fat && (
@@ -206,8 +178,8 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
 
           </div>
         ) : (
-            open && (
-              <p className="h4 text-center text-danger">
+            homeOpen && (
+              <p className="h4 text-center text-danger my-4">
                 Complete data first!
               </p>
             )
@@ -221,11 +193,11 @@ const Home = ({ currentUser, userData, setFormula, history }) => {
         <br />
         <p className="text-center">
           Login in first, please!
-        </p>
+      </p>
         <Button onClick={() => history.push('/signin')}
           block className="d-flex justify-content-center my-5" color="primary">
           Go to login page
-        </Button>
+      </Button>
       </div>
     )
   }
@@ -237,7 +209,8 @@ const mapStateToProps = ({ user, data }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFormula: data => dispatch(setFormula(data))
+  setFormula: data => dispatch(setFormula(data)),
+  setHomeOpen: data => dispatch(setHomeOpen(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

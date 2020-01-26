@@ -26,3 +26,8 @@ export const setFormula = data => ({
   type: DataActionTypes.SET_FORMULA,
   payload: data
 })
+
+export const setHomeOpen = data => ({
+  type: DataActionTypes.SET_HOME_OPEN,
+  payload: data
+})

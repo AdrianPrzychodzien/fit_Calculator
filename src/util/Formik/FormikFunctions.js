@@ -55,6 +55,16 @@ export const StarsInput = ({ fieldName }) => (
   </Field>
 )
 
+export const MyRadioFormula = ({ label, ...props }) => {
+  const [field] = useField(props)
+
+  return (
+    <label>{label} <br />
+      <FormControlLabel className="d-flex justify-content-center ml-2" {...field} control={<Radio />} />
+    </label>
+  )
+}
+
 export const MyRadio = ({ label, ...props }) => {
   const [field] = useField(props)
 

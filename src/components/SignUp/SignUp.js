@@ -1,102 +1,75 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import FormInput from '../../util/FormInput/FormInput'
-import CustomButton from '../../util/CustomButton/CustomButton'
+import { MyTextField } from '../../util/Formik/FormikFunctions'
+
+import { Formik, Form } from 'formik'
+import * as yup from 'yup'
+import { TextField } from '@material-ui/core'
+import { Button } from 'reactstrap'
 
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'
 
-import './SignUp.scss'
+const validationSchema = yup.object({
+  displayName: yup.string().min(2, 'Too short').max(20, 'Too long').required('Required'),
+  email: yup.string().email('Invalid email').required('Required'),
+  password: yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Required')
+})
 
 const SignUp = () => {
-  const [userCredentials, setUserCredentials] = useState({
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  })
-
-  const [error, setError] = useState({
-    errors: ''
-  })
-
-  const { displayName, email, password, confirmPassword } = userCredentials
-  const { errors } = error
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    setUserCredentials({ ...userCredentials, [name]: value })
-  }
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    if (password !== confirmPassword) {
-      setError({ errors: 'Passwords don`t match' })
-      return
-    }
-
-    try {
-      let { user } = await auth.createUserWithEmailAndPassword(email, password)
-      await createUserProfileDocument(user, { displayName })
-
-      setUserCredentials({
+  return (
+    <div>
+      <Formik initialValues={{
         displayName: '',
         email: '',
         password: '',
         confirmPassword: ''
-      })
+      }}
+        validationSchema={validationSchema}
+        onSubmit={data => {
+          const { displayName, email, password } = data
 
-    } catch (error) {
-      console.log(error)
-      setError({ errors: error.message })
-    }
-  }
+          try { // async?
+            let { user } = auth.createUserWithEmailAndPassword(email, password)
+            createUserProfileDocument(user, { displayName })
+          } catch (error) {
+            console.log(error)
+          }
+        }}
+      >
+        {() => (
+          <>
+            <p className="h3 text-center">I do not have an account</p>
+            <p className="h6 text-center my-3">Sign up with your email and password</p>
 
-  return (
-    <div className="signup">
-      <h2 className="signup__title">I do not have an account</h2>
-      <span>Sign up with your email and password</span>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          type='text'
-          name='displayName'
-          value={displayName}
-          onChange={handleChange}
-          label='display name'
-          required
-        />
-        <FormInput
-          type='email'
-          name='email'
-          value={email}
-          onChange={handleChange}
-          label='email'
-          required
-        />
-        <div className="signup__password--1">
-          <FormInput
-            type='password'
-            name='password'
-            value={password}
-            onChange={handleChange}
-            label='password'
-            required
-          />
-        </div>
-        <div className="signup__password--2">
-          <FormInput
-            type='password'
-            name='confirmPassword'
-            value={confirmPassword}
-            onChange={handleChange}
-            label='confirm password'
-            required
-          />
-        </div>
-        {errors && <div className="signup__errors">{errors}</div>}
-        <div className="signup__button">
-          <CustomButton type='submit'>SIGN UP</CustomButton>
-        </div>
-      </form>
+            <Form className="w-100 d-flex flex-column justify-content-center">
+              <div className="p-2">
+                <MyTextField type="text" name="displayName" placeholder="display name" as={TextField} />
+              </div>
+
+              <div className="p-2">
+                <MyTextField type="text" name="email" placeholder="email" as={TextField} />
+              </div>
+
+              <div className="p-2">
+                <MyTextField type="password" name="password" placeholder="password" as={TextField} />
+              </div>
+
+              <div className="p-2">
+                <MyTextField type="password" name="confirmPassword" placeholder="confirm password" as={TextField} />
+              </div>
+
+              <Button type='submit'
+                block className="d-flex justify-content-center my-3" color="primary"
+              >
+                Sign up
+                </Button>
+            </Form>
+          </>
+        )}
+      </Formik>
     </div>
   )
 }

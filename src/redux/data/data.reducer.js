@@ -11,7 +11,8 @@ const INITIAL_STATE = {
   hip: '',
   neck: '',
   userId: '',
-  formula: ''
+  formula: '',
+  homeOpen: false
 }
 
 const dataReducer = (state = INITIAL_STATE, action) => {
@@ -40,6 +41,11 @@ const dataReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         formula: action.payload.formula
+      }
+    case DataActionTypes.SET_HOME_OPEN:
+      return {
+        ...state,
+        homeOpen: action.payload
       }
     default:
       return state

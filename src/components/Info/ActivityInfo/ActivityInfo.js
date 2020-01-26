@@ -1,79 +1,55 @@
 import React, { useState } from 'react'
-import InfoIcon from '@material-ui/icons/Info'
-import StarIcon from '@material-ui/icons/Star';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Tooltip
-} from '@material-ui/core'
-import { Close as CloseIcon } from '@material-ui/icons'
+import { withRouter } from 'react-router-dom'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfo, faStar } from '@fortawesome/free-solid-svg-icons'
 
-import './ActivityInfo.scss'
+const ActivityInfo = (props) => {
+  const { buttonLabel, className } = props
 
-const ActivityInfo = () => {
-  const [open, setOpen] = useState(false)
+  const [modal, setModal] = useState(false)
 
-  const handleOpen = () => {
-    setOpen(true)
-  }
+  const toggle = () => setModal(!modal)
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const startIcon = <FontAwesomeIcon icon={faStar} size="1x" style={{ color: '#c5a100c4' }} />
 
   return (
-    <>
-      <Tooltip title="get some info" placement="top" >
-        <InfoIcon className="info__icon" onClick={handleOpen} />
-      </Tooltip>
-      <Dialog
-        className="info"
-        open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth="sm"
+    <div>
+      <Button className="rounded mb-0 ml-2" color="primary" size="sm" onClick={toggle}
       >
-        <div className="info__header">
-          <Tooltip title="Close" >
-            <IconButton onClick={handleClose} >
-              <div className="info__close">
-                <CloseIcon fontSize="large" />
-              </div>
-            </IconButton>
-          </Tooltip>
-          <DialogTitle
-            disableTypography
-            className="info__title"
-          >
-            Activity levels</DialogTitle>
-        </div>
-        <DialogContent className="info__content">
+        {buttonLabel}
+        <FontAwesomeIcon icon={faInfo} size="sm" />
+      </Button>
+      <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Activity levels</ModalHeader>
+        <ModalBody className="text-center">
           <div>
-            <p><StarIcon /><br />
-              I am <span className="info__content--bold">sedentary</span> (little or no exercise)</p>
+            <p>{startIcon}<br />
+              I am <b>sedentary</b> <br />(little or no exercise)</p>
           </div>
           <div>
-            <p><StarIcon /><StarIcon /><br />
-              I am <span className="info__content--bold">lightly active</span> (light exercise or sports 1-3 days per week)</p>
+            <p>{startIcon}{startIcon}<br />
+              I am <b>lightly active</b> <br />(light exercise or sports 1-3 days per week)</p>
           </div>
           <div>
-            <p><StarIcon /><StarIcon /><StarIcon /><br />
-              I am <span className="info__content--bold">moderately active</span> (moderate exercise or sports 3-5 days per week)</p>
+            <p>{startIcon}{startIcon}{startIcon}<br />
+              I am <b>moderately active</b> <br />(moderate exercise/sports 3-5 days per week)</p>
           </div>
           <div>
-            <p><StarIcon /><StarIcon /><StarIcon /><StarIcon /><br />
-              I am <span className="info__content--bold">very active</span> (hard exercise or sports 6-7 days per week)</p>
+            <p>{startIcon}{startIcon}{startIcon}{startIcon}<br />
+              I am <b>very active</b><br /> (hard exercise/sports 6-7 days per week)</p>
           </div>
           <div>
-            <p><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon /><br />
-              I am <span className="info__content--bold">super active</span> (very hard exercise or sports and a physical job)</p>
+            <p>{startIcon}{startIcon}{startIcon}{startIcon}{startIcon}<br />
+              I am <b>super active</b><br /> (very hard exercise/sports and a physical job)</p>
           </div>
-        </DialogContent>
-      </Dialog>
-    </>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Ok</Button>{' '}
+        </ModalFooter>
+      </Modal>
+    </div>
   )
 }
 
-export default ActivityInfo
+export default withRouter(ActivityInfo)

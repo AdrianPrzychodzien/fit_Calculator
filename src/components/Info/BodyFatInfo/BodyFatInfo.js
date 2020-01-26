@@ -1,71 +1,40 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
-import InfoIcon from '@material-ui/icons/Info'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Tooltip
-} from '@material-ui/core'
-import { Close as CloseIcon } from '@material-ui/icons'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfo } from '@fortawesome/free-solid-svg-icons'
 
-import './BodyFatInfo.scss'
+const BodyFatInfo = (props) => {
+  const { buttonLabel, className } = props
 
-const BodyFatInfo = ({ history }) => {
-  const [open, setOpen] = useState(false)
+  const [modal, setModal] = useState(false)
 
-  const handleOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const toggle = () => setModal(!modal)
 
   return (
-    <>
-      <Tooltip title="get some info" placement="top" >
-        <InfoIcon className="info__icon" onClick={handleOpen} />
-      </Tooltip>
-      <Dialog
-        className="info"
-        open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth="sm"
+    <div>
+      <Button className="rounded mb-0 ml-2" color="primary" size="sm" onClick={toggle}
       >
-        <div className="info__header">
-          <Tooltip title="Close" >
-            <IconButton onClick={handleClose} >
-              <div className="info__close">
-                <CloseIcon fontSize="large" />
-              </div>
-            </IconButton>
-          </Tooltip>
-          <DialogTitle
-            disableTypography
-            className="info__title"
-          >
-            Body fat info</DialogTitle>
-        </div>
-        <DialogContent className="info__content">
-          <div>
-            You can check your body fat percentage by using <b>skinfold caliper</b>, but
-             the most commonly used estimation formula in body fat
-            percentage calculations is the <b>U.S. Navy fitness formula</b>
-          </div>
-          <br />
-          <div>
-            Calculation require giving body measurements in specific areas
-            </div>
-          <br />
-          <div>
-            You can add them <span onClick={() => history.push('/bodyFat')}>here</span>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </>
+        {buttonLabel}
+        <FontAwesomeIcon icon={faInfo} size="sm" />
+      </Button>
+      <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Body fat info</ModalHeader>
+        <ModalBody className="text-center">
+          You can check your body fat percentage by using <b>skinfold caliper</b>,
+          but the most commonly used estimation formula in body fat percentage calculations
+          is the <b>U.S. Navy fitness formula.</b>
+          <br /><br />
+          Calculation require giving body measurements in specific areas.
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Ok</Button>{' '}
+          <Button color="danger" onClick={() => props.history.push('/bodyFat')}>
+            Add them here
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </div>
   )
 }
 

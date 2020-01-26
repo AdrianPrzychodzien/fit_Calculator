@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
 
 const BodyFatInfo = (props) => {
-  const { buttonLabel, className } = props
+  // const { buttonLabel, className } = props
 
   const [modal, setModal] = useState(false)
 
@@ -15,10 +15,9 @@ const BodyFatInfo = (props) => {
     <div>
       <Button className="rounded mb-0 ml-2" color="primary" size="sm" onClick={toggle}
       >
-        {buttonLabel}
         <FontAwesomeIcon icon={faInfo} size="sm" />
       </Button>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
+      <Modal isOpen={modal} toggle={toggle} className="mt-5">
         <ModalHeader toggle={toggle}>Body fat info</ModalHeader>
         <ModalBody className="text-center">
           You can check your body fat percentage by using <b>skinfold caliper</b>,

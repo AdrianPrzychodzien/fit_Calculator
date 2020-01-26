@@ -1,56 +1,26 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfo } from '@fortawesome/free-solid-svg-icons'
 
-import InfoIcon from '@material-ui/icons/Info'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Tooltip
-} from '@material-ui/core'
-import { Close as CloseIcon } from '@material-ui/icons'
+const FatPercentageInfo = (props) => {
+  // const { buttonLabel, className } = props
 
-import './FatPercentageInfo.scss'
+  const [modal, setModal] = useState(false)
 
-const FatPercentageInfo = () => {
-  const [open, setOpen] = useState(false)
-
-  const handleOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const toggle = () => setModal(!modal)
 
   return (
-    <>
-      <Tooltip title="get some info" placement="top" >
-        <InfoIcon className="info__icon" onClick={handleOpen} />
-      </Tooltip>
-      <Dialog
-        className="info"
-        open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth="sm"
+    <div>
+      <Button className="rounded mb-0 ml-2" color="primary" size="sm" onClick={toggle}
       >
-        <div className="info__header">
-          <Tooltip title="Close" >
-            <IconButton onClick={handleClose} >
-              <div className="info__close">
-                <CloseIcon fontSize="large" />
-              </div>
-            </IconButton>
-          </Tooltip>
-          <DialogTitle
-            disableTypography
-            className="info__title"
-          >
-            Fat % Categories</DialogTitle>
-        </div>
-        <DialogContent className="info__contentTable">
-          <table className="table">
+        <FontAwesomeIcon icon={faInfo} size="sm" />
+      </Button>
+      <Modal isOpen={modal} toggle={toggle} className="mt-5">
+        <ModalHeader toggle={toggle}>Fat % Categories</ModalHeader>
+        <ModalBody className="text-center">
+          <Table>
             <thead>
               <tr>
                 <th>Category</th>
@@ -61,8 +31,8 @@ const FatPercentageInfo = () => {
             <tbody>
               <tr>
                 <td>Essential Fat</td>
-                <td>10-12%</td>
-                <td>2-4%</td>
+                <td>10-13%</td>
+                <td>2-5%</td>
               </tr>
               <tr>
                 <td>Athletes</td>
@@ -77,7 +47,7 @@ const FatPercentageInfo = () => {
               <tr>
                 <td>Acceptable</td>
                 <td>25-31%</td>
-                <td>18-25%</td>
+                <td>18-24%</td>
               </tr>
               <tr>
                 <td>Obese</td>
@@ -85,11 +55,18 @@ const FatPercentageInfo = () => {
                 <td>25%+</td>
               </tr>
             </tbody>
-          </table>
-        </DialogContent>
-      </Dialog>
-    </>
+          </Table>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Ok</Button>{' '}
+        </ModalFooter>
+      </Modal>
+    </div>
   )
 }
 
-export default FatPercentageInfo
+const mapStateToProps = ({ data }) => ({
+  userData: data
+})
+
+export default connect(mapStateToProps, null)(FatPercentageInfo)

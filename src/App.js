@@ -42,26 +42,28 @@ const App = ({ currentUser, setCurrentUser }) => {
 
   return (
     <Router>
-      <Jumbotron fluid className="pt-5">
-        <NavBar />
-        <Container fluid className="mt-3" >
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/personalData' component={FormikPersonalData} />
-            <Route exact path='/help' component={Help} />
-            <Route exact path='/bodyFat' component={FormikBodyFat} />
-            <Route exact path='/bmi' component={Bmi} />
-            <Route exact path='/calories' component={Calories} />
-            <Route exact path='/signin' render={() =>
-              currentUser ? (
-                <Redirect to='/' />
-              ) : (
-                  <SignInAndSignUp />
-                )}
-            />
-          </Switch>
-        </Container>
-      </Jumbotron>
+      <div style={{ maxWidth: '415px', margin: '0 auto' }}>
+        <Jumbotron fluid className="pt-5" >
+          <NavBar />
+          <Container fluid className="mt-3" >
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/personalData' component={FormikPersonalData} />
+              <Route exact path='/help' component={Help} />
+              <Route exact path='/bodyFat' component={FormikBodyFat} />
+              <Route exact path='/bmi' component={Bmi} />
+              <Route exact path='/calories' component={Calories} />
+              <Route exact path='/signin' render={() =>
+                currentUser ? (
+                  <Redirect to='/' />
+                ) : (
+                    <SignInAndSignUp />
+                  )}
+              />
+            </Switch>
+          </Container>
+        </Jumbotron>
+      </div>
     </Router>
 
   )

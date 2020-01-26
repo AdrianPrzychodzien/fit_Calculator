@@ -4,34 +4,27 @@ import { connect } from 'react-redux'
 import { setFatData } from '../../redux/actions'
 import { calcBMI, rangeBMI, idealBMI, userBmiTip } from '../../util/equations'
 
-import CustomButton from '../../util/CustomButton/CustomButton'
-
-import './Bmi.scss'
+import { Button } from 'reactstrap'
+import InputRange from '../../components/InputRange/InputRange'
 
 const BodyFat = ({ userData, history }) => {
+
   const { height, weight, age, sex, lifeActivity, fat } = userData
   const [normalBMIMin, normalBMIMax] = idealBMI(userData)
 
   if (height && weight && age && sex && lifeActivity && fat) {
     return (
-      <div className="bmi">
-        <h2 className="bmi__title">BMI Score: {calcBMI(userData)} %</h2>
-        <h4>which means you are classified as {rangeBMI(calcBMI(userData))}</h4>
+      <>
+        <p className="h2 text-center">BMI Score: {calcBMI(userData)} %</p>
+        <p className="h5 text-center">which means you are classified as {rangeBMI(calcBMI(userData))}</p>
         <hr />
-        <h4>Healthy BMI range: {normalBMIMin}kg - {normalBMIMax}kg</h4>
-        <h4>{userBmiTip(userData)}</h4>
-        <div className="input__range">
-          <div className="description">
-            <p>Underweight</p>
-            <p>Normal</p>
-            <p>OverWeight</p>
-            <p>Obesity</p>
-          </div>
-          <input type="range" min="15" max="35" value={calcBMI(userData)} readOnly />
-        </div>
+        <p className="h5 text-center">Healthy BMI range: {normalBMIMin}kg - {normalBMIMax}kg</p>
+        <p className="h5 text-center my-3">{userBmiTip(userData)}</p>
+
+        <InputRange userData={userData} />
         <hr />
 
-        <h5>
+        <p className="h6 text-center">
           Please note that BMI is not the most
           accurate way to measure body weight.
           <br /><br />
@@ -45,26 +38,28 @@ const BodyFat = ({ userData, history }) => {
           <br /><br />
           For more accurate informations
           <br />
-          <span onClick={() => history.push('bodyfat')} style={{ color: 'red' }}>
+          <Button
+            block className="d-flex justify-content-center my-3" color="danger"
+            onClick={() => history.push('bodyfat')}
+          >
             go to body fat page
-            </span>
-        </h5>
-      </div>
+            </Button>
+        </p>
+      </>
     )
   } else
     return (
-      <div className="bmi">
-        <h2 className="bmi__title">
+      <>
+        <p className="h3 my-5 text-center">
           Complete informations about yourself first
-      </h2>
-        <div className="bmi__button">
-          <CustomButton
-            onClick={() => history.push('./personalData')}
-          >
-            Go to personal data page
-          </CustomButton>
-        </div>
-      </div>
+        </p>
+        <Button
+          onClick={() => history.push('./personalData')}
+          block className="d-flex justify-content-center my-5" color="danger"
+        >
+          go to personal data page
+          </Button>
+      </>
     )
 }
 

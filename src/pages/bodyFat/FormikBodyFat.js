@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import { TextField } from '@material-ui/core'
@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import { MyTextField } from '../../util/Formik/FormikFunctions'
 
 import FatPercentageInfo from '../../components/Info/FatPercentageInfo/FatPercentageInfo'
-import { setFatData, setFatPercentage } from '../../redux/actions'
+import { setFatData } from '../../redux/actions'
 import { bodyFatFormula, idealBodyFatPercentage } from '../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,8 +16,8 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 
 let localUserSize
-JSON.parse(localStorage.getItem('userData')) === null ?
-  localUserSize = '' : localUserSize = JSON.parse(localStorage.getItem('userData'))
+JSON.parse(localStorage.getItem('userFatData')) === null ?
+  localUserSize = '' : localUserSize = JSON.parse(localStorage.getItem('userFatData'))
 
 const validationSchema = yup.object({
   waist: yup.number('It must be a number').required('Waist is required').positive(),
@@ -25,24 +25,16 @@ const validationSchema = yup.object({
   neck: yup.number('It must be a number').required('Neck is required').positive()
 })
 
-const FormikBodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history }) => {
+const FormikBodyFat = ({ setFatData, currentUser, userData, history }) => {
   const [userSize, setUserSize] = useState({
-    waist: localUserSize.waist || '',
-    hip: localUserSize.hip || '',
-    neck: localUserSize.neck || '',
-    fat: localStorage.fat || '',
+    waist: '',
+    hip: '',
+    neck: '',
+    fat: '',
     open: false
   })
 
-  useEffect(() => {
-    setFatData({
-      userSize
-      // userId: currentUser.id
-    })
-  }, [userSize])
-
-
-  const { waist, hip, neck, open } = userSize
+  const { open } = userSize
   const { sex, height } = userData
 
   const bodyFat = bodyFatFormula(userSize, userData)
@@ -53,30 +45,29 @@ const FormikBodyFat = ({ setFatData, setFatPercentage, currentUser, userData, hi
   return (
     <div>
       <Formik initialValues={{
-        waist: '',
-        hip: '',
-        neck: '',
-        fat: ''
+        waist: localUserSize.waist || '',
+        hip: localUserSize.hip || '',
+        neck: localUserSize.neck || '',
+        fat: localUserSize.fat || ''
       }}
         validationSchema={validationSchema}
         onSubmit={data => {
-          setUserSize({
+          const actualData = {
             waist: data.waist,
             hip: data.hip,
             neck: data.neck,
-            fat: bodyFatFormula(userSize, userData),
+            fat: bodyFatFormula(data, userData)
+          }
+          setUserSize({
+            ...actualData,
             open: true
           })
 
-          // setFatData({
-          //   userSize: data,
-          //   userId: currentUser.id
-          // })
-          // setFatPercentage({
-          //   fatPercentage: bodyFatFormula(userSize, userData),
-          //   userId: currentUser.id
-          // })
-          localStorage.setItem('userFatData', bodyFatFormula(userSize, userData))
+          setFatData({
+            ...actualData,
+            userId: currentUser.id
+          })
+          localStorage.setItem('userFatData', JSON.stringify(actualData))
         }}
       >
         {({ isSubmitting }) => (
@@ -110,51 +101,53 @@ const FormikBodyFat = ({ setFatData, setFatPercentage, currentUser, userData, hi
         )}
       </Formik>
 
-      {open && sex && height ? (
-        open && bodyFat > 0 ? (
-          <div className="personalData__result">
-            <h2 className="personalData__result--title">
-              Your body fat is {bodyFat} %
-          <div className="personalData__result--icon">
-                <FatPercentageInfo />
+      <hr />
+      <div className="w-100">
+        {sex && height ? (
+          open && bodyFat > 0 ? (
+            <div>
+              <p className="h3 mb-3 text-center">
+                Your body fat is {bodyFat} %
+                <div className="personalData__result--icon">
+                  <FatPercentageInfo />
+                </div>
+              </p>
+              <p className="h5 mb-3 text-center">Body fat mass: {bodyFatMass} kg</p>
+              <p className="h5 mb-3 text-center">Lean body mass: {leanBodyMass} kg</p>
+              <p className="h5 mb-3 text-center">Ideal body fat for given age: {idealBodyFatPercentage(userData)} %</p>
+
+              {bodyFatToLose > 0 ? (
+                <p className="h5 mb-3 text-center">Body fat to lose to reach ideal: {bodyFatToLose} %</p>) : (
+                  <p className="h5 mb-3 text-center">You are below ideal fat percentage!</p>)}
+
+              <div className="d-flex justify-content-center mt-4" color="primary">
+                <Button onClick={() => history.push('/')}>
+                  Go to home page
+                </Button>
               </div>
-            </h2>
-            <h4>Body fat mass: {bodyFatMass} kg</h4>
-            <h4>Lean body mass: {leanBodyMass} kg</h4>
-            <h4>Ideal body fat for given age: {idealBodyFatPercentage(userData)} %</h4>
-
-            {bodyFatToLose > 0 ? (
-              <h4>Body fat to lose to reach ideal: {bodyFatToLose} %</h4>) : (
-                <h4>You are below ideal fat percentage!</h4>)}
-
-            <div className="form__button">
-              <Button onClick={() => history.push('/')}>
-                go to home page
-            </Button>
             </div>
-          </div>
-        ) : (open &&
-          <div className="personalData__warning">
-            Make sure you entered your measurements correctly!
+          ) : (open &&
+            <p className="h6 mx-5 my-2 text-center text-danger">
+              Make sure you entered your measurements correctly!
+            </p>
+            )
+        ) : (
+            <div className="h6 mx-5 my-2 text-center text-danger">
+              Make sure you added information about your sex and height!
+                <br /><br />
+              This data are necessary to make calculations
+              <div className="form__button">
+                <Button color="danger"
+                  onClick={() => history.push('/personalData')}>
+                  Add data
+                </Button>
+              </div>
+            </div>
+          )}
       </div>
-          )
-      ) : (
-          <div className="personalData__warning">
-            Make sure you added information about your sex and height!
-        <br />
-            This data are necessary to make calculations
-          <div className="form__button">
-              <Button
-                onClick={() => history.push('/personalData')}>
-                add data
-            </Button>
-            </div>
-          </div>
-        )}
     </div>
   )
 }
-
 
 const mapStateToProps = ({ user, data }) => ({
   currentUser: user.currentUser,
@@ -162,8 +155,7 @@ const mapStateToProps = ({ user, data }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFatData: data => dispatch(setFatData(data)),
-  setFatPercentage: data => dispatch(setFatPercentage(data))
+  setFatData: data => dispatch(setFatData(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormikBodyFat)

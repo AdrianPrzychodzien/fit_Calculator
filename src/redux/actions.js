@@ -17,11 +17,6 @@ export const setFatData = data => ({
   payload: data
 })
 
-export const setFatPercentage = data => ({
-  type: DataActionTypes.SET_FAT_PERCENTAGE,
-  payload: data
-})
-
 export const setSidebarState = data => ({
   type: UiActionTypes.SET_SIDEBAR_STATE,
   payload: data

@@ -33,21 +33,21 @@ const validationSchema = yup.object({
   fat: yup.number('It must be a number').positive().max(70, 'Are you sure?')
 })
 
-const FormikPersonalData = ({ currentUser, setData, history }) => {
+const FormikPersonalData = ({ currentUser, userData, setData, history }) => {
   return (
     <div>
       <Formik initialValues={{
         height: localUserData.height || '',
         weight: localUserData.weight || '',
         age: localUserData.age || '',
-        fat: localUserData.fat || '',
-        sex: localUserData.sex || '',
-        lifeActivity: localUserData.lifeActivity || '',
+        fat: userData.fat || localUserData.fat || '',
+        sex: localUserData.sex || 'Male',
+        lifeActivity: localUserData.lifeActivity || 1,
       }}
         validationSchema={validationSchema}
         onSubmit={data => {
           setData({
-            userData: data,
+            ...data,
             userId: currentUser.id
           })
           localStorage.setItem('userData', JSON.stringify(data))
@@ -109,8 +109,9 @@ const FormikPersonalData = ({ currentUser, setData, history }) => {
   )
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = ({ user, data }) => ({
+  currentUser: user.currentUser,
+  userData: data
 })
 
 const mapDispatchToProps = dispatch => ({

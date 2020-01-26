@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import FatPercentageInfo from '../../components/Info/FatPercentageInfo/FatPercentageInfo'
 import FormInput from '../../util/FormInput/FormInput'
 import CustomButton from '../../util/CustomButton/CustomButton'
-import { setFatData, setFatPercentage } from '../../redux/actions'
+import { setFatData } from '../../redux/actions'
 import { bodyFatFormula, idealBodyFatPercentage } from '../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,7 +12,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import './BodyFat.scss'
 
-const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history }) => {
+const BodyFat = ({ setFatData, currentUser, userData, history }) => {
   let localUserSize
   JSON.parse(localStorage.getItem('userSize')) === null ?
     localUserSize = '' : localUserSize = JSON.parse(localStorage.getItem('userSize'))
@@ -47,11 +47,6 @@ const BodyFat = ({ setFatData, setFatPercentage, currentUser, userData, history 
 
     setFatData({
       userSize,
-      userId: currentUser.id
-    })
-
-    setFatPercentage({
-      fatPercentage: bodyFat,
       userId: currentUser.id
     })
 
@@ -171,8 +166,7 @@ const mapStateToProps = ({ user, data }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFatData: data => dispatch(setFatData(data)),
-  setFatPercentage: data => dispatch(setFatPercentage(data))
+  setFatData: data => dispatch(setFatData(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BodyFat)

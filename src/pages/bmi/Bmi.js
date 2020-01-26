@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { setFatData, setFatPercentage } from '../../redux/actions'
+import { setFatData } from '../../redux/actions'
 import { calcBMI, rangeBMI, idealBMI, userBmiTip } from '../../util/equations'
 
 import CustomButton from '../../util/CustomButton/CustomButton'
@@ -74,8 +74,7 @@ const mapStateToProps = ({ user, data }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFatData: data => dispatch(setFatData(data)),
-  setFatPercentage: data => dispatch(setFatPercentage(data))
+  setFatData: data => dispatch(setFatData(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BodyFat)

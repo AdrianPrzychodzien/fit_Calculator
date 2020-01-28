@@ -10,6 +10,10 @@ const INITIAL_STATE = {
   waist: '',
   hip: '',
   neck: '',
+  weightGoal: '',
+  finish: '',
+  start: '',
+  dailyWeight: '',
   userId: '',
   formula: '',
   homeOpen: false
@@ -41,7 +45,19 @@ const dataReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         weight: action.payload.weight,
+        weightGoal: action.payload.weightGoal,
         userId: action.payload.userId
+      }
+    case DataActionTypes.SET_FINISH_DATE:
+      return {
+        ...state,
+        finish: action.payload.finish,
+        start: action.payload.start
+      }
+    case DataActionTypes.SET_DAILY_WEIGHT:
+      return {
+        ...state,
+        dailyWeight: action.payload.dailyWeight
       }
     case DataActionTypes.SET_FORMULA:
       return {

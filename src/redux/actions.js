@@ -21,8 +21,18 @@ export const setWeightData = data => ({
   payload: data
 })
 
+export const setFinishDate = data => ({
+  type: DataActionTypes.SET_FINISH_DATE,
+  payload: data
+})
+
 export const setFormula = data => ({
   type: DataActionTypes.SET_FORMULA,
+  payload: data
+})
+
+export const setDailyWeight = data => ({
+  type: DataActionTypes.SET_DAILY_WEIGHT,
   payload: data
 })
 

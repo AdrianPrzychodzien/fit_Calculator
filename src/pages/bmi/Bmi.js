@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { setFatData } from '../../redux/actions'
 import { calcBMI, rangeBMI, idealBMI, userBmiTip } from '../../util/equations'
 
 import { Button } from 'reactstrap'
@@ -16,7 +15,7 @@ const BodyFat = ({ userData, history }) => {
     return (
       <>
         <p className="h2 text-center">BMI Score: {calcBMI(userData)} %</p>
-        <p className="h5 text-center">which means you are classified as {rangeBMI(calcBMI(userData))}</p>
+        <p className="h5 text-center">which means you are classified as <br /> {rangeBMI(calcBMI(userData))}</p>
         <hr />
         <p className="h5 text-center">Healthy BMI range: {normalBMIMin}kg - {normalBMIMax}kg</p>
         <p className="h5 text-center my-3">{userBmiTip(userData)}</p>
@@ -39,7 +38,7 @@ const BodyFat = ({ userData, history }) => {
           For more accurate informations
           <br />
           <Button
-            block className="d-flex justify-content-center my-3" color="danger"
+            block className="d-flex justify-content-center my-3" color="primary"
             onClick={() => history.push('bodyfat')}
           >
             go to body fat page
@@ -57,7 +56,7 @@ const BodyFat = ({ userData, history }) => {
           onClick={() => history.push('./personalData')}
           block className="d-flex justify-content-center my-5" color="danger"
         >
-          go to personal data page
+          Go to personal data page
           </Button>
       </>
     )
@@ -68,8 +67,4 @@ const mapStateToProps = ({ user, data }) => ({
   userData: data
 })
 
-const mapDispatchToProps = dispatch => ({
-  setFatData: data => dispatch(setFatData(data))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(BodyFat)
+export default connect(mapStateToProps, null)(BodyFat)

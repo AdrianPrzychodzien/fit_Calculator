@@ -118,7 +118,8 @@ const BodyFat = ({ setFatData, currentUser, userData, history }) => {
                   <p className="h5 mb-3 text-center">You are below ideal fat percentage!</p>)}
 
               <div className="d-flex justify-content-center mt-4" color="primary">
-                <Button onClick={() => history.push('/')}>
+                <Button block className="d-flex justify-content-center my-3" color="primary"
+                  onClick={() => history.push('/')}>
                   Go to home page
                 </Button>
               </div>

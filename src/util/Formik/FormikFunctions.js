@@ -10,7 +10,7 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { Field, useField } from 'formik'
 import { TextField, Radio, FormControlLabel } from '@material-ui/core'
 
-import './FormikFunctions.css'
+import './FormikFunctions.scss'
 
 const renderStar = isFull => {
   const icon = isFull ? faStar : regularStar;
@@ -82,12 +82,14 @@ export const MyTextField = ({ type, placeholder, ...props }) => {
   const errorText = meta.error && meta.touched ? meta.error : ''
 
   return (
-    <TextField
-      type={type}
-      placeholder={placeholder}
-      {...field}
-      helperText={errorText}
-      error={!!errorText}
-    />
+    <>
+      <TextField
+        type={type}
+        placeholder={placeholder}
+        {...field}
+        helperText={errorText}
+        error={!!errorText}
+      />
+    </>
   )
 }

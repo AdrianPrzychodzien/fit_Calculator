@@ -62,12 +62,11 @@ const Home = ({ currentUser, userData, setFormula, setHomeOpen, history }) => {
           )}
 
         <Formik initialValues={{
-          formula: JSON.parse(localStorage.getItem('formula')) || ''
+          formula: userData.formula || ''
         }}
           onSubmit={data => {
             setFormula({ ...data })
             !homeOpen && setHomeOpen(true)
-            localStorage.setItem('formula', JSON.stringify(data.formula))
           }}
         >
           {() => (

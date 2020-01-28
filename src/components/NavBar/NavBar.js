@@ -6,7 +6,7 @@ import { auth } from '../../firebase/firebase.utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faHome, faPlus, faSignOutAlt, faQuestionCircle, faUserPlus, faBars,
-  faTimes, faPercentage, faBalanceScaleRight, faUtensils
+  faTimes, faPercentage, faBalanceScaleRight, faUtensils, faWeight
 } from '@fortawesome/free-solid-svg-icons'
 import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap'
 
@@ -56,6 +56,13 @@ const NavBar = ({ currentUser }) => {
               <Link to='calories' className="d-flex">
                 <FontAwesomeIcon icon={faUtensils} size="2x" />
                 <p className="h4 ml-2">Calories</p>
+              </Link>
+            </DropdownItem>
+            <hr />
+            <DropdownItem className="py-2">
+              <Link to='weightTracker' className="d-flex">
+                <FontAwesomeIcon icon={faWeight} size="2x" />
+                <p className="h4 ml-2">Weight Tracker</p>
               </Link>
             </DropdownItem>
             <hr className="mb-0" />

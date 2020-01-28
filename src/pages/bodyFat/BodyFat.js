@@ -14,10 +14,6 @@ import { bodyFatFormula, idealBodyFatPercentage } from '../../util/equations'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-let localUserSize
-JSON.parse(localStorage.getItem('userFatData')) === null ?
-  localUserSize = '' : localUserSize = JSON.parse(localStorage.getItem('userFatData'))
-
 const validationSchema = yup.object({
   waist: yup.number('It must be a number').required('Waist is required').positive(),
   hip: yup.number('It must be a number').required('Hip is required').positive(),
@@ -44,10 +40,10 @@ const BodyFat = ({ setFatData, currentUser, userData, history }) => {
   return (
     <div>
       <Formik initialValues={{
-        waist: localUserSize.waist || '',
-        hip: localUserSize.hip || '',
-        neck: localUserSize.neck || '',
-        fat: localUserSize.fat || ''
+        waist: userData.waist || '',
+        hip: userData.hip || '',
+        neck: userData.neck || '',
+        fat: userData.fat || ''
       }}
         validationSchema={validationSchema}
         onSubmit={data => {
@@ -66,7 +62,6 @@ const BodyFat = ({ setFatData, currentUser, userData, history }) => {
             ...actualData,
             userId: currentUser.id
           })
-          localStorage.setItem('userFatData', JSON.stringify(actualData))
         }}
       >
         {({ isSubmitting }) => (

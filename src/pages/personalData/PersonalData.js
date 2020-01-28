@@ -13,17 +13,9 @@ import { setData } from '../../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBirthdayCake,
-  faArrowsAltV,
-  faFemale,
-  faMale,
-  faWeight,
-  faPercentage
+  faBirthdayCake, faArrowsAltV, faFemale,
+  faMale, faWeight, faPercentage
 } from '@fortawesome/free-solid-svg-icons'
-
-let localUserData
-JSON.parse(localStorage.getItem('userData')) === null ?
-  localUserData = '' : localUserData = JSON.parse(localStorage.getItem('userData'))
 
 const validationSchema = yup.object({
   height: yup.number('It must be a number').required('Height is required').positive(),
@@ -36,12 +28,12 @@ const PersonalData = ({ currentUser, userData, setData, history }) => {
   return (
     <div>
       <Formik initialValues={{
-        height: localUserData.height || '',
-        weight: localUserData.weight || '',
-        age: localUserData.age || '',
-        fat: userData.fat || localUserData.fat || '',
-        sex: localUserData.sex || 'Male',
-        lifeActivity: localUserData.lifeActivity || 1,
+        height: userData.height || '',
+        weight: userData.weight || '',
+        age: userData.age || '',
+        fat: userData.fat || userData.fat || '',
+        sex: userData.sex || 'Male',
+        lifeActivity: userData.lifeActivity || 1,
       }}
         validationSchema={validationSchema}
         onSubmit={data => {
@@ -49,7 +41,6 @@ const PersonalData = ({ currentUser, userData, setData, history }) => {
             ...data,
             userId: currentUser.id
           })
-          localStorage.setItem('userData', JSON.stringify(data))
           history.push('/')
         }}
       >

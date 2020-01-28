@@ -84,7 +84,7 @@ const Macronutrients = ({ userData }) => {
                 <th>High Carb</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-center">
               <tr>
                 <td>Protein</td>
                 <td>{proteinModerate}g</td>
@@ -127,7 +127,7 @@ const Macronutrients = ({ userData }) => {
                 <th>High Carb</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-center">
               <tr>
                 <td>Protein</td>
                 <td>{proteinModerate}g</td>
@@ -170,7 +170,7 @@ const Macronutrients = ({ userData }) => {
                 <th>High Carb</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-center">
               <tr>
                 <td>Protein</td>
                 <td>{proteinModerate}g</td>

@@ -16,6 +16,11 @@ export const setFatData = data => ({
   payload: data
 })
 
+export const setWeightData = data => ({
+  type: DataActionTypes.SET_WEIGHT_DATA,
+  payload: data
+})
+
 export const setFormula = data => ({
   type: DataActionTypes.SET_FORMULA,
   payload: data

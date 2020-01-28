@@ -37,12 +37,18 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         fat: action.payload.fat,
         userId: action.payload.userId
       }
+    case DataActionTypes.SET_WEIGHT_DATA:
+      return {
+        ...state,
+        weight: action.payload.weight,
+        userId: action.payload.userId
+      }
     case DataActionTypes.SET_FORMULA:
       return {
         ...state,
         formula: action.payload.formula
       }
-    case DataActionTypes.SET_HOME_OPEN:
+    case DataActionTypes.SET_HOME_OPEN: // UI reducer ??
       return {
         ...state,
         homeOpen: action.payload

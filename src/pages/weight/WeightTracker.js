@@ -17,57 +17,78 @@ import { faWeight, faBullseye } from '@fortawesome/free-solid-svg-icons'
 
 const validationSchema = yup.object({
   weight: yup.number('It must be a number').required('Weight is required').positive(),
+  weightGoal: yup.number('It must be a number').required('Weight is required').positive()
 })
 
 const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, setDailyWeight }) => {
   const [date, setDate] = useState(null)
 
-  const { dailyWeight, weight, weightGoal } = userData
+  const [daily, setDaily] = useState({
+    dailyWeight: ''
+  })
+
+  const { dailyWeight } = daily
 
   let finishDate = new Date(date).toISOString().slice(0, 10)
+
+  const handleChange = e => {
+    const { name, value } = e.target
+    setDaily({ [name]: value })
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    setDailyWeight({
+      weight: dailyWeight,
+      date: new Date().toISOString().slice(0, 10)
+    })
+
+    setDaily({ dailyWeight: '' })
+  }
 
   return (
     <>
       <p className="h2 text-center">Weight Tracker</p>
 
-      {userData.finish ? (
+      {!userData.finish ? (
         <>
-          <>
-            <Formik initialValues={{
-              weight: userData.weight || '',
-              weightGoal: userData.weightGoal || '',
+          <Formik initialValues={{
+            weight: userData.weight || '',
+            weightGoal: userData.weightGoal || '',
+          }}
+            validationSchema={validationSchema}
+            onSubmit={data => {
+              setWeightData({
+                weight: data.weight,
+                weightGoal: data.weightGoal,
+                userId: currentUser.id
+              })
             }}
-              validationSchema={validationSchema}
-              onSubmit={data => {
-                setWeightData({
-                  weight: data.weight,
-                  weightGoal: data.weightGoal,
-                  userId: currentUser.id
-                })
-              }}
-            >
-              {({ isSubmitting }) => (
-                <>
-                  <Form className="w-100 d-flex justify-content-center">
-                    <div className="mx-3 my-3 w-50 d-flex">
-                      <FontAwesomeIcon className="mr-3 text-primary" icon={faWeight} size="2x" />
-                      <MyTextField type="number" name="weight" placeholder="Weight" as={TextField} />
-                    </div>
-                    <div className="mx-3 my-3 w-50 d-flex">
-                      <FontAwesomeIcon className="mr-3 text-primary" icon={faBullseye} size="2x" />
-                      <MyTextField type="number" name="weightGoal" placeholder="Goal" as={TextField} />
-                    </div>
+          >
+            {({ isSubmitting }) => (
+              <>
+                <Form className="w-100 d-flex justify-content-center">
+                  <div className="mx-3 my-3 w-50 d-flex">
+                    <FontAwesomeIcon className="mr-3 text-primary" icon={faWeight} size="2x" />
+                    <MyTextField type="number" name="weight" placeholder="Weight" as={TextField} />
+                  </div>
+                  <div className="mx-3 my-3 w-50 d-flex">
+                    <FontAwesomeIcon className="mr-3 text-primary" icon={faBullseye} size="2x" />
+                    <MyTextField type="number" name="weightGoal" placeholder="Goal" as={TextField} />
+                  </div>
 
-                    <Button className="mx-1 my-2 h-25" type='submit' color="primary">
-                      Add
+                  <Button className="mx-1 my-2 h-25" type='submit' color="primary">
+                    Add
                     </Button>
-                  </Form>
-                </>
-              )}
-            </Formik>
+                </Form>
+              </>
+            )}
+          </Formik>
 
+          <div className="d-flex justify-content-center align-items-center">
             <DatePicker
-              className="mt-2"
+              className="my-2 mr-3 text-center border-0"
               selected={date}
               onChange={date => setDate(date)}
               minDate={new Date()}
@@ -77,18 +98,27 @@ const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, se
             <Button onClick={() => setFinishDate({ finish: finishDate, start: new Date().toISOString().slice(0, 10) })}
               className="" color="primary">
               Add
-            </Button>
-          </>
-
+          </Button>
+          </div>
         </>
       ) : (
-          <>
-            <TextField name="daily" type="number" as={TextField} />
-            <Button color="primary">submit</Button>
-          </>
+          <div className="d-flex justify-content-center align-items-center">
+            <form onSubmit={handleSubmit}>
+              <TextField
+                name="dailyWeight"
+                type="number"
+                step="0.1"
+                onChange={handleChange}
+                value={dailyWeight}
+                as={TextField}
+              />
+              <Button className="ml-3" type="submit" color="primary"
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
         )}
-
-
       <hr />
       <Chart />
     </>

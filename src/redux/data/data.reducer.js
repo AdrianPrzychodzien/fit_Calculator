@@ -1,4 +1,5 @@
 import { DataActionTypes } from './data.types'
+import { addNewDailyWeight } from './data.utils'
 
 const INITIAL_STATE = {
   height: '',
@@ -13,7 +14,7 @@ const INITIAL_STATE = {
   weightGoal: '',
   finish: '',
   start: '',
-  dailyWeight: '',
+  dailyWeightArray: [],
   userId: '',
   formula: '',
   homeOpen: false
@@ -55,9 +56,10 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         start: action.payload.start
       }
     case DataActionTypes.SET_DAILY_WEIGHT:
+      console.log(state.dailyWeightArray, action.payload)
       return {
         ...state,
-        dailyWeight: action.payload.dailyWeight
+        dailyWeightArray: addNewDailyWeight(state.dailyWeightArray, action.payload)
       }
     case DataActionTypes.SET_FORMULA:
       return {

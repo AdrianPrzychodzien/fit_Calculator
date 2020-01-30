@@ -29,9 +29,10 @@ import {
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons'
 
-const Home = ({ currentUser, userData, setFormula, setHomeOpen, history }) => {
+const Home = ({ currentUser, userData, uiData, setFormula, setHomeOpen, history }) => {
 
-  const { weight, height, age, sex, lifeActivity, fat, formula, homeOpen } = userData
+  const { homeOpen } = uiData
+  const { weight, height, age, sex, lifeActivity, fat, formula } = userData
   const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData))
 
   if (currentUser) {
@@ -202,9 +203,10 @@ const Home = ({ currentUser, userData, setFormula, setHomeOpen, history }) => {
   }
 }
 
-const mapStateToProps = ({ user, data }) => ({
+const mapStateToProps = ({ user, data, ui }) => ({
   currentUser: user.currentUser,
-  userData: data
+  userData: data,
+  uiData: ui
 })
 
 const mapDispatchToProps = dispatch => ({

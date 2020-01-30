@@ -10,8 +10,6 @@ const Chart = ({ userData }) => {
     return { day: item.date.slice(5, 10), weight: item.weight, weightGoal: weightGoal }
   })
 
-  console.log(dailyWeights)
-
   const data = [
     dailyWeights[0],
     dailyWeights[1],

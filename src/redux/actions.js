@@ -1,5 +1,6 @@
 import { UserActionTypes } from './user/user.types'
 import { DataActionTypes } from './data/data.types'
+import { UiActionTypes } from './ui/ui.types'
 
 export const setCurrentUser = userCredentials => ({
   type: UserActionTypes.SET_CURRENT_USER,
@@ -41,7 +42,12 @@ export const clearActualGoal = data => ({
   payload: data
 })
 
+export const clearActualGoalSaveWeights = data => ({
+  type: DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS,
+  payload: data
+})
+
 export const setHomeOpen = data => ({
-  type: DataActionTypes.SET_HOME_OPEN,
+  type: UiActionTypes.SET_HOME_OPEN,
   payload: data
 })

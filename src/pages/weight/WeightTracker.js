@@ -7,11 +7,15 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
+import uuid from 'uuid'
 
 import { MyTextField } from '../../util/Formik/FormikFunctions'
 import DeleteGoal from '../../components/Info/DeleteGoal/DeleteGoal'
-import Chart from '../../components/Chart/Chart'
-import { setWeightData, setFinishDate, setDailyWeight, clearActualGoal } from '../../redux/actions'
+import WeightTrackerData from '../../components/Tabs/WeightTrackerData/WeightTrackerData'
+import {
+  setWeightData, setFinishDate, setDailyWeight,
+  clearActualGoal, clearActualGoalSaveWeights
+} from '../../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWeight, faBullseye } from '@fortawesome/free-solid-svg-icons'
@@ -21,7 +25,7 @@ const validationSchema = yup.object({
   weightGoal: yup.number('It must be a number').required('Weight is required').positive()
 })
 
-const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, setDailyWeight, clearActualGoal }) => {
+const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, setDailyWeight, clearActualGoal, clearActualGoalSaveWeights }) => {
   const [date, setDate] = useState(null)
 
   const [daily, setDaily] = useState({
@@ -44,20 +48,28 @@ const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, se
     e.preventDefault()
 
     setDailyWeight({
+      date: new Date("2020-02-04").toISOString().slice(0, 10),
       weight: dailyWeight,
-      date: new Date().toISOString().slice(0, 10)
+      id: uuid()
     })
 
     setDaily({ dailyWeight: '' })
   }
 
-  const clearFunc = () => {
-
+  const clearGoal = () => {
     clearActualGoal({
       start: '',
       finish: '',
       weightGoal: '',
       dailyWeightArray: []
+    })
+  }
+
+  const clearGoalSaveWeights = () => {
+    clearActualGoalSaveWeights({
+      start: '',
+      finish: '',
+      weightGoal: ''
     })
   }
 
@@ -153,17 +165,23 @@ const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, se
                 )}
             </div>
             {/* Week average, Info component about weight gain and loss,
-            delete actual Goal and set new Goal, 
             TABS with Chart, History, separate reducer? */}
 
           </>
         )}
+
       <hr />
-      <Chart />
+      <p className="h2 text-center mb-3">Weight Tracker data</p>
+
+      <WeightTrackerData />
       <hr />
 
       <div className="d-flex justify-content-around align-items-center h5">
-        <DeleteGoal clearFunc={clearFunc} className="mt-3" />
+        <DeleteGoal
+          clearGoal={clearGoal}
+          clearGoalSaveWeights={clearGoalSaveWeights}
+          className="mt-3"
+        />
       </div>
     </>
   )
@@ -178,7 +196,8 @@ const mapDispatchToProps = dispatch => ({
   setWeightData: data => dispatch(setWeightData(data)),
   setFinishDate: data => dispatch(setFinishDate(data)),
   setDailyWeight: data => dispatch(setDailyWeight(data)),
-  clearActualGoal: data => dispatch(clearActualGoal(data))
+  clearActualGoal: data => dispatch(clearActualGoal(data)),
+  clearActualGoalSaveWeights: data => dispatch(clearActualGoalSaveWeights(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeightTracker)

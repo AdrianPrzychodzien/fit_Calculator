@@ -17,7 +17,18 @@ const WeightTrackerData = ({ userData }) => {
     if (activeTab !== tab) setActiveTab(tab)
   }
 
-  const { dailyWeightArray, height } = userData
+  const { dailyWeightArray, height, start, finish } = userData
+
+  let myDateFormat = date => {
+    let d = new Date(date)
+    let currDay = d.getDay()
+    let currDate = d.getDate()
+    let currMonth = d.getMonth() + 1
+    let currYear = d.getFullYear()
+    let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    return `${days[currDay]}, ${currDate}-${currMonth}-${currYear} `
+  }
+
 
   const historyItems = dailyWeightArray
     .slice(0)
@@ -79,6 +90,15 @@ const WeightTrackerData = ({ userData }) => {
       {/* Tab Content 1 - Chart */}
       <TabContent activeTab={activeTab}>
         <TabPane tabId="Chart">
+          <Row>
+            <Col sm="12">
+              <p className="h6 text-center my-3">
+                Start day was on {myDateFormat(start)} <br />
+                Finish will be on {myDateFormat(finish)}
+              </p>
+            </Col>
+          </Row>
+
           <Chart />
         </TabPane>
 
@@ -87,9 +107,7 @@ const WeightTrackerData = ({ userData }) => {
           <Row>
             <Col sm="12">
               <p className="h6 text-center my-3">
-                These macronutrient values reflect your maintenance calories
-                of  kcal per day, which is a 500 calorie deficit
-                from your maintenance.
+                Check your weight log
                 </p>
             </Col>
           </Row>
@@ -99,7 +117,7 @@ const WeightTrackerData = ({ userData }) => {
                 <th>Date</th>
                 <th>Weight</th>
                 <th>BMI</th>
-                <th>?</th>
+                <th>Trend</th>
               </tr>
             </thead>
             <tbody className="text-center">

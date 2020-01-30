@@ -36,6 +36,11 @@ export const setDailyWeight = data => ({
   payload: data
 })
 
+export const clearActualGoal = data => ({
+  type: DataActionTypes.CLEAR_ACTUAL_GOAL,
+  payload: data
+})
+
 export const setHomeOpen = data => ({
   type: DataActionTypes.SET_HOME_OPEN,
   payload: data

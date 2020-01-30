@@ -16,8 +16,7 @@ const INITIAL_STATE = {
   start: '',
   dailyWeightArray: [],
   userId: '',
-  formula: '',
-  homeOpen: false
+  formula: ''
 }
 
 const dataReducer = (state = INITIAL_STATE, action) => {
@@ -68,15 +67,17 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         weightGoal: action.payload.weightGoal,
         dailyWeightArray: action.payload.dailyWeightArray
       }
+    case DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS:
+      return {
+        ...state,
+        start: action.payload.start,
+        finish: action.payload.finish,
+        weightGoal: action.payload.weightGoal
+      }
     case DataActionTypes.SET_FORMULA:
       return {
         ...state,
         formula: action.payload.formula
-      }
-    case DataActionTypes.SET_HOME_OPEN: // UI reducer ??
-      return {
-        ...state,
-        homeOpen: action.payload
       }
     default:
       return state

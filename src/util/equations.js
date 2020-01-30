@@ -27,6 +27,25 @@ export const rangeBMI = data => {
   return result
 }
 
+export const rangeBMIColor = data => {
+  let result
+  if (data < 16) {
+    result = 'purple'
+  } else if (16 < data && data <= 17) {
+    result = 'blue'
+  } else if (17 < data && data <= 18.5) {
+    result = 'lightblue'
+  } else if (18.5 < data && data <= 25) {
+    result = 'green'
+  } else if (25 < data && data <= 30) {
+    result = 'orange'
+  } else {
+    result = 'red'
+  }
+
+  return result
+}
+
 export const idealBMI = data => {
   const height = data.height / 100
   const resultMax = (25 * height * height).toFixed(1)

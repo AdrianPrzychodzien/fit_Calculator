@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Fade } from 'reactstrap'
 
-const DeleteGoal = ({ clearFunc, className }) => {
+const DeleteGoal = ({ clearGoal, clearGoalSaveWeights, className }) => {
   const [fadeIn, setFadeIn] = useState(false)
   const [modal, setModal] = useState(false)
 
@@ -30,7 +30,8 @@ const DeleteGoal = ({ clearFunc, className }) => {
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={() => clearFunc()}>Delete</Button>{' '}
+          <Button color="warning" onClick={() => { clearGoalSaveWeights(); toggleFade(); toggle() }}>Delete but leave weights</Button>{' '}
+          <Button color="danger" onClick={() => { clearGoal(); toggleFade(); toggle() }}>Delete</Button>{' '}
           <Button color="primary" onClick={toggle}>Quit</Button>{' '}
         </ModalFooter>
       </Modal>

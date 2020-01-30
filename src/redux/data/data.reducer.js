@@ -56,10 +56,17 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         start: action.payload.start
       }
     case DataActionTypes.SET_DAILY_WEIGHT:
-      console.log(state.dailyWeightArray, action.payload)
       return {
         ...state,
         dailyWeightArray: addNewDailyWeight(state.dailyWeightArray, action.payload)
+      }
+    case DataActionTypes.CLEAR_ACTUAL_GOAL:
+      return {
+        ...state,
+        start: action.payload.start,
+        finish: action.payload.finish,
+        weightGoal: action.payload.weightGoal,
+        dailyWeightArray: action.payload.dailyWeightArray
       }
     case DataActionTypes.SET_FORMULA:
       return {

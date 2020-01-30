@@ -7,9 +7,10 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { TextField } from '@material-ui/core'
 import { Button } from 'reactstrap'
+import uuid from 'uuid'
 
 import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo'
-import { setData } from '../../redux/actions'
+import { setData, setDailyWeight } from '../../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -24,7 +25,7 @@ const validationSchema = yup.object({
   fat: yup.number('It must be a number').positive().max(70, 'Are you sure?')
 })
 
-const PersonalData = ({ currentUser, userData, setData, history }) => {
+const PersonalData = ({ currentUser, userData, setData, setDailyWeight, history }) => {
   return (
     <div>
       <Formik initialValues={{
@@ -41,6 +42,13 @@ const PersonalData = ({ currentUser, userData, setData, history }) => {
             ...data,
             userId: currentUser.id
           })
+
+          setDailyWeight({
+            date: new Date().toISOString().slice(0, 10),
+            weight: data.weight,
+            id: uuid()
+          })
+
           history.push('/')
         }}
       >
@@ -105,7 +113,8 @@ const mapStateToProps = ({ user, data }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setData: data => dispatch(setData(data))
+  setData: data => dispatch(setData(data)),
+  setDailyWeight: data => dispatch(setDailyWeight(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonalData)

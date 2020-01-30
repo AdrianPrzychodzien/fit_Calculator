@@ -9,6 +9,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import uuid from 'uuid'
 
+import { diffDays, weightTrackerInfo } from '../../util/equations'
 import { MyTextField } from '../../util/Formik/FormikFunctions'
 import DeleteGoal from '../../components/Info/DeleteGoal/DeleteGoal'
 import WeightTrackerData from '../../components/Tabs/WeightTrackerData/WeightTrackerData'
@@ -25,15 +26,23 @@ const validationSchema = yup.object({
   weightGoal: yup.number('It must be a number').required('Weight is required').positive()
 })
 
-const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, setDailyWeight, clearActualGoal, clearActualGoalSaveWeights }) => {
+const WeightTracker = ({
+  currentUser,
+  userData,
+  setWeightData,
+  setFinishDate,
+  setDailyWeight,
+  clearActualGoal,
+  clearActualGoalSaveWeights
+}) => {
   const [date, setDate] = useState(null)
 
   const [daily, setDaily] = useState({
-    dailyWeight: ''
+    dailyWeight: '',
   })
 
   const { dailyWeight } = daily
-  const { weightGoal, finish, dailyWeightArray } = userData
+  const { weightGoal, start, finish, dailyWeightArray } = userData
   const weightToday = dailyWeightArray.length ? dailyWeightArray[dailyWeightArray.length - 1].weight : null
   const weightYesterday = dailyWeightArray.length > 1 ? dailyWeightArray[dailyWeightArray.length - 2].weight : null
 
@@ -48,12 +57,20 @@ const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, se
     e.preventDefault()
 
     setDailyWeight({
-      date: new Date("2020-02-04").toISOString().slice(0, 10),
+      date: new Date("2020-02-03").toISOString().slice(0, 10),
       weight: dailyWeight,
       id: uuid()
     })
 
-    setDaily({ dailyWeight: '' })
+    setWeightData({
+      weight: dailyWeight,
+      weightGoal,
+      userId: currentUser.id
+    })
+
+    setDaily({
+      dailyWeight: ''
+    })
   }
 
   const clearGoal = () => {
@@ -150,22 +167,28 @@ const WeightTracker = ({ currentUser, userData, setWeightData, setFinishDate, se
               </Button>
               </form>
             </div>
-            <div className="d-flex justify-content-center h5 my-4">
+
+            <div className="d-flex text-center h5 my-4">
               {weightToday === weightYesterday ? (
                 <p>Your weight is the same as yesterday</p>
               ) : (
                   dailyWeightArray.length >= 2 ? (
-                    <p>Actual weight is {weightToday} kg,
-                    which is {Math.abs(weightToday - weightYesterday)} kg {' '}
+                    <p>Your actual weight is {(weightToday)} kg,
+                          which is {(Math.abs(weightToday - weightYesterday)).toFixed(1)} kg {' '}
                       {weightToday - weightYesterday < 0 ? 'less' : 'more'} than yesterday.
-                  </p>
+                        </p>
                   ) : (
                       <p>Actual weight is {weightToday} kg</p>
                     )
                 )}
             </div>
+            <div className="d-flex text-center h5 my-4">
+              {(diffDays(finish))} days left before designated date and
+                  you {weightTrackerInfo(userData)}
+            </div>
+
             {/* Week average, Info component about weight gain and loss,
-            TABS with Chart, History, separate reducer? */}
+            TABS with Chart, separate reducer? */}
 
           </>
         )}

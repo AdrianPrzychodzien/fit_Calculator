@@ -303,3 +303,48 @@ export const HighCarb = data => {
 
   return [protein, carbs, fats]
 }
+
+//
+// Days equations
+//
+export const diffDays = (end) => {
+  const oneDay = 24 * 60 * 60 * 1000
+  const firstDate = new Date()
+  const secondDate = new Date(end)
+
+  const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
+
+  return diffDays
+}
+
+export const weightTrackerInfo = data => {
+  const { weightGoal, dailyWeightArray } = data
+  const lastItem = dailyWeightArray.length ? dailyWeightArray[dailyWeightArray.length - 1].weight : null
+  const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
+  let result
+
+  // How much to gain ?
+  // case => Gain weight
+  if (weightGoal - firstItem > 0) {
+    if (weightGoal - lastItem > 0) {
+      result = `need to gain ${(weightGoal - lastItem).toFixed(1)} more kg`
+    }
+
+    else if (weightGoal - lastItem <= 0) {
+      result = 'already achieved your goal! Congratulations! lala'
+    }
+    // case => Lose weight
+  } else if (weightGoal - firstItem < 0) {
+    if (lastItem - weightGoal > 0) {
+      result = `need to lose ${(lastItem - weightGoal).toFixed(1)} more kg`
+    }
+
+    else if (lastItem - weightGoal <= 0) {
+      result = 'already achieved your goal! Congratulations!'
+    }
+  } else {
+    result = 'already achieved your goal! Congratulations!'
+  }
+
+  return result
+}

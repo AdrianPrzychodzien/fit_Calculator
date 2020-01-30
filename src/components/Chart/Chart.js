@@ -4,17 +4,13 @@ import { connect } from 'react-redux'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 const Chart = ({ userData }) => {
-  const { weightGoal, finish, dailyWeightArray } = userData
+  const { weightGoal, dailyWeightArray } = userData
 
   let dailyWeights = dailyWeightArray.map(item => {
     return { day: item.date.slice(5, 10), weight: item.weight, weightGoal: weightGoal }
   })
 
-  const data = [
-    dailyWeights[0],
-    dailyWeights[1],
-    { day: finish.slice(5, 10), weight: 86, weightGoal: weightGoal }
-  ]
+  const data = [...dailyWeights]
 
   const renderLineChart = (
     <LineChart width={350} height={200} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>

@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 //
 // BMI equations
 //
@@ -315,6 +317,76 @@ export const diffDays = (end) => {
   const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
 
   return diffDays
+}
+
+//Return arrays of dates from date to date
+export const getActualWeekDates = (startDate, stopDate) => {
+  var dateArray = []
+  var currentDate = moment(startDate)
+  var finishDate = moment(stopDate)
+
+  while (currentDate <= finishDate) {
+    dateArray.push(moment(currentDate).format('YYYY-MM-DD'))
+    currentDate = moment(currentDate).add(1, 'days')
+  }
+
+  return dateArray
+}
+
+//Return arrays of average weight in specific range of days
+export const displayAverageWeight = (dailyWeightArray, func) => {
+  const actualMonday = moment().startOf('week').add(1, 'days')
+  const actualSunday = moment().endOf('week').add(1, 'days')
+  const lastMonday = moment().startOf('week').add(1, 'days').subtract(1, 'weeks')
+  const lastSunday = moment().endOf('week').add(1, 'days').subtract(1, 'weeks')
+  const beforeLastMonday = moment().startOf('week').add(1, 'days').subtract(2, 'weeks')
+  const beforeLastSunday = moment().endOf('week').add(1, 'days').subtract(2, 'weeks')
+
+  // Array of dates in actual, last and next week
+  const thisWeekDates = func(actualMonday, actualSunday)
+  const lastWeekDates = func(lastMonday, lastSunday)
+  const beforeLastWeekDates = func(beforeLastMonday, beforeLastSunday)
+
+  // Return array of weights that matches condition
+  const listofWeights = (myObjects, condition) => {
+    let list = myObjects.filter(item => {
+      return condition.indexOf(item.date) !== -1
+    })
+
+    let output = list.map(item => parseFloat(item.weight))
+
+    return output
+  }
+
+  const thisWeekWeights = listofWeights(dailyWeightArray, thisWeekDates)
+  const lastWeekWeights = listofWeights(dailyWeightArray, lastWeekDates)
+  const beforeLastWeekWeights = listofWeights(dailyWeightArray, beforeLastWeekDates)
+
+  const averageWeight = array => {
+    return array.length === 0
+      ? 0 : (array.reduce((a, b) => a + b, 0) / array.length).toFixed(1)
+  }
+
+  const thisWeekAverage = averageWeight(thisWeekWeights)
+  const lastWeekAverage = averageWeight(lastWeekWeights)
+  const beforeLastWeekAverage = averageWeight(beforeLastWeekWeights)
+
+  // thisWeek => actual week before Sunday
+  return [
+    thisWeekAverage || 'no data',
+    lastWeekAverage || 'no data',
+    beforeLastWeekAverage || 'no data'
+  ]
+}
+
+export const lossOrGain = data => {
+  const { weightGoal, dailyWeightArray } = data
+  const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
+  let result
+
+  weightGoal - firstItem > 0 ? result = 'gain' : result = 'loss'
+
+  return result
 }
 
 export const weightTrackerInfo = data => {

@@ -5,13 +5,13 @@ import Chart from '../../Chart/Chart'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Table } from 'reactstrap'
 import classnames from 'classnames'
 
-import { rangeBMIColor } from '../../../util/equations'
+import { rangeBMIColor, getActualWeekDates, displayAverageWeight } from '../../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown, faEquals } from '@fortawesome/free-solid-svg-icons'
 
 const WeightTrackerData = ({ userData }) => {
-  const [activeTab, setActiveTab] = useState('History')
+  const [activeTab, setActiveTab] = useState('LastWeek')
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab)
@@ -28,7 +28,6 @@ const WeightTrackerData = ({ userData }) => {
     let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     return `${days[currDay]}, ${currDate}-${currMonth}-${currYear} `
   }
-
 
   const historyItems = dailyWeightArray
     .slice(0)
@@ -56,6 +55,10 @@ const WeightTrackerData = ({ userData }) => {
       )
     })
 
+
+
+  const [thisWeekAvg, lastWeekAvg, beforeLastWeekAvg] = displayAverageWeight(dailyWeightArray, getActualWeekDates)
+
   return (
     <div>
       <Nav tabs className="d-flex justify-content-center">
@@ -79,29 +82,30 @@ const WeightTrackerData = ({ userData }) => {
 
         <NavItem>
           <NavLink
-            className={classnames({ active: activeTab === 'Bulking' })}
-            onClick={() => { toggle('Bulking'); }}
+            className={classnames({ active: activeTab === 'LastWeek' })}
+            onClick={() => { toggle('LastWeek'); }}
           >
-            Bulking
+            Last week
           </NavLink>
         </NavItem>
       </Nav>
 
       {/* Tab Content 1 - Chart */}
       <TabContent activeTab={activeTab}>
-        <TabPane tabId="Chart">
-          <Row>
-            <Col sm="12">
-              <p className="h6 text-center my-3">
-                Start day was on {myDateFormat(start)} <br />
-                Finish will be on {myDateFormat(finish)}
-              </p>
-            </Col>
-          </Row>
+        {start && finish && dailyWeightArray.length > 0 &&
+          <TabPane tabId="Chart">
+            <Row>
+              <Col sm="12">
+                <p className="h6 text-center my-3">
+                  Start day was on {myDateFormat(start)} <br />
+                  Finish will be on {myDateFormat(finish)}
+                </p>
+              </Col>
+            </Row>
 
-          <Chart />
-        </TabPane>
-
+            <Chart />
+          </TabPane>
+        }
         {/* Tab Content 2 - History */}
         <TabPane tabId="History">
           <Row>
@@ -126,38 +130,27 @@ const WeightTrackerData = ({ userData }) => {
           </Table>
         </TabPane>
 
-        {/* Tab Content 3 - Bulking */}
-        <TabPane tabId="Bulking">
+        {/* Tab Content 3 - LastWeek */}
+        <TabPane tabId="LastWeek">
           <Row>
             <Col sm="12">
               <p className="h6 text-center my-3">
-                These macronutrient values reflect your maintenance calories
-                of  kcal per day, which is +500 calories
-                from your maintenance.
-                </p>
+                Some statistics...
+              </p>
             </Col>
           </Row>
-          <Table>
-            <thead className="text-center">
-              <tr>
-                <th>Macro</th>
-                <th>Medium Carb</th>
-                <th>Low Carb</th>
-                <th>High Carb</th>
-              </tr>
-            </thead>
-            <tbody className="text-center">
-              <tr>
-                <td>Protein</td>
-              </tr>
-              <tr >
-                <td>Carbs</td>
-              </tr>
-              <tr >
-                <td>Fats</td>
-              </tr>
-            </tbody>
-          </Table>
+          <div className="h6 my-3">
+            Average weight in actual week: {thisWeekAvg},<br />
+            Average weight one week before: {lastWeekAvg},<br />
+            Average weight two weeks before: {beforeLastWeekAvg}
+          </div>
+
+
+
+          {/* According to experts, losing 1–2 pounds (0.45–0.9 kg) per week is a 
+            healthy and safe rate, while losing more than this is considered too fast. 
+            However, you may lose more than that during your first week of an exercise 
+            or diet plan. */}
         </TabPane>
       </TabContent>
     </div>

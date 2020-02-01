@@ -13,6 +13,7 @@ import { diffDays, weightTrackerInfo } from '../../util/equations'
 import { MyTextField } from '../../util/Formik/FormikFunctions'
 import DeleteGoal from '../../components/Info/DeleteGoal/DeleteGoal'
 import WeightTrackerData from '../../components/Tabs/WeightTrackerData/WeightTrackerData'
+import WeightInfo from '../../components/Info/WeightInfo/WeightInfo'
 import {
   setWeightData, setFinishDate, setDailyWeight,
   clearActualGoal, clearActualGoalSaveWeights
@@ -42,7 +43,7 @@ const WeightTracker = ({
   })
 
   const { dailyWeight } = daily
-  const { weightGoal, start, finish, dailyWeightArray } = userData
+  const { weightGoal, finish, dailyWeightArray } = userData
   const weightToday = dailyWeightArray.length ? dailyWeightArray[dailyWeightArray.length - 1].weight : null
   const weightYesterday = dailyWeightArray.length > 1 ? dailyWeightArray[dailyWeightArray.length - 2].weight : null
 
@@ -57,7 +58,7 @@ const WeightTracker = ({
     e.preventDefault()
 
     setDailyWeight({
-      date: new Date("2020-02-03").toISOString().slice(0, 10),
+      date: new Date().toISOString().slice(0, 10),
       weight: dailyWeight,
       id: uuid()
     })
@@ -168,27 +169,29 @@ const WeightTracker = ({
               </form>
             </div>
 
-            <div className="d-flex text-center h5 my-4">
+            <div className="d-flex text-center align-items-center h5 my-4 mx-3">
               {weightToday === weightYesterday ? (
-                <p>Your weight is the same as yesterday</p>
+                <p className="m-0">Your weight is the same as yesterday</p>
               ) : (
                   dailyWeightArray.length >= 2 ? (
-                    <p>Your actual weight is {(weightToday)} kg,
-                          which is {(Math.abs(weightToday - weightYesterday)).toFixed(1)} kg {' '}
+                    <p className="m-0">
+                      Your actual weight is <b style={{ color: 'blue' }}>{(weightToday)}kg</b>,
+                        which is <b style={{ color: 'blue' }}>{(Math.abs(weightToday - weightYesterday)).toFixed(1)}kg</b>{' '}
                       {weightToday - weightYesterday < 0 ? 'less' : 'more'} than yesterday.
-                        </p>
+                    </p>
                   ) : (
-                      <p>Actual weight is {weightToday} kg</p>
+                      <p className="m-0">Actual weight is {weightToday} kg</p>
                     )
                 )}
+              <WeightInfo />
             </div>
-            <div className="d-flex text-center h5 my-4">
-              {(diffDays(finish))} days left before designated date and
-                  you {weightTrackerInfo(userData)}
+            <div className="text-center h5 my-4">
+              <b style={{ color: 'blue' }}>{(diffDays(finish))} days</b> left before designated date and
+                  you <b style={{ color: 'blue' }}>{weightTrackerInfo(userData)}</b>
             </div>
 
-            {/* Week average, Info component about weight gain and loss,
-            TABS with Chart, separate reducer? */}
+            {/* Week average,
+            TABS with Chart (bulking?), separate reducer? */}
 
           </>
         )}

@@ -60,9 +60,9 @@ const NavBar = ({ currentUser }) => {
             </DropdownItem>
             <hr />
             <DropdownItem className="py-2">
-              <Link to='weightTracker' className="d-flex">
-                <FontAwesomeIcon icon={faWeight} size="2x" />
-                <p className="h4 ml-2">Weight Tracker</p>
+              <Link to='help' className="d-flex">
+                <FontAwesomeIcon icon={faQuestionCircle} size="2x" />
+                <p className="h4 ml-2">Help</p>
               </Link>
             </DropdownItem>
             <hr className="mb-0" />
@@ -83,8 +83,8 @@ const NavBar = ({ currentUser }) => {
           </NavItem>
 
           <NavItem>
-            <NavLink href="/help">
-              <FontAwesomeIcon color="white" icon={faQuestionCircle} size="2x" />
+            <NavLink href="/weightTracker">
+              <FontAwesomeIcon color="white" icon={faWeight} size="2x" />
             </NavLink>
           </NavItem>
         </p>

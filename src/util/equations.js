@@ -379,14 +379,15 @@ export const displayAverageWeight = (dailyWeightArray, func) => {
   ]
 }
 
-export const lossOrGain = data => {
+export const loseOrGain = data => {
   const { weightGoal, dailyWeightArray } = data
   const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
-  let result
+  const lastItem = dailyWeightArray.length ? dailyWeightArray[dailyWeightArray.length - 1].weight : null
 
-  weightGoal - firstItem > 0 ? result = 'gain' : result = 'loss'
-
-  return result
+  // Goal is to gain mass ? True : False
+  return weightGoal > firstItem
+    ? `gain ${lastItem - firstItem}kg`
+    : `lost ${firstItem - lastItem}kg`
 }
 
 export const weightTrackerInfo = data => {
@@ -395,7 +396,7 @@ export const weightTrackerInfo = data => {
   const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
   let result
 
-  // How much to gain ?
+  // How much to gain/lose ?
   // case => Gain weight
   if (weightGoal - firstItem > 0) {
     if (weightGoal - lastItem > 0) {
@@ -419,4 +420,39 @@ export const weightTrackerInfo = data => {
   }
 
   return result
+}
+
+// % amount of weight and time progress in challenge
+export const percentageProgress = (data, func) => {
+  const { start, finish, dailyWeightArray, weightGoal } = data
+  const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
+  const lastItem = dailyWeightArray.length ? dailyWeightArray[dailyWeightArray.length - 1].weight : null
+  let kgLeftInGeneral
+  let kgLeftFromToday
+  let kgLeft
+
+  let start_ = moment(start)
+  let finish_ = moment(finish)
+  const daysInGeneral = finish_.diff(start_, 'days')
+  const daysLeftFromToday = func(finish)
+
+  const daysLeft = Math.round((daysLeftFromToday / daysInGeneral) * 100)
+
+  // Goal is to lose fat ? True : False
+  kgLeftFromToday = firstItem > weightGoal
+    ? lastItem - weightGoal : weightGoal - lastItem
+
+  kgLeftInGeneral = firstItem > weightGoal
+    ? firstItem - weightGoal : weightGoal - firstItem
+
+  kgLeft = Math.round((kgLeftFromToday / kgLeftInGeneral) * 100)
+
+  // If you want to lose fat and you gain weight instead of losing it
+  if (firstItem > weightGoal && lastItem > firstItem)
+    return [Math.abs(daysLeft - 100), kgLeft = 0]
+  // If you want to gain weight and you lose weight 
+  else if (weightGoal > firstItem && lastItem < firstItem)
+    return [Math.abs(daysLeft - 100), kgLeft = 0]
+  else
+    return [Math.abs(daysLeft - 100), Math.abs(kgLeft - 100)]
 }

@@ -8,8 +8,10 @@ import * as yup from 'yup'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import uuid from 'uuid'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 
-import { diffDays, weightTrackerInfo } from '../../util/equations'
+import { diffDays, weightTrackerInfo, percentageProgress } from '../../util/equations'
 import { MyTextField } from '../../util/Formik/FormikFunctions'
 import DeleteGoal from '../../components/Info/DeleteGoal/DeleteGoal'
 import WeightTrackerData from '../../components/Tabs/WeightTrackerData/WeightTrackerData'
@@ -48,6 +50,8 @@ const WeightTracker = ({
   const weightYesterday = dailyWeightArray.length > 1 ? dailyWeightArray[dailyWeightArray.length - 2].weight : null
 
   let finishDate = new Date(date).toISOString().slice(0, 10)
+
+  const [daysCompletionPercentage, kgCompletionPercentage] = percentageProgress(userData, diffDays)
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -157,7 +161,7 @@ const WeightTracker = ({
                   className="w-50"
                   name="dailyWeight"
                   type="number"
-                  step="0.1"
+                  step={0.1}
                   onChange={handleChange}
                   value={dailyWeight}
                   as={TextField}
@@ -169,14 +173,14 @@ const WeightTracker = ({
               </form>
             </div>
 
-            <div className="d-flex text-center align-items-center h5 my-4 mx-3">
+            <div className="d-flex text-center align-items-center h5 my-3 mx-3">
               {weightToday === weightYesterday ? (
                 <p className="m-0">Your weight is the same as yesterday</p>
               ) : (
                   dailyWeightArray.length >= 2 ? (
                     <p className="m-0">
-                      Your actual weight is <b style={{ color: 'blue' }}>{(weightToday)}kg</b>,
-                        which is <b style={{ color: 'blue' }}>{(Math.abs(weightToday - weightYesterday)).toFixed(1)}kg</b>{' '}
+                      Your actual weight is <b style={{ color: '#0275d8' }}>{(weightToday)}kg</b>,
+                        which is <b style={{ color: '#0275d8' }}>{(Math.abs(weightToday - weightYesterday)).toFixed(1)}kg</b>{' '}
                       {weightToday - weightYesterday < 0 ? 'less' : 'more'} than yesterday.
                     </p>
                   ) : (
@@ -185,9 +189,39 @@ const WeightTracker = ({
                 )}
               <WeightInfo />
             </div>
-            <div className="text-center h5 my-4">
-              <b style={{ color: 'blue' }}>{(diffDays(finish))} days</b> left before designated date and
-                  you <b style={{ color: 'blue' }}>{weightTrackerInfo(userData)}</b>
+            <div className="text-center h5 my-3">
+              <b style={{ color: '#0275d8' }}>{(diffDays(finish))} days</b> left before designated date and
+                  you <b style={{ color: '#0275d8' }}>{weightTrackerInfo(userData)}</b>
+            </div>
+
+            <div className="d-flex my-3">
+              <div className="text-center h5 my-3 mx-2 w-50">
+                <p>Time progress</p>
+                <CircularProgressbar
+                  value={daysCompletionPercentage}
+                  text={`${daysCompletionPercentage}%`}
+                  circleRatio={0.75}
+                  styles={buildStyles({
+                    rotation: 1 / 2 + 1 / 8,
+                    strokeLinecap: "butt",
+                    trailColor: "lightgray"
+                  })}
+                />
+              </div>
+
+              <div className="text-center h5 my-3 mx-2 w-50">
+                <p>Weight progress</p>
+                <CircularProgressbar
+                  value={kgCompletionPercentage}
+                  text={`${kgCompletionPercentage}%`}
+                  circleRatio={0.75}
+                  styles={buildStyles({
+                    rotation: 1 / 2 + 1 / 8,
+                    strokeLinecap: "butt",
+                    trailColor: "lightgray"
+                  })}
+                />
+              </div>
             </div>
 
             {/* Week average,

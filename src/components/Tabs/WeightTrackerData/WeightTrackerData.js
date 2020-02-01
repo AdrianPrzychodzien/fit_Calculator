@@ -2,22 +2,26 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import Chart from '../../Chart/Chart'
-import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Table } from 'reactstrap'
+import {
+  TabContent, TabPane, Nav, NavItem, NavLink,
+  Row, Col, Table
+} from 'reactstrap'
 import classnames from 'classnames'
 
-import { rangeBMIColor, getActualWeekDates, displayAverageWeight } from '../../../util/equations'
+import { rangeBMIColor, loseOrGain, getActualWeekDates, displayAverageWeight } from '../../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown, faEquals } from '@fortawesome/free-solid-svg-icons'
 
 const WeightTrackerData = ({ userData }) => {
-  const [activeTab, setActiveTab] = useState('LastWeek')
+  const [activeTab, setActiveTab] = useState('Chart')
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab)
   }
 
   const { dailyWeightArray, height, start, finish } = userData
+  const [thisWeekAvg, lastWeekAvg, beforeLastWeekAvg] = displayAverageWeight(dailyWeightArray, getActualWeekDates)
 
   let myDateFormat = date => {
     let d = new Date(date)
@@ -55,10 +59,6 @@ const WeightTrackerData = ({ userData }) => {
       )
     })
 
-
-
-  const [thisWeekAvg, lastWeekAvg, beforeLastWeekAvg] = displayAverageWeight(dailyWeightArray, getActualWeekDates)
-
   return (
     <div>
       <Nav tabs className="d-flex justify-content-center">
@@ -82,10 +82,10 @@ const WeightTrackerData = ({ userData }) => {
 
         <NavItem>
           <NavLink
-            className={classnames({ active: activeTab === 'LastWeek' })}
-            onClick={() => { toggle('LastWeek'); }}
+            className={classnames({ active: activeTab === 'Stats' })}
+            onClick={() => { toggle('Stats'); }}
           >
-            Last week
+            Statistics
           </NavLink>
         </NavItem>
       </Nav>
@@ -130,19 +130,20 @@ const WeightTrackerData = ({ userData }) => {
           </Table>
         </TabPane>
 
-        {/* Tab Content 3 - LastWeek */}
-        <TabPane tabId="LastWeek">
+        {/* Tab Content 3 - Stats */}
+        <TabPane tabId="Stats">
           <Row>
             <Col sm="12">
-              <p className="h6 text-center my-3">
+              <div className="h6 text-center my-3">
                 Some statistics...
-              </p>
+              </div>
             </Col>
           </Row>
-          <div className="h6 my-3">
-            Average weight in actual week: {thisWeekAvg},<br />
-            Average weight one week before: {lastWeekAvg},<br />
-            Average weight two weeks before: {beforeLastWeekAvg}
+          <div className="h6 my-1">
+            <p>You already <b>{loseOrGain(userData)}</b>,</p>
+            <p>Average weight in actual week: <b>{thisWeekAvg}{thisWeekAvg && 'kg'}</b>,</p>
+            <p>Average weight one week before: <b>{lastWeekAvg}{lastWeekAvg && 'kg'}</b>,</p>
+            <p>Average weight two weeks before: <b>{beforeLastWeekAvg}{beforeLastWeekAvg && 'kg'}</b></p>
           </div>
 
 

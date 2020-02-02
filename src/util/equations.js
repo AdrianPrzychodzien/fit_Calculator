@@ -319,6 +319,17 @@ export const diffDays = (end) => {
   return diffDays
 }
 
+// Date Format to display in WeighTrackerData
+export const myDateFormat = date => {
+  let d = new Date(date)
+  let currDay = d.getDay()
+  let currDate = d.getDate()
+  let currMonth = d.getMonth() + 1
+  let currYear = d.getFullYear()
+  let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  return `${days[currDay]}, ${currDate}-${currMonth}-${currYear} `
+}
+
 //Return arrays of dates from date to date
 export const getActualWeekDates = (startDate, stopDate) => {
   var dateArray = []
@@ -455,4 +466,33 @@ export const percentageProgress = (data, func) => {
     return [Math.abs(daysLeft - 100), kgLeft = 0]
   else
     return [Math.abs(daysLeft - 100), Math.abs(kgLeft - 100)]
+}
+
+// Array of objects that tells how fast you should 
+// lose weight/gain weight to stay healthy
+export const healthyProgress = data => {
+  const { start, finish, dailyWeightArray, weightGoal } = data
+  const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
+
+  // Change weight by 1% of body mass per week
+  const healthyChange = (firstItem / 100).toFixed(1)
+
+  let healthyArray = []
+
+  let finish_ = moment(finish)
+  let howManyWeeks = finish_.diff("2020-01-19", 'week') + 1
+
+  // fake data for tests
+  let fakeStart = moment().subtract(2, 'weeks')
+
+  for (let i = 0; i <= howManyWeeks; i++) {
+    healthyArray.push({
+      date: moment(fakeStart).startOf().add(i, 'weeks').format('YYYY-MM-DD'),
+      ...(firstItem > weightGoal
+        ? { weight: firstItem - (healthyChange * i) }
+        : { weight: firstItem + (healthyChange * i) })
+    })
+  }
+
+  return healthyArray
 }

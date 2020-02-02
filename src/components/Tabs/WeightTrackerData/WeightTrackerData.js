@@ -8,7 +8,10 @@ import {
 } from 'reactstrap'
 import classnames from 'classnames'
 
-import { rangeBMIColor, loseOrGain, getActualWeekDates, displayAverageWeight } from '../../../util/equations'
+import {
+  rangeBMIColor, loseOrGain, getActualWeekDates,
+  displayAverageWeight, myDateFormat
+} from '../../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown, faEquals } from '@fortawesome/free-solid-svg-icons'
@@ -22,16 +25,6 @@ const WeightTrackerData = ({ userData }) => {
 
   const { dailyWeightArray, height, start, finish } = userData
   const [thisWeekAvg, lastWeekAvg, beforeLastWeekAvg] = displayAverageWeight(dailyWeightArray, getActualWeekDates)
-
-  let myDateFormat = date => {
-    let d = new Date(date)
-    let currDay = d.getDay()
-    let currDate = d.getDate()
-    let currMonth = d.getMonth() + 1
-    let currYear = d.getFullYear()
-    let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    return `${days[currDay]}, ${currDate}-${currMonth}-${currYear} `
-  }
 
   const historyItems = dailyWeightArray
     .slice(0)
@@ -145,13 +138,6 @@ const WeightTrackerData = ({ userData }) => {
             <p>Average weight one week before: <b>{lastWeekAvg}{lastWeekAvg && 'kg'}</b>,</p>
             <p>Average weight two weeks before: <b>{beforeLastWeekAvg}{beforeLastWeekAvg && 'kg'}</b></p>
           </div>
-
-
-
-          {/* According to experts, losing 1–2 pounds (0.45–0.9 kg) per week is a 
-            healthy and safe rate, while losing more than this is considered too fast. 
-            However, you may lose more than that during your first week of an exercise 
-            or diet plan. */}
         </TabPane>
       </TabContent>
     </div>

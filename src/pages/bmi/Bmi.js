@@ -8,10 +8,10 @@ import InputRange from '../../components/InputRange/InputRange'
 
 const BodyFat = ({ userData, history }) => {
 
-  const { height, weight, age, sex, lifeActivity, fat } = userData
+  const { height, weight, age, sex, lifeActivity } = userData
   const [normalBMIMin, normalBMIMax] = idealBMI(userData)
 
-  if (height && weight && age && sex && lifeActivity && fat) {
+  if (height && weight && age && sex && lifeActivity) {
     return (
       <>
         <p className="h2 text-center">BMI Score: {calcBMI(userData)} %</p>
@@ -64,8 +64,7 @@ const BodyFat = ({ userData, history }) => {
     )
 }
 
-const mapStateToProps = ({ user, data }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = ({ data }) => ({
   userData: data
 })
 

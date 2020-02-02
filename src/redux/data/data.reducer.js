@@ -29,8 +29,7 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         age: action.payload.age,
         sex: action.payload.sex,
         lifeActivity: action.payload.lifeActivity,
-        fat: action.payload.fat,
-        userId: action.payload.userId
+        fat: action.payload.fat
       }
     case DataActionTypes.SET_FAT_DATA:
       return {
@@ -38,15 +37,13 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         waist: action.payload.waist,
         hip: action.payload.hip,
         neck: action.payload.neck,
-        fat: action.payload.fat,
-        userId: action.payload.userId
+        fat: action.payload.fat
       }
     case DataActionTypes.SET_WEIGHT_DATA:
       return {
         ...state,
         weight: action.payload.weight,
-        weightGoal: action.payload.weightGoal,
-        userId: action.payload.userId
+        weightGoal: action.payload.weightGoal
       }
     case DataActionTypes.SET_FINISH_DATE:
       return {

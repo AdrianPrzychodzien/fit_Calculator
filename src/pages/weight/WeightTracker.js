@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import uuid from 'uuid'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
+import moment from 'moment'
 
 import { diffDays, weightTrackerInfo, percentageProgress, HealthTips } from '../../util/equations'
 import { MyTextField } from '../../util/Formik/FormikFunctions'
@@ -31,7 +32,6 @@ const validationSchema = yup.object({
 })
 
 const WeightTracker = ({
-  currentUser,
   userData,
   setWeightData,
   setFinishDate,
@@ -51,7 +51,10 @@ const WeightTracker = ({
   const weightToday = dailyWeightArray.length ? dailyWeightArray[dailyWeightArray.length - 1].weight : null
   const weightYesterday = dailyWeightArray.length > 1 ? dailyWeightArray[dailyWeightArray.length - 2].weight : null
 
-  let finishDate = new Date(date).toISOString().slice(0, 10)
+  // if input in DatePicker is empty set finish date to 4 weeks from today
+  let finishDate = (new Date(date).toISOString().slice(0, 10) === '1970-01-01')
+    ? (moment().startOf('today').add(3, 'weeks')._d).toISOString().slice(0, 10)
+    : new Date(date).toISOString().slice(0, 10)
 
   const [daysCompletionPercentage, kgCompletionPercentage] = percentageProgress(userData, diffDays)
   const healthTips = HealthTips(userData, diffDays)
@@ -72,8 +75,7 @@ const WeightTracker = ({
 
     setWeightData({
       weight: dailyWeight,
-      weightGoal,
-      userId: currentUser.id
+      weightGoal
     })
 
     setDaily({
@@ -119,8 +121,12 @@ const WeightTracker = ({
             onSubmit={data => {
               setWeightData({
                 weight: data.weight,
-                weightGoal: data.weightGoal,
-                userId: currentUser.id
+                weightGoal: data.weightGoal
+              })
+              setDailyWeight({
+                date: new Date().toISOString().slice(0, 10),
+                weight: data.weight,
+                id: uuid()
               })
             }}
           >
@@ -150,9 +156,10 @@ const WeightTracker = ({
               className="my-2 mr-3 text-center border-0"
               selected={date}
               onChange={date => setDate(date)}
-              minDate={new Date()}
               dateFormat="dd/MM/yyyy"
               placeholderText="Select a date"
+              minDate={moment().startOf('today').add(3, 'weeks')._d}
+              required
             />
             <Button
               onClick={() => setFinishDate({
@@ -267,8 +274,7 @@ const WeightTracker = ({
   )
 }
 
-const mapStateToProps = ({ user, data }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = ({ data }) => ({
   userData: data
 })
 

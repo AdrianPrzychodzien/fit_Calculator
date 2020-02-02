@@ -20,7 +20,7 @@ const validationSchema = yup.object({
   neck: yup.number('It must be a number').required('Neck is required').positive()
 })
 
-const BodyFat = ({ setFatData, currentUser, userData, history }) => {
+const BodyFat = ({ setFatData, userData, history }) => {
   const [userSize, setUserSize] = useState({
     waist: '',
     hip: '',
@@ -60,7 +60,6 @@ const BodyFat = ({ setFatData, currentUser, userData, history }) => {
 
           setFatData({
             ...actualData,
-            userId: currentUser.id
           })
         }}
       >
@@ -130,8 +129,11 @@ const BodyFat = ({ setFatData, currentUser, userData, history }) => {
                 <br /><br />
               This data are necessary to make calculations
               <div className="form__button">
-                <Button color="danger"
-                  onClick={() => history.push('/personalData')}>
+                <Button
+                  className="my-3"
+                  color="danger"
+                  onClick={() => history.push('/personalData')}
+                >
                   Add data
                 </Button>
               </div>
@@ -142,8 +144,7 @@ const BodyFat = ({ setFatData, currentUser, userData, history }) => {
   )
 }
 
-const mapStateToProps = ({ user, data }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = ({ data }) => ({
   userData: data
 })
 

@@ -10,8 +10,6 @@ const HealthTipsInfo = ({ healthTips, dailyWeightArray, clearFinish }) => {
   const { info, kgAmout, days } = healthTips
   const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
 
-  console.log(info)
-
   // max weight change = 1,5% per week
   const rapidWeightChange = (kgAmout / days * 7).toFixed(2) > ((firstItem / 100) + 0.5).toFixed(2) && true
 

@@ -25,7 +25,7 @@ const validationSchema = yup.object({
   fat: yup.number('It must be a number').positive().max(70, 'Are you sure?')
 })
 
-const PersonalData = ({ currentUser, userData, setData, setDailyWeight, history }) => {
+const PersonalData = ({ userData, setData, setDailyWeight, history }) => {
   return (
     <div>
       <Formik initialValues={{
@@ -40,7 +40,6 @@ const PersonalData = ({ currentUser, userData, setData, setDailyWeight, history 
         onSubmit={data => {
           setData({
             ...data,
-            userId: currentUser.id
           })
 
           setDailyWeight({
@@ -75,7 +74,7 @@ const PersonalData = ({ currentUser, userData, setData, setDailyWeight, history 
 
               <div className="mx-auto my-3 w-50 d-flex">
                 <FontAwesomeIcon className="mr-3 ml-1 text-primary" icon={faPercentage} size="2x" />
-                <MyTextField type="number" name="fat" placeholder="BodyFat %" as={TextField} />
+                <MyTextField type="number" name="fat" placeholder="Body fat %" as={TextField} />
                 <BodyFatInfo />
               </div>
 
@@ -107,8 +106,7 @@ const PersonalData = ({ currentUser, userData, setData, setDailyWeight, history 
   )
 }
 
-const mapStateToProps = ({ user, data }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = ({ data }) => ({
   userData: data
 })
 

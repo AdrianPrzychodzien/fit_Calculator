@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Fade } from 'reactstrap'
 
-const DeleteGoal = ({ clearGoal, clearGoalSaveWeights, className }) => {
+const DeleteGoalInfo = ({ clearGoal, clearGoalSaveWeights, clearFinish, className }) => {
   const [fadeIn, setFadeIn] = useState(false)
   const [modal, setModal] = useState(false)
 
@@ -11,14 +11,16 @@ const DeleteGoal = ({ clearGoal, clearGoalSaveWeights, className }) => {
 
   return (
     <div>
-      <Button className="" size="sm" onClick={toggleFade}>
-        Delete?
-      </Button>
-      <Fade in={fadeIn} tag="h5" className="mt-3">
+      <Button size="sm" onClick={toggleFade}>
         Delete actual goal and set new
-        <Button className="ml-2" color="danger" onClick={toggle}>
-          Delete
-        </Button>
+      </Button>
+      <Fade in={fadeIn} tag="h6" className="mt-3">
+        <div className="d-flex justify-content-center align-items-center">
+          Are you sure?
+          <Button className="ml-2" size="sm" color="danger" onClick={toggle}>
+            Delete
+          </Button>
+        </div>
       </Fade>
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
@@ -32,11 +34,12 @@ const DeleteGoal = ({ clearGoal, clearGoalSaveWeights, className }) => {
         <ModalFooter>
           <Button color="warning" onClick={() => { clearGoalSaveWeights(); toggleFade(); toggle() }}>Delete but leave weights</Button>{' '}
           <Button color="danger" onClick={() => { clearGoal(); toggleFade(); toggle() }}>Delete</Button>{' '}
-          <Button color="primary" onClick={toggle}>Quit</Button>{' '}
+          <Button color="warning" onClick={() => { clearFinish(); toggleFade(); toggle() }}>Clear only finish date</Button>{' '}
+          <Button color="primary" onClick={() => { toggleFade(); toggle() }}>Quit</Button>
         </ModalFooter>
       </Modal>
     </div>
   )
 }
 
-export default DeleteGoal
+export default DeleteGoalInfo

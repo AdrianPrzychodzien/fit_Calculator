@@ -4,16 +4,17 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'react
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
 
-const FatPercentageInfo = (props) => {
-  // const { buttonLabel, className } = props
-
+const FatPercentageInfo = () => {
   const [modal, setModal] = useState(false)
 
   const toggle = () => setModal(!modal)
 
   return (
     <div>
-      <Button className="rounded mb-0 ml-2" color="primary" size="sm" onClick={toggle}
+      <Button
+        className="rounded mb-0 ml-2"
+        color="primary" size="sm"
+        onClick={toggle}
       >
         <FontAwesomeIcon icon={faInfo} size="sm" />
       </Button>
@@ -58,7 +59,7 @@ const FatPercentageInfo = (props) => {
           </Table>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>Ok</Button>{' '}
+          <Button color="primary" onClick={toggle}>Ok</Button>
         </ModalFooter>
       </Modal>
     </div>

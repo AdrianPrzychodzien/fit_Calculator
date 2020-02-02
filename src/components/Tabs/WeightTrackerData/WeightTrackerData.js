@@ -108,7 +108,7 @@ const WeightTrackerData = ({ userData }) => {
                 </p>
             </Col>
           </Row>
-          <Table>
+          <Table size="sm" striped>
             <thead className="text-center">
               <tr>
                 <th>Date</th>
@@ -134,9 +134,9 @@ const WeightTrackerData = ({ userData }) => {
           </Row>
           <div className="h6 my-1">
             <p>You already <b>{loseOrGain(userData)}</b>,</p>
-            <p>Average weight in actual week: <b>{thisWeekAvg}{thisWeekAvg && 'kg'}</b>,</p>
-            <p>Average weight one week before: <b>{lastWeekAvg}{lastWeekAvg && 'kg'}</b>,</p>
-            <p>Average weight two weeks before: <b>{beforeLastWeekAvg}{beforeLastWeekAvg && 'kg'}</b></p>
+            <p>Average weight in actual week: <b>{thisWeekAvg}{thisWeekAvg !== 'no data' && 'kg'}</b>,</p>
+            <p>Average weight one week before: <b>{lastWeekAvg}{lastWeekAvg !== 'no data' && 'kg'}</b>,</p>
+            <p>Average weight two weeks before: <b>{beforeLastWeekAvg}{beforeLastWeekAvg !== 'no data' && 'kg'}</b></p>
           </div>
         </TabPane>
       </TabContent>

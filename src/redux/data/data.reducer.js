@@ -74,6 +74,11 @@ const dataReducer = (state = INITIAL_STATE, action) => {
         finish: action.payload.finish,
         weightGoal: action.payload.weightGoal
       }
+    case DataActionTypes.CLEAR_FINISH_DATE_ONLY:
+      return {
+        ...state,
+        finish: action.payload.finish
+      }
     case DataActionTypes.SET_FORMULA:
       return {
         ...state,

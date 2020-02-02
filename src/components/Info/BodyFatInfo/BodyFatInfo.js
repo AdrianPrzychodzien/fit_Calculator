@@ -4,9 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
 
-const BodyFatInfo = (props) => {
-  // const { buttonLabel, className } = props
-
+const BodyFatInfo = ({ history }) => {
   const [modal, setModal] = useState(false)
 
   const toggle = () => setModal(!modal)
@@ -28,7 +26,7 @@ const BodyFatInfo = (props) => {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={toggle}>Ok</Button>{' '}
-          <Button color="danger" onClick={() => props.history.push('/bodyFat')}>
+          <Button color="danger" onClick={() => history.push('/bodyFat')}>
             Add them here
           </Button>
         </ModalFooter>

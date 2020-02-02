@@ -62,7 +62,7 @@ const WeightTracker = ({
     e.preventDefault()
 
     setDailyWeight({
-      date: new Date().toISOString().slice(0, 10),
+      date: new Date("2020-02-23").toISOString().slice(0, 10),
       weight: dailyWeight,
       id: uuid()
     })

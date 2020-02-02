@@ -311,7 +311,7 @@ export const HighCarb = data => {
 //
 export const diffDays = (end) => {
   const oneDay = 24 * 60 * 60 * 1000
-  const firstDate = new Date("2020-02-30")
+  const firstDate = new Date()
   const secondDate = new Date(end)
 
   const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))

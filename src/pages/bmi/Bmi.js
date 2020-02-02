@@ -15,15 +15,15 @@ const BodyFat = ({ userData, history }) => {
     return (
       <>
         <p className="h2 text-center">BMI Score: {calcBMI(userData)} %</p>
-        <p className="h5 text-center">which means you are classified as <br /> {rangeBMI(calcBMI(userData))}</p>
+        <p className="h5 my-3 text-center">Classified as <br /> {rangeBMI(calcBMI(userData))}</p>
         <hr />
-        <p className="h5 text-center">Healthy BMI range: {normalBMIMin}kg - {normalBMIMax}kg</p>
-        <p className="h5 text-center my-3">{userBmiTip(userData)}</p>
+        <p className="h5 my-3 text-center">Healthy BMI: {normalBMIMin}kg - {normalBMIMax}kg</p>
+        <p className="h5 my-3 text-center">{userBmiTip(userData)}</p>
 
         <InputRange userData={userData} />
         <hr />
 
-        <p className="h6 text-center">
+        <p className="h6 my-4 text-center">
           Please note that BMI is not the most
           accurate way to measure body weight.
           <br /><br />
@@ -38,7 +38,9 @@ const BodyFat = ({ userData, history }) => {
           For more accurate informations
           <br />
           <Button
-            block className="d-flex justify-content-center my-3" color="primary"
+            block
+            className="d-flex justify-content-center my-4"
+            color="primary"
             onClick={() => history.push('bodyfat')}
           >
             go to body fat page

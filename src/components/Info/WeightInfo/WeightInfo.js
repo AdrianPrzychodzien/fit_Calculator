@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfo } from '@fortawesome/free-solid-svg-icons'
 
-const WeightInfo = (props) => {
-  // const { buttonLabel, className } = props
-
+const WeightInfo = () => {
   const [modal, setModal] = useState(false)
 
   const toggle = () => setModal(!modal)
 
   return (
     <div>
-      <Button className="rounded ml-3" color="primary" size="sm" onClick={toggle}
+      <Button
+        className="rounded ml-3 my-2"
+        color="primary"
+        size="sm"
+        onClick={toggle}
       >
-        <FontAwesomeIcon icon={faInfo} size="sm" />
+        Weight change process
       </Button>
       <Modal isOpen={modal} toggle={toggle} className="mt-5">
         <ModalHeader toggle={toggle}>Weight loss process</ModalHeader>

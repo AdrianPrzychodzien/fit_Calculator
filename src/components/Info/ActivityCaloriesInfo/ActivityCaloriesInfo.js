@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { activityLevel, restingMifflinStJeor } from '../../../util/equations'
 
@@ -18,9 +18,9 @@ const ActivityCaloriesInfo = ({ userData }) => {
 
   return (
     <div>
-      <Button className="rounded mb-0 ml-2" color="primary" size="sm" onClick={toggle}
+      <Button className="rounded" color="primary" size="sm" onClick={toggle}
       >
-        Check
+        Calories intake on different activity level
       </Button>
       <Modal isOpen={modal} toggle={toggle} className="mt-5">
         <ModalHeader toggle={toggle}>Calories intake</ModalHeader>
@@ -68,8 +68,4 @@ const ActivityCaloriesInfo = ({ userData }) => {
   )
 }
 
-const mapStateToProps = ({ data }) => ({
-  userData: data
-})
-
-export default connect(mapStateToProps, null)(ActivityCaloriesInfo)
+export default ActivityCaloriesInfo

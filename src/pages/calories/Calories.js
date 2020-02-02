@@ -20,18 +20,17 @@ const Calories = ({ userData, history }) => {
     return (
       <>
         <p className="h2 text-center">Caloric needs: {formulaOption}kcal</p>
-        <p className="h6 text-center my-3">
-          Based on your stats, the best estimate for your maintenance calories
-           is {formulaOption} calories per day based on the
+        <p className="h5 text-center my-3">
+          The best estimate for your maintenance calories
+           is {formulaOption} per day based on the
           {formula === 'MifflinStJeor' ? ' Mifflin - St Jeor ' : formula === 'HarrisBenedict' ?
             ' Harris Benedict ' : ' Katch-Mcardle '}
           Formula
            </p>
         <hr />
 
-        <div className="h5 d-flex text-center align-items-center">
-          Calories intake on a different activity level
-            <ActivityCaloriesInfo userData={userData} />
+        <div className="d-flex justify-content-center my-3">
+          <ActivityCaloriesInfo userData={userData} />
         </div>
         <hr />
 

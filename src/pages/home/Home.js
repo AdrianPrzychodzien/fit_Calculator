@@ -44,8 +44,8 @@ const Home = ({ currentUser, userData, uiData, setFormula, setHomeOpen, history 
         {(homeOpen && weight && height && age && sex && lifeActivity) ? (
           <p className="text-center">
             You are a <b>{userData.age}</b> year old <b>{(userData.sex).toLowerCase()}</b> who
-               is <b>{userData.height}</b> cm tall and weights <b>{userData.weight}</b> kg
-                while <b>{activityLevelComment(userData.lifeActivity)}</b>
+               is <b>{userData.height}cm</b> tall and weights <b>{userData.weight}kg</b>{' '}
+            while <b>{activityLevelComment(userData.lifeActivity)}</b>
           </p>
         ) : (
             <>

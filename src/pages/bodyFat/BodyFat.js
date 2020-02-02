@@ -101,7 +101,7 @@ const BodyFat = ({ setFatData, currentUser, userData, history }) => {
           open && bodyFat > 0 ? (
             <div>
               <div className="h3 mb-3 d-flex align-items-center justify-content-center">
-                Your body fat is {bodyFat} %
+                Body fat: {bodyFat}%
                   <FatPercentageInfo />
               </div>
               <p className="h5 mb-3 text-center">Body fat mass: {bodyFatMass} kg</p>

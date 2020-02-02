@@ -17,7 +17,11 @@ const HealthTipsInfo = ({ healthTips, dailyWeightArray, clearFinish }) => {
 
   return (
     <div>
-      <Button className="rounded my-2" color={rapidWeightChange ? "warning" : "primary"} onClick={toggle}
+      <Button
+        size="sm"
+        className="rounded my-2"
+        color={rapidWeightChange ? "warning" : "primary"}
+        onClick={toggle}
       >
         {rapidWeightChange ? `Fast pace of weight change!` : 'Healthy pace of weight change'}
       </Button>

@@ -167,8 +167,8 @@ const WeightTracker = ({
         </>
       ) : (
           <>
-            <div className="w-100 mt-3 d-flex align-items-center">
-              <p className="h5 w-50">Today`s weight</p>
+            <div className="w-100 my-4 d-flex align-items-center">
+              <p className="h5 w-50">Weight today</p>
               {/* Every day weight input */}
               <form onSubmit={handleSubmit}>
                 <TextField
@@ -179,6 +179,7 @@ const WeightTracker = ({
                   onChange={handleChange}
                   value={dailyWeight}
                   as={TextField}
+                  required
                 />
                 <Button className="ml-3" type="submit" color="primary"
                 >
@@ -187,27 +188,23 @@ const WeightTracker = ({
               </form>
             </div>
 
-            <div className="d-flex text-center align-items-center h5 my-3 mx-3">
+            <div className="text-center h5 my-4">
               {weightToday === weightYesterday ? (
-                <p className="m-0">Your weight is the same as yesterday</p>
+                <p>The same weight as yesterday</p>
               ) : (
                   dailyWeightArray.length >= 2 ? (
-                    <p className="m-0">
-                      Your actual weight is <b style={{ color: '#0275d8' }}>{(weightToday)}kg</b>,
-                        which is <b style={{ color: '#0275d8' }}>
-                        {(Math.abs(weightToday - weightYesterday)).toFixed(1)}kg
-                          </b>{' '}
-                      {weightToday - weightYesterday < 0 ? 'less' : 'more'} than yesterday.
+                    <p>
+                      Actual weight <b>{(weightToday)}kg</b><br />
+                      <b>{(Math.abs(weightToday - weightYesterday)).toFixed(1)}kg</b>
+                      {weightToday - weightYesterday < 0 ? ' less' : ' more'} than yesterday
                     </p>
                   ) : (
-                      <p className="m-0">Actual weight is {weightToday} kg</p>
+                      <p>Actual weight {weightToday}kg</p>
                     )
                 )}
-              <WeightInfo />
             </div>
-            <div className="text-center h5 my-3">
-              <b style={{ color: '#0275d8' }}>{(diffDays(finish))} days</b> left before designated date and
-                  you <b style={{ color: '#0275d8' }}>{weightTrackerInfo(userData)}</b>
+            <div className="text-center h5 my-4">
+              <b>{(diffDays(finish))} days</b> left and <b>{weightTrackerInfo(userData)}</b>
             </div>
 
             <div className="d-flex justify-content-center">
@@ -216,6 +213,7 @@ const WeightTracker = ({
                 dailyWeightArray={dailyWeightArray}
                 clearFinish={clearFinish}
               />
+              <WeightInfo />
             </div>
 
             {/* Circular Progress */}

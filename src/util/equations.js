@@ -64,15 +64,15 @@ export const userBmiTip = data => {
     top = (normalBMIMax - data.weight).toFixed(1)
     bottom = (data.weight - normalBMIMin).toFixed(1)
 
-    userBmiTip = `You are ${bottom} kg above the lower limit and ${top} kg below upper limit`
+    userBmiTip = `You are ${bottom}kg above and ${top}kg below limit`
   } else if (rangeBMI(calcBMI(data)) === 'Overweight' || rangeBMI(calcBMI(data)) === 'Obese') {
     bottom = data.weight - normalBMIMax
 
-    userBmiTip = `You are ${bottom} kg above the upper limit`
+    userBmiTip = `You are ${bottom}kg above the upper limit`
   } else {
     top = normalBMIMin - data.weight
 
-    userBmiTip = `You are ${top} kg under the lower limit`
+    userBmiTip = `You are ${top}kg under the lower limit`
   }
 
   return userBmiTip
@@ -397,8 +397,8 @@ export const loseOrGain = data => {
 
   // Goal is to gain mass ? True : False
   return weightGoal > firstItem
-    ? `gain ${lastItem - firstItem}kg`
-    : `lost ${firstItem - lastItem}kg`
+    ? `gain ${(lastItem - firstItem).toFixed(1)}kg`
+    : `lost ${(firstItem - lastItem).toFixed(1)}kg`
 }
 
 export const weightTrackerInfo = data => {
@@ -411,23 +411,23 @@ export const weightTrackerInfo = data => {
   // case => Gain weight
   if (weightGoal - firstItem > 0) {
     if (weightGoal - lastItem > 0) {
-      result = `need to gain ${(weightGoal - lastItem).toFixed(1)} more kg`
+      result = `${(weightGoal - lastItem).toFixed(1)}kg to gain`
     }
 
     else if (weightGoal - lastItem <= 0) {
-      result = 'already achieved your goal! Congratulations! lala'
+      result = 'you already achieved your goal! Congratulations!'
     }
     // case => Lose weight
   } else if (weightGoal - firstItem < 0) {
     if (lastItem - weightGoal > 0) {
-      result = `need to lose ${(lastItem - weightGoal).toFixed(1)} more kg`
+      result = `${(lastItem - weightGoal).toFixed(1)}kg to lose`
     }
 
     else if (lastItem - weightGoal <= 0) {
-      result = 'already achieved your goal! Congratulations!'
+      result = 'you already achieved your goal! Congratulations!'
     }
   } else {
-    result = 'already achieved your goal! Congratulations!'
+    result = 'you already achieved your goal! Congratulations!'
   }
 
   return result

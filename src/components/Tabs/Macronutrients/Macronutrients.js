@@ -113,8 +113,7 @@ const Macronutrients = ({ userData }) => {
             <Col sm="12">
               <p className="h6 text-center my-3">
                 These macronutrient values reflect your maintenance calories
-                of {kcalAmount} kcal per day, which is a 500 calorie deficit
-                from your maintenance.
+                of {kcalAmount} kcal per day, which is a 500 calories deficit.
                 </p>
             </Col>
           </Row>
@@ -156,8 +155,7 @@ const Macronutrients = ({ userData }) => {
             <Col sm="12">
               <p className="h6 text-center my-3">
                 These macronutrient values reflect your maintenance calories
-                of {kcalAmount} kcal per day, which is +500 calories
-                from your maintenance.
+                of {kcalAmount} kcal per day, which is a 500 calories surplus.
                 </p>
             </Col>
           </Row>

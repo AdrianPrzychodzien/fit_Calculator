@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { activityLevel, restingMifflinStJeor } from '../../../util/equations'
 
-const ActivityCaloriesInfo = ({ userData }, props) => {
-  // const { buttonLabel, className } = props
-
+const ActivityCaloriesInfo = ({ userData }) => {
   const [modal, setModal] = useState(false)
 
   const toggle = () => setModal(!modal)
@@ -63,7 +61,7 @@ const ActivityCaloriesInfo = ({ userData }, props) => {
           </Table>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>Ok</Button>{' '}
+          <Button color="primary" onClick={toggle}>Ok</Button>
         </ModalFooter>
       </Modal>
     </div>

@@ -45,7 +45,7 @@ const ActivityInfo = (props) => {
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>Ok</Button>{' '}
+          <Button color="primary" onClick={toggle}>Ok</Button>
         </ModalFooter>
       </Modal>
     </div>

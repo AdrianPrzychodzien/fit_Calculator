@@ -5,7 +5,7 @@ import WeightTrackerInfo from '../../components/Info/WeightTrackerInfo/WeightTra
 
 import { healthyProgress } from '../../util/equations'
 
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend } from 'recharts';
 
 const Chart = ({ userData }) => {
   const { weightGoal, dailyWeightArray } = userData
@@ -43,7 +43,6 @@ const Chart = ({ userData }) => {
 
   const dialyMin = dailyWeightArray
     .reduce((min, b) => Math.min(min, b.weight), dailyWeightArray[0].weight)
-
   const dialyMax = dailyWeightArray
     .reduce((max, b) => Math.max(max, b.weight), dailyWeightArray[0].weight)
 
@@ -83,13 +82,11 @@ const Chart = ({ userData }) => {
           dialyMin < weightGoal ? dialyMin - 2 : weightGoal - 2,
           dialyMax > weightGoal ? dialyMax + 2 : weightGoal + 2
         ]} />
-        {/* <Tooltip /> */}
         <Legend verticalAlign="bottom" height={10} />
       </LineChart>
       <div className="d-flex justify-content-center">
         <WeightTrackerInfo />
       </div>
-
     </>
   )
 

@@ -311,7 +311,7 @@ export const HighCarb = data => {
 //
 export const diffDays = (end) => {
   const oneDay = 24 * 60 * 60 * 1000
-  const firstDate = new Date()
+  const firstDate = new Date("2020-02-30")
   const secondDate = new Date(end)
 
   const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay))
@@ -474,20 +474,17 @@ export const healthyProgress = data => {
   const { start, finish, dailyWeightArray, weightGoal } = data
   const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
 
-  // Change weight by 1% of body mass per week
-  const healthyChange = (firstItem / 100).toFixed(1)
+  // Change weight by 1% of body mass per day
+  const healthyChange = (firstItem / 100 / 7).toFixed(2)
 
   let healthyArray = []
 
   let finish_ = moment(finish)
-  let howManyWeeks = finish_.diff("2020-01-19", 'week') + 1
-
-  // fake data for tests
-  let fakeStart = moment().subtract(2, 'weeks')
+  let howManyWeeks = finish_.diff(start, 'days') + 1
 
   for (let i = 0; i <= howManyWeeks; i++) {
     healthyArray.push({
-      date: moment(fakeStart).startOf().add(i, 'weeks').format('YYYY-MM-DD'),
+      date: moment().startOf(start).add(i, 'days').format('YYYY-MM-DD'),
       ...(firstItem > weightGoal
         ? { weight: firstItem - (healthyChange * i) }
         : { weight: firstItem + (healthyChange * i) })
@@ -495,4 +492,32 @@ export const healthyProgress = data => {
   }
 
   return healthyArray
+}
+
+
+export const HealthTips = (data, func) => {
+  const { finish, dailyWeightArray, weightGoal } = data
+  const firstItem = dailyWeightArray.length ? dailyWeightArray[0].weight : null
+  const lastItem = dailyWeightArray.length ? dailyWeightArray[dailyWeightArray.length - 1].weight : null
+
+  let obj
+  // let start_ = moment(start)
+  // let finish_ = moment(finish)
+  // const daysInGeneral = finish_.diff(start_, 'days')
+  const daysLeftFromToday = func(finish)
+
+  //  Gain weight or lose weight
+  weightGoal - firstItem > 0
+    ? obj = {
+      info: `need to gain ${(weightGoal - lastItem).toFixed(1)}kg`,
+      kgAmout: (weightGoal - lastItem).toFixed(1),
+      days: daysLeftFromToday,
+    }
+    : obj = {
+      info: `need to lose ${(lastItem - weightGoal).toFixed(1)}kg`,
+      kgAmout: (lastItem - weightGoal).toFixed(1),
+      days: daysLeftFromToday,
+    }
+
+  return obj
 }

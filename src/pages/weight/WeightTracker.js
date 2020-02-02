@@ -11,14 +11,15 @@ import uuid from 'uuid'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
-import { diffDays, weightTrackerInfo, percentageProgress } from '../../util/equations'
+import { diffDays, weightTrackerInfo, percentageProgress, HealthTips } from '../../util/equations'
 import { MyTextField } from '../../util/Formik/FormikFunctions'
-import DeleteGoal from '../../components/Info/DeleteGoal/DeleteGoal'
+import DeleteGoalInfo from '../../components/Info/DeleteGoalInfo/DeleteGoalInfo'
 import WeightTrackerData from '../../components/Tabs/WeightTrackerData/WeightTrackerData'
 import WeightInfo from '../../components/Info/WeightInfo/WeightInfo'
+import HealthTipsInfo from '../../components/Info/HealthTipsInfo/HealthTipsInfo'
 import {
   setWeightData, setFinishDate, setDailyWeight,
-  clearActualGoal, clearActualGoalSaveWeights
+  clearActualGoal, clearActualGoalSaveWeights, clearFinishDateOnly
 } from '../../redux/actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -36,7 +37,8 @@ const WeightTracker = ({
   setFinishDate,
   setDailyWeight,
   clearActualGoal,
-  clearActualGoalSaveWeights
+  clearActualGoalSaveWeights,
+  clearFinishDateOnly
 }) => {
   const [date, setDate] = useState(null)
 
@@ -52,6 +54,7 @@ const WeightTracker = ({
   let finishDate = new Date(date).toISOString().slice(0, 10)
 
   const [daysCompletionPercentage, kgCompletionPercentage] = percentageProgress(userData, diffDays)
+  const healthTips = HealthTips(userData, diffDays)
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -62,7 +65,7 @@ const WeightTracker = ({
     e.preventDefault()
 
     setDailyWeight({
-      date: new Date("2020-02-23").toISOString().slice(0, 10),
+      date: new Date("2020-02-30").toISOString().slice(0, 10),
       weight: dailyWeight,
       id: uuid()
     })
@@ -95,12 +98,19 @@ const WeightTracker = ({
     })
   }
 
+  const clearFinish = () => {
+    clearFinishDateOnly({
+      finish: ''
+    })
+  }
+
   return (
     <>
       <p className="h2 text-center">Weight Tracker</p>
 
       {!finish ? (
         <>
+          {/* Formik actual weight & weight goal */}
           <Formik initialValues={{
             weight: userData.weight || '',
             weightGoal: userData.weightGoal || '',
@@ -134,28 +144,32 @@ const WeightTracker = ({
             )}
           </Formik>
 
-          {weightGoal ? (
-            <div className="d-flex justify-content-center align-items-center">
-              <DatePicker
-                className="my-2 mr-3 text-center border-0"
-                selected={date}
-                onChange={date => setDate(date)}
-                minDate={new Date()}
-                dateFormat="dd/MM/yyyy"
-                placeholderText="Select a date"
-              />
-              <Button onClick={() => setFinishDate({ finish: finishDate, start: new Date().toISOString().slice(0, 10) })}
-                className="" color="primary">
-                Add
+          {/* Set finish date */}
+          {weightGoal && <div className="d-flex justify-content-center align-items-center">
+            <DatePicker
+              className="my-2 mr-3 text-center border-0"
+              selected={date}
+              onChange={date => setDate(date)}
+              minDate={new Date()}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Select a date"
+            />
+            <Button
+              onClick={() => setFinishDate({
+                finish: finishDate,
+                start: new Date().toISOString().slice(0, 10)
+              })}
+              color="primary">
+              Add
             </Button>
-            </div>
-          ) : null
+          </div>
           }
         </>
       ) : (
           <>
             <div className="w-100 mt-3 d-flex align-items-center">
               <p className="h5 w-50">Today`s weight</p>
+              {/* Every day weight input */}
               <form onSubmit={handleSubmit}>
                 <TextField
                   className="w-50"
@@ -180,7 +194,9 @@ const WeightTracker = ({
                   dailyWeightArray.length >= 2 ? (
                     <p className="m-0">
                       Your actual weight is <b style={{ color: '#0275d8' }}>{(weightToday)}kg</b>,
-                        which is <b style={{ color: '#0275d8' }}>{(Math.abs(weightToday - weightYesterday)).toFixed(1)}kg</b>{' '}
+                        which is <b style={{ color: '#0275d8' }}>
+                        {(Math.abs(weightToday - weightYesterday)).toFixed(1)}kg
+                          </b>{' '}
                       {weightToday - weightYesterday < 0 ? 'less' : 'more'} than yesterday.
                     </p>
                   ) : (
@@ -194,8 +210,17 @@ const WeightTracker = ({
                   you <b style={{ color: '#0275d8' }}>{weightTrackerInfo(userData)}</b>
             </div>
 
-            <div className="d-flex my-3">
-              <div className="text-center h5 my-3 mx-2 w-50">
+            <div className="d-flex justify-content-center">
+              <HealthTipsInfo
+                healthTips={healthTips}
+                dailyWeightArray={dailyWeightArray}
+                clearFinish={clearFinish}
+              />
+            </div>
+
+            {/* Circular Progress */}
+            <div className="d-flex my-1">
+              <div className="text-center h5 my-2 mx-2 w-50">
                 <p>Time progress</p>
                 <CircularProgressbar
                   value={daysCompletionPercentage}
@@ -208,8 +233,7 @@ const WeightTracker = ({
                   })}
                 />
               </div>
-
-              <div className="text-center h5 my-3 mx-2 w-50">
+              <div className="text-center h5 my-2 mx-2 w-50">
                 <p>Weight progress</p>
                 <CircularProgressbar
                   value={kgCompletionPercentage}
@@ -224,9 +248,6 @@ const WeightTracker = ({
               </div>
             </div>
 
-            {/* Week average,
-            TABS with Chart (bulking?), separate reducer? */}
-
           </>
         )}
 
@@ -236,10 +257,11 @@ const WeightTracker = ({
       <WeightTrackerData />
       <hr />
 
-      <div className="d-flex justify-content-around align-items-center h5">
-        <DeleteGoal
+      <div className="d-flex justify-content-around align-items-center h6">
+        <DeleteGoalInfo
           clearGoal={clearGoal}
           clearGoalSaveWeights={clearGoalSaveWeights}
+          clearFinish={clearFinish}
           className="mt-3"
         />
       </div>
@@ -257,7 +279,8 @@ const mapDispatchToProps = dispatch => ({
   setFinishDate: data => dispatch(setFinishDate(data)),
   setDailyWeight: data => dispatch(setDailyWeight(data)),
   clearActualGoal: data => dispatch(clearActualGoal(data)),
-  clearActualGoalSaveWeights: data => dispatch(clearActualGoalSaveWeights(data))
+  clearActualGoalSaveWeights: data => dispatch(clearActualGoalSaveWeights(data)),
+  clearFinishDateOnly: data => dispatch(clearFinishDateOnly(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeightTracker)

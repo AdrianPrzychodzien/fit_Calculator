@@ -47,6 +47,11 @@ export const clearActualGoalSaveWeights = data => ({
   payload: data
 })
 
+export const clearFinishDateOnly = data => ({
+  type: DataActionTypes.CLEAR_FINISH_DATE_ONLY,
+  payload: data
+})
+
 export const setHomeOpen = data => ({
   type: UiActionTypes.SET_HOME_OPEN,
   payload: data

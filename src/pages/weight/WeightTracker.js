@@ -18,6 +18,7 @@ import DeleteGoalInfo from '../../components/Info/DeleteGoalInfo/DeleteGoalInfo'
 import WeightTrackerData from '../../components/Tabs/WeightTrackerData/WeightTrackerData'
 import WeightInfo from '../../components/Info/WeightInfo/WeightInfo'
 import HealthTipsInfo from '../../components/Info/HealthTipsInfo/HealthTipsInfo'
+import WeightTodayFormik from '../../components/WeightTodayFormik/WeightTodayFormik'
 import {
   setWeightData, setFinishDate, setDailyWeight,
   clearActualGoal, clearActualGoalSaveWeights, clearFinishDateOnly
@@ -42,11 +43,6 @@ const WeightTracker = ({
 }) => {
   const [date, setDate] = useState(null)
 
-  const [daily, setDaily] = useState({
-    dailyWeight: '',
-  })
-
-  const { dailyWeight } = daily
   const { weightGoal, finish, dailyWeightArray } = userData
   const weightToday = dailyWeightArray.length ? dailyWeightArray[dailyWeightArray.length - 1].weight : null
   const weightYesterday = dailyWeightArray.length > 1 ? dailyWeightArray[dailyWeightArray.length - 2].weight : null
@@ -58,30 +54,6 @@ const WeightTracker = ({
 
   const [daysCompletionPercentage, kgCompletionPercentage] = percentageProgress(userData, diffDays)
   const healthTips = HealthTips(userData, diffDays)
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    setDaily({ [name]: value })
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault()
-
-    setDailyWeight({
-      date: new Date().toISOString().slice(0, 10),
-      weight: dailyWeight,
-      id: uuid()
-    })
-
-    setWeightData({
-      weight: dailyWeight,
-      weightGoal
-    })
-
-    setDaily({
-      dailyWeight: ''
-    })
-  }
 
   const clearGoal = () => {
     clearActualGoal({
@@ -150,7 +122,7 @@ const WeightTracker = ({
             )}
           </Formik>
 
-          {/* Set finish date */}
+          {/* Set finish date - DatePicker */}
           {weightGoal && <div className="d-flex justify-content-center align-items-center">
             <DatePicker
               className="my-2 mr-3 text-center border-0"
@@ -174,26 +146,11 @@ const WeightTracker = ({
         </>
       ) : (
           <>
-            <div className="w-100 my-4 d-flex align-items-center">
-              <p className="h5 w-50">Weight today</p>
-              {/* Every day weight input */}
-              <form onSubmit={handleSubmit}>
-                <TextField
-                  className="w-50"
-                  name="dailyWeight"
-                  type="number"
-                  step={0.1}
-                  onChange={handleChange}
-                  value={dailyWeight}
-                  as={TextField}
-                  required
-                />
-                <Button className="ml-3" type="submit" color="primary"
-                >
-                  Submit
-              </Button>
-              </form>
-            </div>
+            {/* Set today`s weight */}
+            <WeightTodayFormik
+              setDailyWeight={setDailyWeight}
+              userData={userData}
+            />
 
             <div className="text-center h5 my-4">
               {weightToday === weightYesterday ? (

@@ -12,7 +12,6 @@ import {
   MifflinStJeor,
   HarrisBenedict,
   KatchMcardle,
-  rangeBMI,
   restingMifflinStJeor,
   restingHarrisBenedict,
   restingKatchMcardle,

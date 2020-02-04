@@ -1,6 +1,7 @@
 import { UserActionTypes } from './user/user.types'
 import { DataActionTypes } from './data/data.types'
 import { UiActionTypes } from './ui/ui.types'
+import { CircumActionTypes } from './circum/circum.types'
 
 export const setCurrentUser = userCredentials => ({
   type: UserActionTypes.SET_CURRENT_USER,
@@ -54,5 +55,15 @@ export const clearFinishDateOnly = data => ({
 
 export const setHomeOpen = data => ({
   type: UiActionTypes.SET_HOME_OPEN,
+  payload: data
+})
+
+export const setBodyFatCircum = data => ({
+  type: CircumActionTypes.SET_BODY_FAT_CIRCUM,
+  payload: data
+})
+
+export const setCircumferences = data => ({
+  type: CircumActionTypes.SET_CIRCUMFERENCES,
   payload: data
 })

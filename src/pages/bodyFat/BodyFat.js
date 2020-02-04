@@ -37,7 +37,7 @@ const BodyFat = ({ setFatData, setBodyFatCircum, userData, circumData, history }
     <div>
       <Formik initialValues={{
         waist: circumData.waist || '',
-        hip: circumData.hip || '',
+        hips: circumData.hips || '',
         neck: circumData.neck || '',
         fat: userData.fat || ''
       }}

@@ -521,3 +521,58 @@ export const HealthTips = (data, func) => {
 
   return obj
 }
+
+//
+// Circumferences
+//
+const helperChange = (data, val) => {
+  let arr = []
+  for (let el in data) {
+    let bodyPart = val
+    arr.push(data[el][bodyPart])
+  }
+
+  const max = arr.reduce((a, b) => Math.max(a, b))
+  const min = arr.reduce((a, b) => Math.min(a, b))
+  const diff = max - min
+
+  return [max, min, diff]
+}
+
+export const circumferencesChange = data => {
+  const circums = ['waist', 'hips', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
+
+  let output = circums.map(item => {
+    const [max, min, diff] = helperChange(data, item)
+    return {
+      [item]: {
+        max,
+        min,
+        diff
+      }
+    }
+  })
+  console.log(output)
+  return output
+}
+
+export const biggestCircumChange = (arr, trend) => {
+  const circums = ['waist', 'hips', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
+
+  // array of name and difference
+  let output = []
+  for (let el in arr) {
+    console.log(arr[el][circums[el]])
+    output.push({
+      name: circums[el],
+      value: arr[el][circums[el]].diff
+    })
+  }
+
+  // sorting frm largest to smallest
+  trend === 'desc'
+    ? output.sort((a, b) => (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0))
+    : output.sort((a, b) => (a.value > b.value) ? 1 : ((b.value > a.value) ? -1 : 0))
+  console.log(output)
+  return output
+}

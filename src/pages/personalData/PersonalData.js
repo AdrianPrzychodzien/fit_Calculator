@@ -7,7 +7,6 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { TextField } from '@material-ui/core'
 import { Button } from 'reactstrap'
-import uuid from 'uuid'
 
 import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo'
 import { setData, setDailyWeight } from '../../redux/actions'
@@ -44,8 +43,7 @@ const PersonalData = ({ userData, setData, setDailyWeight, history }) => {
 
           setDailyWeight({
             date: new Date().toISOString().slice(0, 10),
-            weight: data.weight,
-            id: uuid()
+            weight: data.weight
           })
 
           history.push('/')

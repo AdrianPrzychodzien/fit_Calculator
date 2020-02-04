@@ -11,6 +11,7 @@ import SignInAndSignUp from './pages/signInAndSignUp/SignInAndSignUp'
 import Bmi from './pages/bmi/Bmi'
 import Calories from './pages/calories/Calories'
 import WeightTracker from './pages/weight/WeightTracker'
+import Circumferences from './pages/circumferences/Circumferences'
 
 import NavBar from './components/NavBar/NavBar'
 
@@ -55,6 +56,7 @@ const App = ({ currentUser, setCurrentUser }) => {
               <Route exact path='/bmi' component={Bmi} />
               <Route exact path='/calories' component={Calories} />
               <Route exact path='/weightTracker' component={WeightTracker} />
+              <Route exact path='/circumferences' component={Circumferences} />
               <Route exact path='/signin' render={() =>
                 currentUser ? (
                   <Redirect to='/' />

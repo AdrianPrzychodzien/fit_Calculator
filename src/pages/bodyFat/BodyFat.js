@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import { MyTextField } from '../../util/Formik/FormikFunctions'
 
 import FatPercentageInfo from '../../components/Info/FatPercentageInfo/FatPercentageInfo'
-import { setFatData } from '../../redux/actions'
+import { setFatData, setBodyFatCircum } from '../../redux/actions'
 import { bodyFatFormula, idealBodyFatPercentage } from '../../util/equations'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,50 +16,43 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const validationSchema = yup.object({
   waist: yup.number('It must be a number').required('Waist is required').positive(),
-  hip: yup.number('It must be a number').required('Hip is required').positive(),
+  hips: yup.number('It must be a number').required('Hips are required').positive(),
   neck: yup.number('It must be a number').required('Neck is required').positive()
 })
 
-const BodyFat = ({ setFatData, userData, history }) => {
+const BodyFat = ({ setFatData, setBodyFatCircum, userData, circumData, history }) => {
   const [userSize, setUserSize] = useState({
-    waist: '',
-    hip: '',
-    neck: '',
-    fat: '',
     open: false
   })
 
   const { open } = userSize
-  const { sex, height } = userData
+  const { sex, height, weight } = userData
 
-  const bodyFat = bodyFatFormula(userSize, userData)
-  const bodyFatMass = ((userData.weight * bodyFat) / 100).toFixed(2)
-  const leanBodyMass = (userData.weight - bodyFatMass).toFixed(2)
+  const bodyFat = bodyFatFormula(circumData, userData)
+  const bodyFatMass = ((weight * bodyFat) / 100).toFixed(2)
+  const leanBodyMass = (weight - bodyFatMass).toFixed(2)
   const bodyFatToLose = (bodyFat - idealBodyFatPercentage(userData)).toFixed(1)
 
   return (
     <div>
       <Formik initialValues={{
-        waist: userData.waist || '',
-        hip: userData.hip || '',
-        neck: userData.neck || '',
+        waist: circumData.waist || '',
+        hip: circumData.hip || '',
+        neck: circumData.neck || '',
         fat: userData.fat || ''
       }}
         validationSchema={validationSchema}
         onSubmit={data => {
-          const actualData = {
-            waist: data.waist,
-            hip: data.hip,
-            neck: data.neck,
-            fat: bodyFatFormula(data, userData)
-          }
           setUserSize({
-            ...actualData,
             open: true
           })
-
+          setBodyFatCircum({
+            waist: data.waist,
+            hips: data.hips,
+            neck: data.neck
+          })
           setFatData({
-            ...actualData,
+            fat: bodyFat
           })
         }}
       >
@@ -76,7 +69,7 @@ const BodyFat = ({ setFatData, userData, history }) => {
 
               <div className="mx-auto my-3 w-50 d-flex">
                 <FontAwesomeIcon className="mr-3 text-primary" icon={faCheck} size="2x" />
-                <MyTextField type="number" name="hip" placeholder="Hip (cm)" as={TextField} />
+                <MyTextField type="number" name="hips" placeholder="Hips (cm)" as={TextField} />
               </div>
 
               <div className="mx-auto my-3 w-50 d-flex">
@@ -144,12 +137,14 @@ const BodyFat = ({ setFatData, userData, history }) => {
   )
 }
 
-const mapStateToProps = ({ data }) => ({
-  userData: data
+const mapStateToProps = ({ data, circum }) => ({
+  userData: data,
+  circumData: circum
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFatData: data => dispatch(setFatData(data))
+  setFatData: data => dispatch(setFatData(data)),
+  setBodyFatCircum: data => dispatch(setBodyFatCircum(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BodyFat)

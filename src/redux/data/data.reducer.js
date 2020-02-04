@@ -1,5 +1,5 @@
 import { DataActionTypes } from './data.types'
-import { addNewDailyWeight } from './data.utils'
+import { addNewDailyWeight } from '../utils'
 
 const INITIAL_STATE = {
   height: '',
@@ -8,9 +8,6 @@ const INITIAL_STATE = {
   sex: '',
   lifeActivity: 1,
   fat: '',
-  waist: '',
-  hip: '',
-  neck: '',
   weightGoal: '',
   finish: '',
   start: '',
@@ -34,9 +31,6 @@ const dataReducer = (state = INITIAL_STATE, action) => {
     case DataActionTypes.SET_FAT_DATA:
       return {
         ...state,
-        waist: action.payload.waist,
-        hip: action.payload.hip,
-        neck: action.payload.neck,
         fat: action.payload.fat
       }
     case DataActionTypes.SET_WEIGHT_DATA:

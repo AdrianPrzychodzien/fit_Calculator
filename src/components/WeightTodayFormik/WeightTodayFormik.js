@@ -4,7 +4,6 @@ import { TextField } from '@material-ui/core'
 import { Button } from 'reactstrap'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import uuid from 'uuid'
 import moment from 'moment'
 
 import { MyTextField } from '../../util/Formik/FormikFunctions'
@@ -29,8 +28,7 @@ const WeightTodayFormik = ({ setDailyWeight, userData }) => {
       onSubmit={data => {
         setDailyWeight({
           date: new Date().toISOString().slice(0, 10),
-          weight: data.dailyWeight,
-          id: uuid()
+          weight: data.dailyWeight
         })
       }}
     >

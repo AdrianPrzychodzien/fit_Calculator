@@ -7,7 +7,6 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
-import uuid from 'uuid'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import moment from 'moment'
@@ -98,7 +97,6 @@ const WeightTracker = ({
               setDailyWeight({
                 date: new Date().toISOString().slice(0, 10),
                 weight: data.weight,
-                id: uuid()
               })
             }}
           >

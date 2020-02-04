@@ -41,7 +41,7 @@ const WeightTrackerData = ({ userData }) => {
       )
 
       return (
-        <tr key={item.id}>
+        <tr key={item.date}>
           <td>{item.date}</td>
           <td>{item.weight} kg</td>
           <td style={{ color: rangeBMIColor(itemBMI), fontWeight: 'bold' }}>{itemBMI}</td>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import Chart from '../../Chart/Chart'
+// import Chart from '../../Chart/Chart'
 import {
   TabContent, TabPane, Nav, NavItem, NavLink,
   Row, Col, Table
@@ -96,7 +96,7 @@ const WeightTrackerData = ({ userData }) => {
               </Col>
             </Row>
 
-            <Chart />
+            {/* <Chart /> */}
           </TabPane>
         }
         {/* Tab Content 2 - History */}

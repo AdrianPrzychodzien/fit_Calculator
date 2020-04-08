@@ -9,6 +9,8 @@ import * as yup from 'yup'
 import { TextField } from '@material-ui/core'
 import { Collapse, Button, CardBody, Card } from 'reactstrap'
 import moment from 'moment'
+import * as Icon from 'react-feather'
+import { Person } from '@material-ui/icons'
 
 import { setCircumferences, setBodyFatCircum } from '../../redux/actions'
 

@@ -40,6 +40,14 @@ const Chart = ({ userData }) => {
   })
 
   const data = [...dailyWeights]
+  console.log(data);
+
+  let arr = []
+
+  data.slice(0).map((item, index) => {
+    arr.push(item.day)
+  })
+  console.log(arr);
 
   const dialyMin = dailyWeightArray
     .reduce((min, b) => Math.min(min, b.weight), dailyWeightArray[0].weight)

@@ -25,7 +25,10 @@
     "react-circular-progressbar": "^2.0.3",
     "react-datepicker": "^2.11.0",
     "react-dom": "^16.12.0",
+<<<<<<< HEAD
     "react-feather": "^2.0.3",
+=======
+>>>>>>> 0962fc201b045f8d87b0394b1296061720e32818
     "react-input-range": "^1.3.0",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",

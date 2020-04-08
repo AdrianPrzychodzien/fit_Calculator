@@ -137,7 +137,7 @@ const BodyFat = () => {
                 look forward. Avoid flaring your neck out. Make sure your shoulders are down and relaxed,
                 not hunched.
             <br /><br />
-              4. <b>Measure your hips</b>. Place the tape measure around
+              4. <b>Measure your hips</b> if you are a woman. Place the tape measure around
                 the largest width of your hips. If wearing clothes, pull the tape measure somewhat taught
                 to account for the bulk of your clothing.
             </CardBody>

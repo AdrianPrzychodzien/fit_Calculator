@@ -3,7 +3,7 @@ import { addNewMeasurement } from '../utils'
 
 const INITIAL_STATE = {
   waist: '',
-  hips: '',
+  hip: '',
   neck: '',
   circumferences: []
 }
@@ -18,6 +18,7 @@ const circumReducer = (state = INITIAL_STATE, action) => {
         neck: action.payload.neck
       }
     case CircumActionTypes.SET_CIRCUMFERENCES:
+      console.log(action.payload)
       return {
         ...state,
         circumferences: addNewMeasurement(state.circumferences, action.payload)

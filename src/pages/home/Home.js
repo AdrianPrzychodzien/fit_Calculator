@@ -28,7 +28,7 @@ import {
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons';
 
-const Home = ({ userData, uiData, setFormula, setHomeOpen, history }: any) => {
+const Home = ({ userData, uiData, setFormula, setHomeOpen, history }) => {
   const { homeOpen } = uiData;
   const { weight, height, age, sex, lifeActivity, fat, formula } = userData;
   const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData));
@@ -46,22 +46,22 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }: any) => {
           <b>{activityLevelComment(userData.lifeActivity)}</b>
         </p>
       ) : (
-        <>
-          <p className='text-center'>
-            Add your personal data and choose one of the following three
-            equations to calculate basic indicators (Resting Metabolic Rate,
+          <>
+            <p className='text-center'>
+              Add your personal data and choose one of the following three
+              equations to calculate basic indicators (Resting Metabolic Rate,
             Body Mass Index, Training Heart Rate or Heart Rate Max){' '}
-          </p>
-          <Button
-            block
-            className='text-center my-4'
-            color='primary'
-            onClick={() => history.push('/personalData')}
-          >
-            Add personal data
+            </p>
+            <Button
+              block
+              className='text-center my-4'
+              color='primary'
+              onClick={() => history.push('/personalData')}
+            >
+              Add personal data
           </Button>{' '}
-        </>
-      )}
+          </>
+        )}
 
       <Formik
         initialValues={{
@@ -149,8 +149,8 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }: any) => {
               ) : fat ? (
                 restingKatchMcardle(userData)
               ) : (
-                <p className='h5 text-danger'>no data</p>
-              )}
+                      <p className='h5 text-danger'>no data</p>
+                    )}
               {fat ? <p className='h5'> kcal</p> : null}
             </div>
           </div>
@@ -177,8 +177,8 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }: any) => {
               ) : fat ? (
                 KatchMcardle(userData)
               ) : (
-                <p className='h5 text-danger'>no data</p>
-              )}
+                      <p className='h5 text-danger'>no data</p>
+                    )}
               {fat ? <p className='h5'> kcal</p> : null}
             </div>
           </div>
@@ -228,12 +228,12 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }: any) => {
           </div>
         </div>
       ) : (
-        homeOpen && (
-          <p className='h4 text-center text-danger my-4'>
-            Complete data first!
-          </p>
-        )
-      )}
+          homeOpen && (
+            <p className='h4 text-center text-danger my-4'>
+              Complete data first!
+            </p>
+          )
+        )}
     </>
   );
 };
@@ -253,14 +253,14 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }: any) => {
 // }
 // }
 
-const mapStateToProps = ({ data, ui }: any) => ({
+const mapStateToProps = ({ data, ui }) => ({
   userData: data,
   uiData: ui
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  setFormula: (data: any) => dispatch(setFormula(data)),
-  setHomeOpen: (data: any) => dispatch(setHomeOpen(data))
+const mapDispatchToProps = (dispatch) => ({
+  setFormula: (data) => dispatch(setFormula(data)),
+  setHomeOpen: (data) => dispatch(setHomeOpen(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -3,6 +3,13 @@ import { DataActionTypes } from './redux/data/data.types';
 import { UiActionTypes } from './redux/ui/ui.types';
 import { CircumActionTypes } from './redux/circum/circum.types';
 
+export interface State {
+  user: UserReducer;
+  data: DataReducer;
+  circum: CircumReducer;
+  ui: UiReducer;
+}
+
 export interface DataReducer {
   height: number;
   weight: number;
@@ -73,7 +80,7 @@ export interface SetFormulaAction {
 
 export interface SetDailyWeightAction {
   type: typeof DataActionTypes.SET_DAILY_WEIGHT;
-  payload: { weight: number };
+  payload: { date: string; weight: number };
 }
 
 export interface ClearActualGoalAction {

@@ -83,12 +83,14 @@ export const setFormula = ({
 });
 
 export const setDailyWeight = ({
+  date,
   weight
 }: {
+  date: string;
   weight: number;
 }): SetDailyWeightAction => ({
   type: DataActionTypes.SET_DAILY_WEIGHT,
-  payload: { weight }
+  payload: { date, weight }
 });
 
 export const clearActualGoal = ({

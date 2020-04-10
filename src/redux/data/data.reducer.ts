@@ -1,23 +1,26 @@
 import { DataActionTypes } from './data.types';
 import { addNewDailyWeight } from '../utils';
-// import { IUserData } from '../../../interfaces';
+import { DataReducer, SetUserDataAction } from '../../interfaces';
 
 const INITIAL_STATE = {
-  height: '',
-  weight: '',
-  age: '',
+  height: 0,
+  weight: 0,
+  age: 0,
   sex: '',
   lifeActivity: 1,
-  fat: '',
-  weightGoal: '',
-  finish: '',
-  start: '',
+  fat: 0,
+  weightGoal: 0,
+  finish: new Date(),
+  start: new Date(),
   dailyWeightArray: [],
-  userId: '',
+  userId: 0,
   formula: ''
 };
 
-const dataReducer = (state = INITIAL_STATE, action) => {
+const dataReducer = (
+  state: DataReducer = INITIAL_STATE,
+  action: SetUserDataAction
+) => {
   switch (action.type) {
     case DataActionTypes.SET_USER_DATA:
       return {

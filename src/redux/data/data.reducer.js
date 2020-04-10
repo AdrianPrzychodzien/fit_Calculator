@@ -1,6 +1,6 @@
 import { DataActionTypes } from './data.types';
 import { addNewDailyWeight } from '../utils';
-import { IUserData } from '../../../interfaces';
+// import { IUserData } from '../../../interfaces';
 
 const INITIAL_STATE = {
   height: '',

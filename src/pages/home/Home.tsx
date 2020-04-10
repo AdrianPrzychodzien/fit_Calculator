@@ -36,10 +36,9 @@ interface Props {
 
 const Home: React.FC<Props> = ({ history }) => {
   const userData = useSelector((state: State) => state.data);
-  const uiData = useSelector((state: State) => state.ui);
+  const { homeOpen } = useSelector((state: State) => state.ui);
   const dispatch = useDispatch();
 
-  const { homeOpen } = uiData;
   const { weight, height, age, sex, lifeActivity, fat, formula } = userData;
 
   const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData));

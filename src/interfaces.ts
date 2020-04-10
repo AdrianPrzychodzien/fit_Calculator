@@ -20,7 +20,7 @@ export interface DataReducer {
   weightGoal: number;
   finish: Date;
   start: Date;
-  dailyWeightArray: number[];
+  dailyWeightArray: { date: string; weight: number }[];
   userId: number;
   formula: string;
 }
@@ -52,7 +52,7 @@ export interface SetUserDataAction {
     weightGoal?: number;
     finish?: Date;
     start?: Date;
-    dailyWeightArray?: number[];
+    dailyWeightArray?: { date: string; weight: number }[];
     userId?: number;
     formula?: string;
   };
@@ -70,7 +70,7 @@ export interface SetWeightDataAction {
 
 export interface SetFinishDateAction {
   type: typeof DataActionTypes.SET_FINISH_DATE;
-  payload: { finish: number; start: number };
+  payload: { finish: string; start: string };
 }
 
 export interface SetFormulaAction {
@@ -86,21 +86,21 @@ export interface SetDailyWeightAction {
 export interface ClearActualGoalAction {
   type: typeof DataActionTypes.CLEAR_ACTUAL_GOAL;
   payload: {
-    start: number;
-    finish: number;
+    start: string;
+    finish: string;
     weightGoal: number;
-    dailyWeightArray: number[];
+    dailyWeightArray: { date: string; weight: number }[];
   };
 }
 
 export interface ClearActualGoalSaveWeightsAction {
   type: typeof DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS;
-  payload: { start: number; finish: number; weightGoal: number };
+  payload: { start: string; finish: string; weightGoal: number };
 }
 
 export interface ClearFinishDateOnlyAction {
   type: typeof DataActionTypes.CLEAR_FINISH_DATE_ONLY;
-  payload: { finish: number };
+  payload: { finish: string };
 }
 
 export interface SetHomeOpenAction {

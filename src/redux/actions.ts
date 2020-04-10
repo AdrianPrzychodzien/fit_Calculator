@@ -66,8 +66,8 @@ export const setFinishDate = ({
   finish,
   start
 }: {
-  finish: number;
-  start: number;
+  finish: string;
+  start: string;
 }): SetFinishDateAction => ({
   type: DataActionTypes.SET_FINISH_DATE,
   payload: { finish, start }
@@ -99,10 +99,10 @@ export const clearActualGoal = ({
   weightGoal,
   dailyWeightArray
 }: {
-  start: number;
-  finish: number;
+  start: string;
+  finish: string;
   weightGoal: number;
-  dailyWeightArray: number[];
+  dailyWeightArray: { date: string; weight: number }[];
 }): ClearActualGoalAction => ({
   type: DataActionTypes.CLEAR_ACTUAL_GOAL,
   payload: {
@@ -118,8 +118,8 @@ export const clearActualGoalSaveWeights = ({
   finish,
   weightGoal
 }: {
-  start: number;
-  finish: number;
+  start: string;
+  finish: string;
   weightGoal: number;
 }): ClearActualGoalSaveWeightsAction => ({
   type: DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS,
@@ -129,7 +129,7 @@ export const clearActualGoalSaveWeights = ({
 export const clearFinishDateOnly = ({
   finish
 }: {
-  finish: number;
+  finish: string;
 }): ClearFinishDateOnlyAction => ({
   type: DataActionTypes.CLEAR_FINISH_DATE_ONLY,
   payload: { finish }

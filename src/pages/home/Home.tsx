@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { setFormula, setHomeOpen } from '../../redux/actions';
 import { MyRadioFormula } from '../../util/Formik/FormikFunctions';
@@ -28,9 +28,20 @@ import {
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons';
 
-const Home = ({ userData, uiData, setFormula, setHomeOpen, history }) => {
+import { State } from '../../interfaces';
+
+interface Props {
+  history: any;
+}
+
+const Home: React.FC<Props> = ({ history }) => {
+  const userData = useSelector((state: State) => state.data);
+  const uiData = useSelector((state: State) => state.ui);
+  const dispatch = useDispatch();
+
   const { homeOpen } = uiData;
   const { weight, height, age, sex, lifeActivity, fat, formula } = userData;
+
   const [trainingMin, trainingMax] = trainingHeartRate(maxHeartRate(userData));
 
   return (
@@ -46,22 +57,22 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }) => {
           <b>{activityLevelComment(userData.lifeActivity)}</b>
         </p>
       ) : (
-          <>
-            <p className='text-center'>
-              Add your personal data and choose one of the following three
-              equations to calculate basic indicators (Resting Metabolic Rate,
+        <>
+          <p className='text-center'>
+            Add your personal data and choose one of the following three
+            equations to calculate basic indicators (Resting Metabolic Rate,
             Body Mass Index, Training Heart Rate or Heart Rate Max){' '}
-            </p>
-            <Button
-              block
-              className='text-center my-4'
-              color='primary'
-              onClick={() => history.push('/personalData')}
-            >
-              Add personal data
+          </p>
+          <Button
+            block
+            className='text-center my-4'
+            color='primary'
+            onClick={() => history.push('/personalData')}
+          >
+            Add personal data
           </Button>{' '}
-          </>
-        )}
+        </>
+      )}
 
       <Formik
         initialValues={{
@@ -69,8 +80,8 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }) => {
         }}
         onSubmit={(data) => {
           console.log(data);
-          setFormula({ ...data });
-          !homeOpen && setHomeOpen(true);
+          dispatch(setFormula({ ...data }));
+          !homeOpen && dispatch(setHomeOpen({ homeOpen: true }));
         }}
       >
         {() => (
@@ -149,8 +160,8 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }) => {
               ) : fat ? (
                 restingKatchMcardle(userData)
               ) : (
-                      <p className='h5 text-danger'>no data</p>
-                    )}
+                <p className='h5 text-danger'>no data</p>
+              )}
               {fat ? <p className='h5'> kcal</p> : null}
             </div>
           </div>
@@ -177,8 +188,8 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }) => {
               ) : fat ? (
                 KatchMcardle(userData)
               ) : (
-                      <p className='h5 text-danger'>no data</p>
-                    )}
+                <p className='h5 text-danger'>no data</p>
+              )}
               {fat ? <p className='h5'> kcal</p> : null}
             </div>
           </div>
@@ -228,12 +239,12 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }) => {
           </div>
         </div>
       ) : (
-          homeOpen && (
-            <p className='h4 text-center text-danger my-4'>
-              Complete data first!
-            </p>
-          )
-        )}
+        homeOpen && (
+          <p className='h4 text-center text-danger my-4'>
+            Complete data first!
+          </p>
+        )
+      )}
     </>
   );
 };
@@ -253,14 +264,4 @@ const Home = ({ userData, uiData, setFormula, setHomeOpen, history }) => {
 // }
 // }
 
-const mapStateToProps = ({ data, ui }) => ({
-  userData: data,
-  uiData: ui
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setFormula: (data) => dispatch(setFormula(data)),
-  setHomeOpen: (data) => dispatch(setHomeOpen(data))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

@@ -35,9 +35,27 @@ export interface UserReducer {
 
 export interface CircumReducer {
   waist: number;
-  hip: number;
+  hips: number;
   neck: number;
   circumferences: number[];
+}
+
+export interface SetUserDataInterface {
+  height: number;
+  weight: number;
+  age: number;
+  sex: string;
+  lifeActivity: number;
+  fat: number;
+}
+
+export interface SetUserDataInterface {
+  height: number;
+  weight: number;
+  age: number;
+  sex: string;
+  lifeActivity: number;
+  fat: number;
 }
 
 export interface SetUserDataAction {
@@ -58,9 +76,18 @@ export interface SetUserDataAction {
   };
 }
 
+export interface SetFatDataInterface {
+  fat: number;
+}
+
 export interface SetFatDataAction {
   type: typeof DataActionTypes.SET_FAT_DATA;
   payload: { fat: number };
+}
+
+export interface SetWeightDataInterface {
+  weight: number;
+  weightGoal: number;
 }
 
 export interface SetWeightDataAction {
@@ -73,9 +100,18 @@ export interface SetFinishDateAction {
   payload: { finish: string; start: string };
 }
 
+export interface SetFormula {
+  formula: string;
+}
+
 export interface SetFormulaAction {
   type: typeof DataActionTypes.SET_FORMULA;
   payload: { formula: string };
+}
+
+export interface SetDailyWeightInterface {
+  date: string;
+  weight: number;
 }
 
 export interface SetDailyWeightAction {
@@ -103,21 +139,31 @@ export interface ClearFinishDateOnlyAction {
   payload: { finish: string };
 }
 
+export interface SetHomeOpen {
+  homeOpen: boolean;
+}
+
 export interface SetHomeOpenAction {
   type: typeof UiActionTypes.SET_HOME_OPEN;
   payload: { homeOpen: boolean };
 }
 
+export interface SetBodyFatCircumInterface {
+  waist: number;
+  hips: number;
+  neck: number;
+}
+
 export interface SetBodyFatCircumAction {
   type: typeof CircumActionTypes.SET_BODY_FAT_CIRCUM;
-  payload: { waist: number; hip: number; neck: number };
+  payload: { waist: number; hips: number; neck: number };
 }
 
 export interface SetCircumferencesAction {
   type: typeof CircumActionTypes.SET_CIRCUMFERENCES;
   payload: {
     waist: number;
-    hip: number;
+    hips: number;
     neck: number;
     chest: number;
     shoulders: number;

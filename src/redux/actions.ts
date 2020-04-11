@@ -137,20 +137,20 @@ export const clearFinishDateOnly = ({
 
 export const setBodyFatCircum = ({
   waist,
-  hip,
+  hips,
   neck
 }: {
   waist: number;
-  hip: number;
+  hips: number;
   neck: number;
 }): SetBodyFatCircumAction => ({
   type: CircumActionTypes.SET_BODY_FAT_CIRCUM,
-  payload: { waist, hip, neck }
+  payload: { waist, hips, neck }
 });
 
 export const setCircumferences = ({
   waist,
-  hip,
+  hips,
   neck,
   chest,
   shoulders,
@@ -158,7 +158,7 @@ export const setCircumferences = ({
   biceps
 }: {
   waist: number;
-  hip: number;
+  hips: number;
   neck: number;
   chest: number;
   shoulders: number;
@@ -168,7 +168,7 @@ export const setCircumferences = ({
   type: CircumActionTypes.SET_CIRCUMFERENCES,
   payload: {
     waist,
-    hip,
+    hips,
     neck,
     chest,
     shoulders,

@@ -24,30 +24,33 @@ const Chart: React.FC = () => {
   const calcHealthyProperty = (item: { date: string; weight: number }) => {
     let output;
     for (let i = 0; i < healthyArr.length; i++) {
-      if (healthyArr[i].day === item.date.slice(5, 10)) {
-        output = healthyArr[i].healthy;
-      }
+      if (item.date)
+        if (healthyArr[i].day === item.date.slice(5, 10)) {
+          output = healthyArr[i].healthy;
+        }
     }
     return output;
   };
 
-  let dailyWeights = dailyWeightArray.map((item) => {
-    return {
-      day: item.date.slice(5, 10),
-      weight: item.weight,
-      goal: weightGoal,
-      ...(calcHealthyProperty(item) && { healthy: calcHealthyProperty(item) })
-    };
-  });
+  let dailyWeights = dailyWeightArray.map(
+    (item: { date: string; weight: number }) => {
+      return {
+        day: item.date && item.date.slice(5, 10),
+        weight: item.weight,
+        goal: weightGoal,
+        ...(calcHealthyProperty(item) && { healthy: calcHealthyProperty(item) })
+      };
+    }
+  );
 
   const data = [...dailyWeights];
 
   const dialyMin = dailyWeightArray.reduce(
-    (min, b) => Math.min(min, b.weight),
+    (min: number, b: any) => Math.min(min, b.weight),
     dailyWeightArray[0].weight
   );
   const dialyMax = dailyWeightArray.reduce(
-    (max, b) => Math.max(max, b.weight),
+    (max: number, b: any) => Math.max(max, b.weight),
     dailyWeightArray[0].weight
   );
 

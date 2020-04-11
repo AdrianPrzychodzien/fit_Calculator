@@ -36,7 +36,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWeight, faBullseye } from '@fortawesome/free-solid-svg-icons';
 
-import { State } from '../../interfaces';
+import { State, SetWeightDataInterface } from '../../interfaces';
 
 const validationSchema = yup.object({
   weight: yup.number().required('Weight is required').positive(),
@@ -120,22 +120,22 @@ const WeightTracker: React.FC = () => {
               weightGoal: userData.weightGoal || 0
             }}
             validationSchema={validationSchema}
-            onSubmit={(data) => {
+            onSubmit={({ weight, weightGoal }: SetWeightDataInterface) => {
               dispatch(
                 setWeightData({
-                  weight: data.weight,
-                  weightGoal: data.weightGoal
+                  weight: weight,
+                  weightGoal: weightGoal
                 })
               );
               dispatch(
                 setDailyWeight({
                   date: new Date().toISOString().slice(0, 10),
-                  weight: data.weight
+                  weight: weight
                 })
               );
             }}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting }: any) => (
               <>
                 <Form className='w-100 d-flex justify-content-center'>
                   <div className='mx-3 my-3 w-50 d-flex'>
@@ -183,7 +183,7 @@ const WeightTracker: React.FC = () => {
               <DatePicker
                 className='my-2 mr-3 text-center border-0'
                 selected={date}
-                onChange={(date) => date && setDate(date)}
+                onChange={(date: any) => date && setDate(date)}
                 dateFormat='dd/MM/yyyy'
                 placeholderText='Select a date'
                 minDate={ThreeWeeksAfterDate}
@@ -212,10 +212,7 @@ const WeightTracker: React.FC = () => {
       ) : (
         <>
           {/* Set today`s weight */}
-          <WeightTodayFormik
-            setDailyWeight={setDailyWeight}
-            userData={userData}
-          />
+          <WeightTodayFormik />
 
           <div className='text-center h5 my-4'>
             {weightToday === weightYesterday ? (

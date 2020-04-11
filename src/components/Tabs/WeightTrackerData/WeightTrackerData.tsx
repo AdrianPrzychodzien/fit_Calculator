@@ -48,7 +48,7 @@ const WeightTrackerData: React.FC = () => {
   const historyItems = dailyWeightArray
     .slice(0)
     .reverse()
-    .map((item, index) => {
+    .map((item: { date: string; weight: number }, index: number) => {
       const itemBMI = (item.weight / ((height / 100) * (height / 100))).toFixed(
         2
       );

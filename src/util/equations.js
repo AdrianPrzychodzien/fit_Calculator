@@ -256,11 +256,11 @@ export const idealBodyFatPercentage = data => {
     }
   }
 
-  return result
+  return result ? result : 0
 }
 
 export const bodyFatFormula = (fatData, userData) => {
-  let { waist, neck, hip } = fatData
+  let { waist, neck, hips } = fatData
   let { sex, height } = userData
 
   let result
@@ -271,9 +271,9 @@ export const bodyFatFormula = (fatData, userData) => {
   } else if (sex === "Female") {
     waist = 0.393700787 * waist
     neck = 0.393700787 * neck
-    hip = 0.393700787 * waist
+    hips = 0.393700787 * waist
     height = 0.393700787 * waist
-    result = 495 / (1.29579 - 0.35004 * Math.log10(waist + hip - neck) + 0.22100 * Math.log10(height)) - 450
+    result = 495 / (1.29579 - 0.35004 * Math.log10(waist + hips - neck) + 0.22100 * Math.log10(height)) - 450
   }
 
   return Math.round(result)
@@ -540,7 +540,7 @@ const helperChange = (data, val) => {
 }
 
 export const circumferencesChange = data => {
-  const circums = ['waist', 'hips', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
+  const circums = ['waist', 'hipss', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
 
   let output = circums.map(item => {
     const [max, min, diff] = helperChange(data, item)
@@ -557,7 +557,7 @@ export const circumferencesChange = data => {
 }
 
 export const biggestCircumChange = (arr, trend) => {
-  const circums = ['waist', 'hips', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
+  const circums = ['waist', 'hipss', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
 
   // array of name and difference
   let output = []

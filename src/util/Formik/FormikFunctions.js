@@ -82,14 +82,12 @@ export const MyTextField = ({ type, placeholder, ...props }) => {
   const errorText = meta.error && meta.touched ? meta.error : ''
 
   return (
-    <>
-      <TextField
-        type={type}
-        placeholder={placeholder}
-        {...field}
-        helperText={errorText}
-        error={!!errorText}
-      />
-    </>
+    <TextField
+      type={type}
+      placeholder={placeholder}
+      {...field}
+      helperText={errorText}
+      error={!!errorText}
+    />
   )
 }

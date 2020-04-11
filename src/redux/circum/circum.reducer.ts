@@ -8,7 +8,7 @@ import {
 
 const INITIAL_STATE = {
   waist: 0,
-  hip: 0,
+  hips: 0,
   neck: 0,
   circumferences: []
 };
@@ -20,7 +20,7 @@ const circumReducer = (state: CircumReducer = INITIAL_STATE, action: Test) => {
       return {
         ...state,
         waist: action.payload.waist,
-        hips: action.payload.hip,
+        hips: action.payload.hips,
         neck: action.payload.neck
       };
     case CircumActionTypes.SET_CIRCUMFERENCES:

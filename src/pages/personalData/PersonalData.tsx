@@ -21,7 +21,7 @@ import {
   faWeight,
   faPercentage
 } from '@fortawesome/free-solid-svg-icons';
-import { State } from '../../interfaces';
+import { State, SetUserDataInterface } from '../../interfaces';
 import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo';
 import { setData, setDailyWeight } from '../../redux/actions';
 
@@ -36,7 +36,7 @@ interface Props extends RouteComponentProps<any> {
   history: any;
 }
 
-const PersonalData: React.FC<Props> = ({ history }) => {
+const PersonalData: React.FC<Props> = ({ history }: any) => {
   const userData = useSelector((state: State) => state.data);
   const dispatch = useDispatch();
 
@@ -51,20 +51,27 @@ const PersonalData: React.FC<Props> = ({ history }) => {
         lifeActivity: userData.lifeActivity || 1
       }}
       validationSchema={validationSchema}
-      onSubmit={(data) => {
-        dispatch(setData({ ...data }));
+      onSubmit={({
+        height,
+        weight,
+        age,
+        fat,
+        sex,
+        lifeActivity
+      }: SetUserDataInterface) => {
+        dispatch(setData({ height, weight, age, fat, sex, lifeActivity }));
 
         dispatch(
           setDailyWeight({
             date: new Date().toISOString().slice(0, 10),
-            weight: data.weight
+            weight: weight
           })
         );
 
         history.push('/');
       }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting }: any) => (
         <>
           <p className='h3 text-center'>Add your personal data</p>
           <hr />

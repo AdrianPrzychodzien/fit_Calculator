@@ -4,23 +4,36 @@ import { UiActionTypes } from './ui/ui.types';
 import { CircumActionTypes } from './circum/circum.types';
 import {
   SetCurrentUserAction,
+  SetCurrentUserInterface,
   SetUserDataAction,
+  SetUserDataInterface,
   SetFatDataAction,
+  SetFatDataInterface,
   SetWeightDataAction,
+  SetWeightDataInterface,
   SetFinishDateAction,
+  SetFinishDateInterface,
   SetFormulaAction,
+  SetFormulaInterface,
   SetDailyWeightAction,
+  SetDailyWeightInterface,
   ClearActualGoalAction,
+  ClearActualGoalInterface,
   ClearActualGoalSaveWeightsAction,
+  ClearActualGoalSaveWeightInterface,
   ClearFinishDateOnlyAction,
+  ClearFinishDateOnlyInterface,
   SetHomeOpenAction,
+  SetHomeOpenInterface,
   SetBodyFatCircumAction,
-  SetCircumferencesAction
+  SetBodyFatCircumInterface,
+  SetCircumferencesAction,
+  SetCircumferencesInterface
 } from '../interfaces';
 
-export const setCurrentUser = (currentUser: {
-  currentUser: any;
-}): SetCurrentUserAction => ({
+export const setCurrentUser = (
+  currentUser: SetCurrentUserInterface
+): SetCurrentUserAction => ({
   type: UserActionTypes.SET_CURRENT_USER,
   payload: currentUser
 });
@@ -32,21 +45,14 @@ export const setData = ({
   sex,
   lifeActivity,
   fat
-}: {
-  height: number;
-  weight: number;
-  age: number;
-  sex: string;
-  lifeActivity: number;
-  fat: number;
-}): SetUserDataAction => {
+}: SetUserDataInterface): SetUserDataAction => {
   return {
     type: DataActionTypes.SET_USER_DATA,
     payload: { height, weight, age, sex, lifeActivity, fat }
   };
 };
 
-export const setFatData = ({ fat }: { fat: number }): SetFatDataAction => ({
+export const setFatData = ({ fat }: SetFatDataInterface): SetFatDataAction => ({
   type: DataActionTypes.SET_FAT_DATA,
   payload: { fat }
 });
@@ -54,10 +60,7 @@ export const setFatData = ({ fat }: { fat: number }): SetFatDataAction => ({
 export const setWeightData = ({
   weight,
   weightGoal
-}: {
-  weight: number;
-  weightGoal: number;
-}): SetWeightDataAction => ({
+}: SetWeightDataInterface): SetWeightDataAction => ({
   type: DataActionTypes.SET_WEIGHT_DATA,
   payload: { weight, weightGoal }
 });
@@ -65,19 +68,14 @@ export const setWeightData = ({
 export const setFinishDate = ({
   finish,
   start
-}: {
-  finish: string;
-  start: string;
-}): SetFinishDateAction => ({
+}: SetFinishDateInterface): SetFinishDateAction => ({
   type: DataActionTypes.SET_FINISH_DATE,
   payload: { finish, start }
 });
 
 export const setFormula = ({
   formula
-}: {
-  formula: string;
-}): SetFormulaAction => ({
+}: SetFormulaInterface): SetFormulaAction => ({
   type: DataActionTypes.SET_FORMULA,
   payload: { formula }
 });
@@ -85,10 +83,7 @@ export const setFormula = ({
 export const setDailyWeight = ({
   date,
   weight
-}: {
-  date: string;
-  weight: number;
-}): SetDailyWeightAction => ({
+}: SetDailyWeightInterface): SetDailyWeightAction => ({
   type: DataActionTypes.SET_DAILY_WEIGHT,
   payload: { date, weight }
 });
@@ -98,12 +93,7 @@ export const clearActualGoal = ({
   finish,
   weightGoal,
   dailyWeightArray
-}: {
-  start: string;
-  finish: string;
-  weightGoal: number;
-  dailyWeightArray: { date: string; weight: number }[];
-}): ClearActualGoalAction => ({
+}: ClearActualGoalInterface): ClearActualGoalAction => ({
   type: DataActionTypes.CLEAR_ACTUAL_GOAL,
   payload: {
     start,
@@ -117,20 +107,14 @@ export const clearActualGoalSaveWeights = ({
   start,
   finish,
   weightGoal
-}: {
-  start: string;
-  finish: string;
-  weightGoal: number;
-}): ClearActualGoalSaveWeightsAction => ({
+}: ClearActualGoalSaveWeightInterface): ClearActualGoalSaveWeightsAction => ({
   type: DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS,
   payload: { start, finish, weightGoal }
 });
 
 export const clearFinishDateOnly = ({
   finish
-}: {
-  finish: string;
-}): ClearFinishDateOnlyAction => ({
+}: ClearFinishDateOnlyInterface): ClearFinishDateOnlyAction => ({
   type: DataActionTypes.CLEAR_FINISH_DATE_ONLY,
   payload: { finish }
 });
@@ -139,11 +123,7 @@ export const setBodyFatCircum = ({
   waist,
   hips,
   neck
-}: {
-  waist: number;
-  hips: number;
-  neck: number;
-}): SetBodyFatCircumAction => ({
+}: SetBodyFatCircumInterface): SetBodyFatCircumAction => ({
   type: CircumActionTypes.SET_BODY_FAT_CIRCUM,
   payload: { waist, hips, neck }
 });
@@ -156,15 +136,7 @@ export const setCircumferences = ({
   shoulders,
   thighs,
   biceps
-}: {
-  waist: number;
-  hips: number;
-  neck: number;
-  chest: number;
-  shoulders: number;
-  thighs: number;
-  biceps: number;
-}): SetCircumferencesAction => ({
+}: SetCircumferencesInterface): SetCircumferencesAction => ({
   type: CircumActionTypes.SET_CIRCUMFERENCES,
   payload: {
     waist,
@@ -179,9 +151,7 @@ export const setCircumferences = ({
 
 export const setHomeOpen = ({
   homeOpen
-}: {
-  homeOpen: boolean;
-}): SetHomeOpenAction => ({
+}: SetHomeOpenInterface): SetHomeOpenAction => ({
   type: UiActionTypes.SET_HOME_OPEN,
   payload: { homeOpen }
 });

@@ -49,15 +49,6 @@ export interface SetUserDataInterface {
   fat: number;
 }
 
-export interface SetUserDataInterface {
-  height: number;
-  weight: number;
-  age: number;
-  sex: string;
-  lifeActivity: number;
-  fat: number;
-}
-
 export interface SetUserDataAction {
   type: typeof DataActionTypes.SET_USER_DATA;
   payload: {
@@ -95,12 +86,17 @@ export interface SetWeightDataAction {
   payload: { weight: number; weightGoal: number };
 }
 
+export interface SetFinishDateInterface {
+  finish: string;
+  start: string;
+}
+
 export interface SetFinishDateAction {
   type: typeof DataActionTypes.SET_FINISH_DATE;
   payload: { finish: string; start: string };
 }
 
-export interface SetFormula {
+export interface SetFormulaInterface {
   formula: string;
 }
 
@@ -119,6 +115,13 @@ export interface SetDailyWeightAction {
   payload: { date: string; weight: number };
 }
 
+export interface ClearActualGoalInterface {
+  start: string;
+  finish: string;
+  weightGoal: number;
+  dailyWeightArray: { date: string; weight: number }[];
+}
+
 export interface ClearActualGoalAction {
   type: typeof DataActionTypes.CLEAR_ACTUAL_GOAL;
   payload: {
@@ -129,9 +132,19 @@ export interface ClearActualGoalAction {
   };
 }
 
+export interface ClearActualGoalSaveWeightInterface {
+  start: string;
+  finish: string;
+  weightGoal: number;
+}
+
 export interface ClearActualGoalSaveWeightsAction {
   type: typeof DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS;
   payload: { start: string; finish: string; weightGoal: number };
+}
+
+export interface ClearFinishDateOnlyInterface {
+  finish: string;
 }
 
 export interface ClearFinishDateOnlyAction {
@@ -139,7 +152,7 @@ export interface ClearFinishDateOnlyAction {
   payload: { finish: string };
 }
 
-export interface SetHomeOpen {
+export interface SetHomeOpenInterface {
   homeOpen: boolean;
 }
 
@@ -159,6 +172,16 @@ export interface SetBodyFatCircumAction {
   payload: { waist: number; hips: number; neck: number };
 }
 
+export interface SetCircumferencesInterface {
+  waist: number;
+  hips: number;
+  neck: number;
+  chest: number;
+  shoulders: number;
+  thighs: number;
+  biceps: number;
+}
+
 export interface SetCircumferencesAction {
   type: typeof CircumActionTypes.SET_CIRCUMFERENCES;
   payload: {
@@ -170,6 +193,10 @@ export interface SetCircumferencesAction {
     thighs: number;
     biceps: number;
   };
+}
+
+export interface SetCurrentUserInterface {
+  currentUser: any;
 }
 
 export interface SetCurrentUserAction {

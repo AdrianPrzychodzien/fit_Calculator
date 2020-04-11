@@ -28,7 +28,7 @@ import {
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons';
 
-import { State, SetFormula } from '../../interfaces';
+import { State, SetFormulaInterface } from '../../interfaces';
 
 const Home: React.FC = ({ history }: any) => {
   const userData = useSelector((state: State) => state.data);
@@ -73,7 +73,7 @@ const Home: React.FC = ({ history }: any) => {
         initialValues={{
           formula: userData.formula || ''
         }}
-        onSubmit={(data: SetFormula) => {
+        onSubmit={(data: SetFormulaInterface) => {
           dispatch(setFormula({ ...data }));
           !homeOpen && dispatch(setHomeOpen({ homeOpen: true }));
         }}

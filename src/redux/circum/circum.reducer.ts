@@ -13,8 +13,13 @@ const INITIAL_STATE = {
   circumferences: []
 };
 
-type Test = SetBodyFatCircumAction | SetCircumferencesAction;
-const circumReducer = (state: CircumReducer = INITIAL_STATE, action: Test) => {
+type CircumReducerActionTypes =
+  | SetBodyFatCircumAction
+  | SetCircumferencesAction;
+const circumReducer = (
+  state: CircumReducer = INITIAL_STATE,
+  action: CircumReducerActionTypes
+) => {
   switch (action.type) {
     case CircumActionTypes.SET_BODY_FAT_CIRCUM:
       return {

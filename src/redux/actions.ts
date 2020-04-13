@@ -1,6 +1,5 @@
 import { UserActionTypes } from './user/user.types';
 import { DataActionTypes } from './data/data.types';
-import { UiActionTypes } from './ui/ui.types';
 import { CircumActionTypes } from './circum/circum.types';
 import {
   SetCurrentUserAction,
@@ -20,7 +19,7 @@ import {
   ClearActualGoalAction,
   ClearActualGoalInterface,
   ClearActualGoalSaveWeightsAction,
-  ClearActualGoalSaveWeightInterface,
+  ClearActualGoalSaveWeightsInterface,
   ClearFinishDateOnlyAction,
   ClearFinishDateOnlyInterface,
   SetHomeOpenAction,
@@ -36,6 +35,13 @@ export const setCurrentUser = (
 ): SetCurrentUserAction => ({
   type: UserActionTypes.SET_CURRENT_USER,
   payload: currentUser
+});
+
+export const setHomeOpen = ({
+  homeOpen
+}: SetHomeOpenInterface): SetHomeOpenAction => ({
+  type: UserActionTypes.SET_HOME_OPEN,
+  payload: { homeOpen }
 });
 
 export const setData = ({
@@ -107,7 +113,7 @@ export const clearActualGoalSaveWeights = ({
   start,
   finish,
   weightGoal
-}: ClearActualGoalSaveWeightInterface): ClearActualGoalSaveWeightsAction => ({
+}: ClearActualGoalSaveWeightsInterface): ClearActualGoalSaveWeightsAction => ({
   type: DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS,
   payload: { start, finish, weightGoal }
 });
@@ -147,11 +153,4 @@ export const setCircumferences = ({
     thighs,
     biceps
   }
-});
-
-export const setHomeOpen = ({
-  homeOpen
-}: SetHomeOpenInterface): SetHomeOpenAction => ({
-  type: UiActionTypes.SET_HOME_OPEN,
-  payload: { homeOpen }
 });

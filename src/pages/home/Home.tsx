@@ -32,7 +32,7 @@ import { State, SetFormulaInterface } from '../../interfaces';
 
 const Home: React.FC = ({ history }: any) => {
   const userData = useSelector((state: State) => state.data);
-  const { homeOpen } = useSelector((state: State) => state.ui);
+  const { homeOpen } = useSelector((state: State) => state.user);
   const dispatch = useDispatch();
 
   const { weight, height, age, sex, lifeActivity, fat, formula } = userData;

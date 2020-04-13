@@ -1,13 +1,11 @@
 import { UserActionTypes } from './redux/user/user.types';
 import { DataActionTypes } from './redux/data/data.types';
-import { UiActionTypes } from './redux/ui/ui.types';
 import { CircumActionTypes } from './redux/circum/circum.types';
 
 export interface State {
   user: UserReducer;
   data: DataReducer;
   circum: CircumReducer;
-  ui: UiReducer;
 }
 
 export interface DataReducer {
@@ -25,12 +23,9 @@ export interface DataReducer {
   formula: string;
 }
 
-export interface UiReducer {
-  homeOpen: boolean;
-}
-
 export interface UserReducer {
   currentUser: any;
+  homeOpen: boolean;
 }
 
 export interface CircumReducer {
@@ -50,7 +45,7 @@ export interface SetUserDataInterface {
 }
 
 export interface SetUserDataAction {
-  type: typeof DataActionTypes.SET_USER_DATA;
+  type: DataActionTypes.SET_USER_DATA;
   payload: {
     height: number;
     weight: number;
@@ -58,12 +53,6 @@ export interface SetUserDataAction {
     sex: string;
     lifeActivity: number;
     fat: number;
-    weightGoal?: number;
-    finish?: Date;
-    start?: Date;
-    dailyWeightArray?: { date: string; weight: number }[];
-    userId?: number;
-    formula?: string;
   };
 }
 
@@ -72,7 +61,7 @@ export interface SetFatDataInterface {
 }
 
 export interface SetFatDataAction {
-  type: typeof DataActionTypes.SET_FAT_DATA;
+  type: DataActionTypes.SET_FAT_DATA;
   payload: { fat: number };
 }
 
@@ -82,7 +71,7 @@ export interface SetWeightDataInterface {
 }
 
 export interface SetWeightDataAction {
-  type: typeof DataActionTypes.SET_WEIGHT_DATA;
+  type: DataActionTypes.SET_WEIGHT_DATA;
   payload: { weight: number; weightGoal: number };
 }
 
@@ -92,7 +81,7 @@ export interface SetFinishDateInterface {
 }
 
 export interface SetFinishDateAction {
-  type: typeof DataActionTypes.SET_FINISH_DATE;
+  type: DataActionTypes.SET_FINISH_DATE;
   payload: { finish: string; start: string };
 }
 
@@ -101,7 +90,7 @@ export interface SetFormulaInterface {
 }
 
 export interface SetFormulaAction {
-  type: typeof DataActionTypes.SET_FORMULA;
+  type: DataActionTypes.SET_FORMULA;
   payload: { formula: string };
 }
 
@@ -111,7 +100,7 @@ export interface SetDailyWeightInterface {
 }
 
 export interface SetDailyWeightAction {
-  type: typeof DataActionTypes.SET_DAILY_WEIGHT;
+  type: DataActionTypes.SET_DAILY_WEIGHT;
   payload: { date: string; weight: number };
 }
 
@@ -123,7 +112,7 @@ export interface ClearActualGoalInterface {
 }
 
 export interface ClearActualGoalAction {
-  type: typeof DataActionTypes.CLEAR_ACTUAL_GOAL;
+  type: DataActionTypes.CLEAR_ACTUAL_GOAL;
   payload: {
     start: string;
     finish: string;
@@ -132,14 +121,14 @@ export interface ClearActualGoalAction {
   };
 }
 
-export interface ClearActualGoalSaveWeightInterface {
+export interface ClearActualGoalSaveWeightsInterface {
   start: string;
   finish: string;
   weightGoal: number;
 }
 
 export interface ClearActualGoalSaveWeightsAction {
-  type: typeof DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS;
+  type: DataActionTypes.CLEAR_ACTUAL_GOAL_SAVE_WEIGHTS;
   payload: { start: string; finish: string; weightGoal: number };
 }
 
@@ -148,7 +137,7 @@ export interface ClearFinishDateOnlyInterface {
 }
 
 export interface ClearFinishDateOnlyAction {
-  type: typeof DataActionTypes.CLEAR_FINISH_DATE_ONLY;
+  type: DataActionTypes.CLEAR_FINISH_DATE_ONLY;
   payload: { finish: string };
 }
 
@@ -157,7 +146,7 @@ export interface SetHomeOpenInterface {
 }
 
 export interface SetHomeOpenAction {
-  type: typeof UiActionTypes.SET_HOME_OPEN;
+  type: UserActionTypes.SET_HOME_OPEN;
   payload: { homeOpen: boolean };
 }
 
@@ -168,7 +157,7 @@ export interface SetBodyFatCircumInterface {
 }
 
 export interface SetBodyFatCircumAction {
-  type: typeof CircumActionTypes.SET_BODY_FAT_CIRCUM;
+  type: CircumActionTypes.SET_BODY_FAT_CIRCUM;
   payload: { waist: number; hips: number; neck: number };
 }
 
@@ -183,7 +172,7 @@ export interface SetCircumferencesInterface {
 }
 
 export interface SetCircumferencesAction {
-  type: typeof CircumActionTypes.SET_CIRCUMFERENCES;
+  type: CircumActionTypes.SET_CIRCUMFERENCES;
   payload: {
     waist: number;
     hips: number;
@@ -200,6 +189,6 @@ export interface SetCurrentUserInterface {
 }
 
 export interface SetCurrentUserAction {
-  type: typeof UserActionTypes.SET_CURRENT_USER;
+  type: UserActionTypes.SET_CURRENT_USER;
   payload: { currentUser: any };
 }

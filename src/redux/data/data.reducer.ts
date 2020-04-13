@@ -1,6 +1,17 @@
 import { DataActionTypes } from './data.types';
 import { addNewDailyWeight } from '../utils';
-import { DataReducer, SetUserDataAction } from '../../interfaces';
+import {
+  DataReducer,
+  SetUserDataAction,
+  SetFatDataAction,
+  SetWeightDataAction,
+  SetFinishDateAction,
+  SetFormulaAction,
+  SetDailyWeightAction,
+  ClearActualGoalAction,
+  ClearActualGoalSaveWeightsAction,
+  ClearFinishDateOnlyAction
+} from '../../interfaces';
 
 const INITIAL_STATE = {
   height: 0,
@@ -17,9 +28,20 @@ const INITIAL_STATE = {
   formula: ''
 };
 
+type DataReducerActionTypes =
+  | SetUserDataAction
+  | SetFatDataAction
+  | SetWeightDataAction
+  | SetFinishDateAction
+  | SetFormulaAction
+  | SetDailyWeightAction
+  | ClearActualGoalAction
+  | ClearActualGoalSaveWeightsAction
+  | ClearFinishDateOnlyAction;
+
 const dataReducer = (
   state: DataReducer = INITIAL_STATE,
-  action: SetUserDataAction
+  action: DataReducerActionTypes
 ) => {
   switch (action.type) {
     case DataActionTypes.SET_USER_DATA:

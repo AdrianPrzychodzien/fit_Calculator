@@ -32,7 +32,7 @@ export interface CircumReducer {
   waist: number;
   hips: number;
   neck: number;
-  circumferences: number[];
+  circumferences: any[];
 }
 
 export interface SetUserDataInterface {
@@ -162,6 +162,7 @@ export interface SetBodyFatCircumAction {
 }
 
 export interface SetCircumferencesInterface {
+  date: string;
   waist: number;
   hips: number;
   neck: number;
@@ -174,6 +175,7 @@ export interface SetCircumferencesInterface {
 export interface SetCircumferencesAction {
   type: CircumActionTypes.SET_CIRCUMFERENCES;
   payload: {
+    date: string;
     waist: number;
     hips: number;
     neck: number;

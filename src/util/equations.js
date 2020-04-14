@@ -540,7 +540,7 @@ const helperChange = (data, val) => {
 }
 
 export const circumferencesChange = data => {
-  const circums = ['waist', 'hipss', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
+  const circums = ['waist', 'hips', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
 
   let output = circums.map(item => {
     const [max, min, diff] = helperChange(data, item)
@@ -557,7 +557,7 @@ export const circumferencesChange = data => {
 }
 
 export const biggestCircumChange = (arr, trend) => {
-  const circums = ['waist', 'hipss', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
+  const circums = ['waist', 'hips', 'neck', 'chest', 'shoulders', 'thighs', 'biceps']
 
   // array of name and difference
   let output = []

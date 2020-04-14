@@ -135,6 +135,7 @@ export const setBodyFatCircum = ({
 });
 
 export const setCircumferences = ({
+  date,
   waist,
   hips,
   neck,
@@ -145,6 +146,7 @@ export const setCircumferences = ({
 }: SetCircumferencesInterface): SetCircumferencesAction => ({
   type: CircumActionTypes.SET_CIRCUMFERENCES,
   payload: {
+    date,
     waist,
     hips,
     neck,

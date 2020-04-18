@@ -1,6 +1,6 @@
-import { UserActionTypes } from './redux/user/user.types';
-import { DataActionTypes } from './redux/data/data.types';
-import { CircumActionTypes } from './redux/circum/circum.types';
+import { UserActionTypes } from '../redux/user/user.types';
+import { DataActionTypes } from '../redux/data/data.types';
+import { CircumActionTypes } from '../redux/circum/circum.types';
 
 export interface State {
   user: UserReducer;

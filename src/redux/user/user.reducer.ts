@@ -3,7 +3,7 @@ import {
   UserReducer,
   SetCurrentUserAction,
   SetHomeOpenAction
-} from '../../interfaces';
+} from '../../interfaces/interfaces';
 
 const INITIAL_STATE = {
   currentUser: null,

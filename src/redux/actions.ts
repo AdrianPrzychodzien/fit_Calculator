@@ -28,7 +28,7 @@ import {
   SetBodyFatCircumInterface,
   SetCircumferencesAction,
   SetCircumferencesInterface
-} from '../interfaces';
+} from '../interfaces/interfaces';
 
 export const setCurrentUser = (
   currentUser: SetCurrentUserInterface

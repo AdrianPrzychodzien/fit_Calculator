@@ -21,7 +21,7 @@ import {
   HighCarb
 } from '../../../util/equations';
 
-import { State } from '../../../interfaces';
+import { State } from '../../../interfaces/interfaces';
 
 const Macronutrients = () => {
   const userData = useSelector((state: State) => state.data);

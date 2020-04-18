@@ -21,7 +21,7 @@ import { setCircumferences, setBodyFatCircum } from '../../redux/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilRuler } from '@fortawesome/free-solid-svg-icons';
 
-import { State } from '../../interfaces';
+import { State } from '../../interfaces/interfaces';
 
 const validationSchema = yup.object({
   waist: yup.number().required('Waist is required').positive(),

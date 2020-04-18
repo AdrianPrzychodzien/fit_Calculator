@@ -511,12 +511,12 @@ export const HealthTips = (data, func) => {
   weightGoal - firstItem > 0
     ? obj = {
       info: `need to gain ${(weightGoal - lastItem).toFixed(1)}kg`,
-      kgAmout: (weightGoal - lastItem).toFixed(1),
+      kgAmount: +(weightGoal - lastItem).toFixed(1),
       days: daysLeftFromToday,
     }
     : obj = {
       info: `need to lose ${(lastItem - weightGoal).toFixed(1)}kg`,
-      kgAmout: (lastItem - weightGoal).toFixed(1),
+      kgAmount: +(lastItem - weightGoal).toFixed(1),
       days: daysLeftFromToday,
     }
 
@@ -553,7 +553,7 @@ export const circumferencesChange = data => {
       }
     }
   })
-  console.log(output)
+
   return output
 }
 

@@ -1,5 +1,4 @@
-import React, { MouseEvent } from 'react';
-
+import React from 'react';
 import ActivitInfo from '../../components/Info/ActivityInfo/ActivityInfo';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,13 +7,16 @@ import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 
 import { Field, useField } from 'formik';
 import { TextField, Radio, FormControlLabel } from '@material-ui/core';
+import {
+  StarProps,
+  StarsProps,
+  StarsInputProps,
+  MyRadioProps,
+  MyTextFieldProps,
+  FieldProps
+} from '../../interfaces/formikInterfaces';
 
 import './FormikFunctions.scss';
-
-interface StarProps {
-  isFull: boolean;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
 
 const Star: React.FC<StarProps> = ({ isFull, onClick }) => {
   const icon = isFull ? faStar : regularStar;
@@ -25,11 +27,6 @@ const Star: React.FC<StarProps> = ({ isFull, onClick }) => {
   );
 };
 
-interface StarsProps {
-  count: number;
-  handleClick: (number: number) => void;
-}
-
 const Stars: React.FC<StarsProps> = ({ count, handleClick }) => (
   <span className='stars'>
     {[...Array(5).keys()].map((i) => (
@@ -37,15 +34,6 @@ const Stars: React.FC<StarsProps> = ({ count, handleClick }) => (
     ))}
   </span>
 );
-
-interface StarsInputProps {
-  fieldName: string;
-}
-
-interface FieldProps {
-  field: { name: string; value: number };
-  form: { setFieldValue: (fieldName: string, number: number) => void };
-}
 
 export const StarsInput: React.FC<StarsInputProps> = ({ fieldName }) => (
   <Field name={fieldName} id={fieldName} type='number'>
@@ -66,13 +54,6 @@ export const StarsInput: React.FC<StarsInputProps> = ({ fieldName }) => (
   </Field>
 );
 
-interface MyRadioProps {
-  type: string;
-  name: string;
-  value: string;
-  label: string;
-}
-
 export const MyRadioFormula: React.FC<MyRadioProps> = ({ label, ...props }) => {
   const [field] = useField(props);
 
@@ -91,13 +72,6 @@ export const MyRadio: React.FC<MyRadioProps> = ({ label, ...props }) => {
 
   return <FormControlLabel {...field} control={<Radio />} label={label} />;
 };
-
-interface MyTextFieldProps {
-  type: string;
-  placeholder: string;
-  name: string;
-  as: string | React.ComponentType | React.ForwardRefExoticComponent<any>;
-}
 
 export const MyTextField: React.FC<MyTextFieldProps> = ({
   type,

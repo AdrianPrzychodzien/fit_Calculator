@@ -29,7 +29,7 @@ import {
   faEquals
 } from '@fortawesome/free-solid-svg-icons';
 
-import { State } from '../../../interfaces';
+import { State } from '../../../interfaces/interfaces';
 
 const WeightTrackerData: React.FC = () => {
   const userData = useSelector((state: State) => state.data);

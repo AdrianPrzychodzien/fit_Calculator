@@ -1,26 +1,37 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfo } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Table
+} from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
 
-const FatPercentageInfo = () => {
-  const [modal, setModal] = useState(false)
+import { State } from '../../../interfaces/interfaces';
 
-  const toggle = () => setModal(!modal)
+const FatPercentageInfo: React.FC = () => {
+  const userData = useSelector((state: State) => state.data);
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
 
   return (
     <div>
       <Button
-        className="rounded mb-0 ml-2"
-        color="primary" size="sm"
+        className='rounded mb-0 ml-2'
+        color='primary'
+        size='sm'
         onClick={toggle}
       >
-        <FontAwesomeIcon icon={faInfo} size="sm" />
+        <FontAwesomeIcon icon={faInfo} size='sm' />
       </Button>
-      <Modal isOpen={modal} toggle={toggle} className="mt-5">
+      <Modal isOpen={modal} toggle={toggle} className='mt-5'>
         <ModalHeader toggle={toggle}>Fat % Categories</ModalHeader>
-        <ModalBody className="text-center">
+        <ModalBody className='text-center'>
           <Table>
             <thead>
               <tr>
@@ -59,15 +70,13 @@ const FatPercentageInfo = () => {
           </Table>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>Ok</Button>
+          <Button color='primary' onClick={toggle}>
+            Ok
+          </Button>
         </ModalFooter>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-const mapStateToProps = ({ data }) => ({
-  userData: data
-})
-
-export default connect(mapStateToProps, null)(FatPercentageInfo)
+export default FatPercentageInfo;

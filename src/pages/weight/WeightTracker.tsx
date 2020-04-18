@@ -36,7 +36,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWeight, faBullseye } from '@fortawesome/free-solid-svg-icons';
 
-import { State, SetWeightDataInterface } from '../../interfaces';
+import { State, SetWeightDataInterface } from '../../interfaces/interfaces';
 
 const validationSchema = yup.object({
   weight: yup.number().required('Weight is required').positive(),

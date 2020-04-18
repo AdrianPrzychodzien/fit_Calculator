@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import { setDailyWeight } from '../../redux/actions';
 import { MyTextField } from '../../util/Formik/FormikFunctions';
-import { State, SetDailyWeightInterface } from '../../interfaces';
+import { State, SetDailyWeightInterface } from '../../interfaces/interfaces';
 
 const validationSchema = yup.object({
   weight: yup.number().required('Weight is required').positive()

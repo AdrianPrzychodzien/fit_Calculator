@@ -11,7 +11,7 @@ import {
   ClearActualGoalAction,
   ClearActualGoalSaveWeightsAction,
   ClearFinishDateOnlyAction
-} from '../../interfaces';
+} from '../../interfaces/interfaces';
 
 const INITIAL_STATE = {
   height: 0,

@@ -4,7 +4,7 @@ import {
   CircumReducer,
   SetBodyFatCircumAction,
   SetCircumferencesAction
-} from '../../interfaces';
+} from '../../interfaces/interfaces';
 
 const INITIAL_STATE = {
   waist: 0,

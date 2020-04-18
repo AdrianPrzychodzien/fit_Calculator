@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
+import { History } from 'history';
 
 import {
   MyRadio,
@@ -21,7 +22,7 @@ import {
   faWeight,
   faPercentage
 } from '@fortawesome/free-solid-svg-icons';
-import { State, SetUserDataInterface } from '../../interfaces';
+import { State, SetUserDataInterface } from '../../interfaces/interfaces';
 import BodyFatInfo from '../../components/Info/BodyFatInfo/BodyFatInfo';
 import { setData, setDailyWeight } from '../../redux/actions';
 
@@ -32,11 +33,11 @@ const validationSchema = yup.object({
   fat: yup.number().positive().max(70, 'Are you sure?')
 });
 
-interface Props extends RouteComponentProps<any> {
-  history: any;
+interface Props extends RouteComponentProps {
+  history: History;
 }
 
-const PersonalData: React.FC<Props> = ({ history }: any) => {
+const PersonalData: React.FC<Props> = ({ history }) => {
   const userData = useSelector((state: State) => state.data);
   const dispatch = useDispatch();
 

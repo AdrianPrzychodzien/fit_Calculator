@@ -13,7 +13,7 @@ import { Button } from 'reactstrap';
 
 import { RouteComponentProps } from 'react-router-dom';
 import { History } from 'history';
-import { State } from '../../interfaces';
+import { State } from '../../interfaces/interfaces';
 
 interface Props extends RouteComponentProps {
   history: History;

@@ -14,7 +14,13 @@ import { bodyFatFormula, idealBodyFatPercentage } from '../../util/equations';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-import { State, SetBodyFatCircumInterface } from '../../interfaces';
+import { State, SetBodyFatCircumInterface } from '../../interfaces/interfaces';
+import { RouteComponentProps } from 'react-router-dom';
+import { History } from 'history';
+
+interface Props extends RouteComponentProps {
+  history: History;
+}
 
 const validationSchema = yup.object({
   waist: yup.number().required('Waist is required').positive(),
@@ -22,7 +28,7 @@ const validationSchema = yup.object({
   neck: yup.number().required('Neck is required').positive()
 });
 
-const BodyFat = ({ history }: any) => {
+const BodyFat: React.FC<Props> = ({ history }) => {
   const userData = useSelector((state: State) => state.data);
   const circumData = useSelector((state: State) => state.circum);
   const dispatch = useDispatch();

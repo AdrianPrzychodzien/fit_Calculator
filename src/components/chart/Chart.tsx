@@ -5,7 +5,7 @@ import WeightTrackerInfo from '../Info/WeightTrackerInfo/WeightTrackerInfo';
 import { healthyProgress } from '../../util/equations';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend } from 'recharts';
 
-import { State } from '../../interfaces';
+import { State } from '../../interfaces/interfaces';
 
 const Chart: React.FC = () => {
   const userData = useSelector((state: State) => state.data);

@@ -9,7 +9,7 @@ import {
   Table
 } from 'reactstrap';
 import { activityLevel, restingMifflinStJeor } from '../../../util/equations';
-import { SetUserDataInterface } from '../../../interfaces';
+import { SetUserDataInterface } from '../../../interfaces/interfaces';
 
 interface Props {
   userData: SetUserDataInterface;

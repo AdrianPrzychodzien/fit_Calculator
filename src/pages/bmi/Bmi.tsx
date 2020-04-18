@@ -5,9 +5,15 @@ import { calcBMI, rangeBMI, idealBMI, userBmiTip } from '../../util/equations';
 
 import { Button } from 'reactstrap';
 import InputRange from '../../components/InputRange/InputRange';
-import { State } from '../../interfaces';
+import { RouteComponentProps } from 'react-router-dom';
+import { History } from 'history';
+import { State } from '../../interfaces/interfaces';
 
-const BodyFat: React.FC = ({ history }: any) => {
+interface Props extends RouteComponentProps {
+  history: History;
+}
+
+const BodyFat: React.FC<Props> = ({ history }) => {
   const userData = useSelector((state: State) => state.data);
 
   const { height, weight, age, sex, lifeActivity } = userData;

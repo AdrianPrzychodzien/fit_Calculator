@@ -5,6 +5,8 @@ import { setFormula, setHomeOpen } from '../../redux/actions';
 import { MyRadioFormula } from '../../util/Formik/FormikFunctions';
 import { Formik, Form } from 'formik';
 import { Button } from 'reactstrap';
+import { RouteComponentProps } from 'react-router-dom';
+import { History } from 'history';
 
 import {
   activityLevelComment,
@@ -28,9 +30,13 @@ import {
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons';
 
-import { State, SetFormulaInterface } from '../../interfaces';
+import { State, SetFormulaInterface } from '../../interfaces/interfaces';
 
-const Home: React.FC = ({ history }: any) => {
+interface Props extends RouteComponentProps {
+  history: History;
+}
+
+const Home: React.FC<Props> = ({ history }) => {
   const userData = useSelector((state: State) => state.data);
   const { homeOpen } = useSelector((state: State) => state.user);
   const dispatch = useDispatch();

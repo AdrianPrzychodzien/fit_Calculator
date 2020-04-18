@@ -71,10 +71,10 @@ const Circumferences = () => {
       <div className='h6 w-100'>
         <div className='d-flex'>
           <p className='w-50 text-center mt-1 mb-3'>
-            Last update: <br /> {myDateFormat(lastUpdate)}
+            Last update: <br /> {lastUpdate && myDateFormat(lastUpdate)}
           </p>
           <p className='w-50 text-center mt-1 mb-3'>
-            Next update: <br /> {myDateFormat(nextUpdate)}
+            Next update: <br /> {nextUpdate && myDateFormat(nextUpdate)}
           </p>
         </div>
         <Button
@@ -231,7 +231,8 @@ const Circumferences = () => {
       {circumferences[0] && (
         <>
           <p className='h5'>
-            {diffDays(firstUpdate)} days have passed since first measurement
+            {firstUpdate && diffDays(firstUpdate)} days have passed since first
+            measurement
           </p>
           <p className='h5'>The biggest change occured in ..., ...cm</p>
           <p>

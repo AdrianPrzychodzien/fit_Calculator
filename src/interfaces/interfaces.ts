@@ -16,8 +16,8 @@ export interface DataReducer {
   lifeActivity: number;
   fat: number;
   weightGoal: number;
-  finish: Date;
-  start: Date;
+  finish: any;
+  start: any;
   dailyWeightArray: { date: string; weight: number }[];
   userId: number;
   formula: string;
@@ -32,7 +32,16 @@ export interface CircumReducer {
   waist: number;
   hips: number;
   neck: number;
-  circumferences: any[];
+  circumferences: {
+    date: any;
+    waist: number;
+    hips: number;
+    neck: number;
+    chest: number;
+    shoulders: number;
+    thighs: number;
+    biceps: number;
+  }[];
 }
 
 export interface SetUserDataInterface {
@@ -162,7 +171,7 @@ export interface SetBodyFatCircumAction {
 }
 
 export interface SetCircumferencesInterface {
-  date: string;
+  date: any;
   waist: number;
   hips: number;
   neck: number;

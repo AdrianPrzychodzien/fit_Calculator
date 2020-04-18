@@ -159,7 +159,7 @@ const PersonalData: React.FC<Props> = ({ history }: any) => {
             </div>
 
             <div className='mx-auto my-1 w-100 d-flex justify-content-center'>
-              <StarsInput fieldName={'lifeActivity'} />
+              <StarsInput fieldName='lifeActivity' />
             </div>
 
             <Button

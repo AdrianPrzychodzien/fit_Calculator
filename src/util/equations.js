@@ -155,7 +155,7 @@ export const restingKatchMcardle = data => {
 // 
 // Activity level equations
 //
-export const activityLevel = data => {
+export const activityLevel = (data) => {
   let result
   switch (data) {
     case 1:
@@ -174,6 +174,7 @@ export const activityLevel = data => {
       result = 1.9
       break
     default:
+      result = 1.2
       alert('Choose your activity level')
   }
 
